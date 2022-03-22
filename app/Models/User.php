@@ -41,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function organization()
+    {
+        return $this->hasOne(Organization::class, 'creator_id');
+    }
+
+
+    public function favoriteCases()
+    {
+        return $this->belongsToMany(DonationCase::class, "favourite_cases", "user_id", "case_id");
+    }
+
+    public function donationOperations()
+    {
+        return $this->belongsToMany(DonationCase::class, "donation_operations", "user_id", "case_id")->withPivot("amount", "currency");
+    }
 }
