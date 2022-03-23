@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Category;
 use App\Models\DonationCase;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,6 +18,21 @@ class UserController extends Controller
      */
     public function index()
     {
+        $orgs= Admin::all();
+        dd($orgs[0]->verifiedOrganizations);
+
+
+        // $admin = Organization::all();
+        // dd($admin[0]->adminwhoVerified->user);
+
+
+        // $users = User::all();
+        // dd($users[0]->reminders);
+
+        // $users= User::all();
+        // dd($users[0]->admin);
+        // // $cases= DonationCase::all();
+        // dd($cases[0]->categories);
         // $case = DonationCase::find(1);
         // dd($case->usersDonated->currency[0]);
 

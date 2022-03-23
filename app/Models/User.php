@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(DonationCase::class, "donation_operations", "user_id", "case_id")->withPivot("amount", "currency");
     }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class,'id');
+    }
+
+    public function reminders(){
+        return $this->hasMany(Reminder::class,'user_id');
+    }
 }
+

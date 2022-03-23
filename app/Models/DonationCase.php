@@ -19,4 +19,9 @@ class DonationCase extends Model
     {
         return $this->belongsToMany(User::class,"donation_operations","case_id","user_id")->withPivot("amount", "currency");
     }
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class,'category_id');
+    }
 }
