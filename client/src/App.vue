@@ -1,15 +1,25 @@
-<script setup>
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import LoginPage from './components/LoginPage.vue';
+<script>
+export default{
+  data(){
+
+  }
+}
 </script>
 
 <template>
-  <LoginPage/>
+  <router-view/>
+  <!-- <LoginPage/>
+  <SignupPage/> -->
 </template>
 
-<style>
+<style lang="scss">
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+:root{
+  $secColor: #91ffa2;
+  $priColor: #0f9172;
 }
 </style>

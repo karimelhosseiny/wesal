@@ -1,7 +1,12 @@
 <script>
 export default{
     data(){
-
+        return{
+            name:'',
+            email:'',
+            password:'',
+        }
+        
     }
 }
 
@@ -22,8 +27,9 @@ export default{
             <img class="hand" src="../assets/SVG/Hand.svg" alt />
         </div>
         <main>
-            <h1 class="text-center fw-bold mb-4">Login</h1>
+            <h1 class="text-center fw-bold mb-4">Sign up</h1>
             <form class="mb-4">
+                <input class="rounded-pill" type="text" placeholder="name" v-model="name" />
                 <input class="rounded-pill" type="email" placeholder="email" v-model="email" />
                 <div class="passwordContainer">
                     <input
@@ -35,8 +41,8 @@ export default{
                     <i class="bi bi-eye eyeIcon"></i>
                     <!-- <i class="bi bi-eye-slash eyeIcon"></i> -->
                 </div>
-                <button class="border-0 rounded-pill fw-normal">sign in</button>
-                <h6 class="text-center">or login using</h6>
+                <button class="border-0 rounded-pill fw-normal">sign up</button>
+                <h6 class="text-center">or register using</h6>
                 <div class="thirdParty">
                     <span class="border rounded-circle border-0 text-light">
                         <i class="bi bi-google"></i>
@@ -46,8 +52,8 @@ export default{
                     </span>
                 </div>
             </form>
-                <div class="signup text-center">
-                    Don`t have an account? <router-link to="./" class="fw-bold text-decoration-none">sign up</router-link>
+                <div class="signin text-center">
+                    Already have an account? <router-link to="/login" class="fw-bold text-decoration-none">sign in</router-link>
                 </div>
         </main>
     </div>
@@ -175,7 +181,7 @@ $priColor: #0f9172;
                 height: 30px;
             }
         }
-        .signup{
+        .signin{
             a{
                 color:$priColor
             }
