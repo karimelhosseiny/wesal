@@ -10,8 +10,6 @@ export default{
 
 <template>
   <router-view/>
-  <!-- <LoginPage/>
-  <SignupPage/> -->
   <Footer/>
 </template>
 

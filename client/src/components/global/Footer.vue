@@ -28,9 +28,10 @@ export default {
 </template>
 
 <style lang="scss">
+$secColor: #91ffa2;
 $priColor: #0f9172;
 .container-fluid {
-    background-color: $priColor;
+    background: linear-gradient($priColor, $secColor);;
 }
 h2{
     color: white;
