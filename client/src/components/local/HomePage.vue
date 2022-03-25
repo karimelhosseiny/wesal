@@ -1,5 +1,5 @@
 <script>
-import Navbar from "./Navbar.vue"
+import Navbar from "../global/Navbar.vue"
 import HeroSection from "./HeroSection.vue"
 export default {
     data() {

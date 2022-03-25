@@ -13,7 +13,7 @@ export default {
 <template>
     <div class="navbars">
         <div class="logo">
-            <img src="../assets/SVG/logo.svg" class="ms-3">
+            <img src="../../assets/SVG/logo.svg" class="ms-3">
             <h3>wesal</h3>
         </div>
         <ul class="navLinks">
@@ -25,7 +25,7 @@ export default {
             <i class="bi bi-calendar"></i>
             <i class="bi bi-bell-fill"></i>
             <button class="btn btn-warning border-0 rounded-pill">sign out</button>
-            <img src="../assets/7maya.png" class="bg-light" alt="...">
+            <img src="../../assets/7maya.png" class="bg-light" alt="...">
         </div>
     </div>
 </template>
