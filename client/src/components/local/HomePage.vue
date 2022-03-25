@@ -5,7 +5,7 @@ export default {
     data() {
         return {};
     },
-    components: { Navbar, HeroSection }
+    components: { Navbar, HeroSection, }
 }
 
 </script>

@@ -38,7 +38,8 @@ $white: #edf0f2;
                 rgba(31, 58, 51, 0.6) 23.44%,
                 rgba(255, 255, 255, 0) 100%
             ),
-            url(../../assets/heroImage.png);
+            url(../../assets/heroImage.png) no-repeat;
+            background-size: 100vw 100%;
         .text,
         * > * {
             color: $white;

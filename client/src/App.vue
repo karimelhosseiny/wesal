@@ -1,8 +1,10 @@
 <script>
+import Footer from "./components/global/Footer.vue"
 export default{
   data(){
 
-  }
+  },
+  components:{ Footer,}
 }
 </script>
 
@@ -10,6 +12,7 @@ export default{
   <router-view/>
   <!-- <LoginPage/>
   <SignupPage/> -->
+  <Footer/>
 </template>
 
 <style lang="scss">

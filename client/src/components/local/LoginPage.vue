@@ -12,14 +12,14 @@ export default{
     <div class="mainContainer">
         <div class="visuals ps-3 pt-3">
             <div class="logoText d-flex w-25 align-items-start">
-                <img class="logo me-2 ms-4" src="../assets/SVG/logo.svg" alt="wesal logo" />
+                <img class="logo me-2 ms-4" src="../../assets/SVG/logo.svg" alt="wesal logo" />
                 <h4 class="fw-bold">wesal</h4>
             </div>
             <div class="slogan ms-4">
                 <h1 class="fw-bold">Help others</h1>
                 <h4 class="fw-normal">help you...</h4>
             </div>
-            <img class="hand" src="../assets/SVG/Hand.svg" alt />
+            <img class="hand" src="../../assets/SVG/Hand.svg" alt />
         </div>
         <main>
             <h1 class="text-center fw-bold mb-4">Login</h1>
