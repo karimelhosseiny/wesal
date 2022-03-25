@@ -31,7 +31,7 @@ export default {
 $secColor: #91ffa2;
 $priColor: #0f9172;
 .container-fluid {
-    background: linear-gradient($priColor, $secColor);;
+    background-color: $priColor;
 }
 h2{
     color: white;
