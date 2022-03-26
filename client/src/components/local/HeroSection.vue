@@ -11,7 +11,7 @@ export default {
 
 <template>
     <div class="hero">
-        <div class="img-fluid">
+        <div class="img-fluid ">
             <div class="text">
                 <h1>Hello, Youssef</h1>
                 <h4>
@@ -20,7 +20,7 @@ export default {
                 </h4>
                 <h4>
                     last donation:
-                    <a href="#">case - </a> 72
+                    <a href="#">case -</a> 72
                     <sub>egp</sub>
                 </h4>
             </div>
@@ -31,6 +31,7 @@ export default {
 <style lang="scss" scoped>
 $white: #edf0f2;
 .hero {
+    width: 100%;
     .img-fluid {
         height: 305px;
         background: linear-gradient(
@@ -38,7 +39,8 @@ $white: #edf0f2;
                 rgba(31, 58, 51, 0.6) 23.44%,
                 rgba(255, 255, 255, 0) 100%
             ),
-            url(../../assets/heroImage.png);
+            url(../../assets/heroImage.png) no-repeat;
+            background-size: 100vw 100%;
         .text,
         * > * {
             color: $white;
@@ -62,7 +64,7 @@ $white: #edf0f2;
                 font-size: 24px;
                 line-height: 36px;
                 letter-spacing: -0.02em;
-                sub{
+                sub {
                     display: inline;
                     margin-left: -2px;
                 }
