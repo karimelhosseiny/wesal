@@ -34,7 +34,7 @@ export default {
                 <sub>egp</sub>
             </span>
             <div class="progressBar">
-                <div class="ammount mt-3 d-flex justify-content-between px-2">
+                <div class="ammount mt-3 px-2 d-flex justify-content-between ">
                     <span>
                         15500
                         <sub>egp</sub>
@@ -44,7 +44,7 @@ export default {
                         <sub>egp</sub>
                     </span>
                 </div>
-                <progress  class="bar text-primary" value="15500" max="17700"></progress>
+                <progress class="bar bg-transparent" value="15" max="20"></progress>
             </div>
         </div>
         <div class="bottom">
@@ -130,13 +130,19 @@ $logoSize: 60px;
             font-weight: 600;
         }
         .progressBar {
-            .bar {
-                height: 25px;
-                width: 100%;
+            .bar[value]::-webkit-progress-bar {
+                height: 10px;
+                width: 160%;
+                border-radius: 10px;
+                margin-top: 7px;
             }
-            progress::-webkit-progress-bar {
-                background: green;
+            .bar[value]::-webkit-progress-value {
+                background-color: $priColor;
+                border-radius: 10px;
             }
+            //     progress::-webkit-progress-bar {
+            //         background: rgb(13, 0, 128);
+            //     }
         }
     }
     .bottom {
