@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['title', 'org', 'id'],
+    props: ['title', 'org', 'id', 'CaseDisc'],
     data() {
         return {
 
@@ -25,8 +25,7 @@ export default {
         </div>
         <div class="mid">
             <p class="fw-bold">
-                Lorem ipsum dolor sit, amet consectetur
-                adipisicing elit. Quam, minima.
+                {{ CaseDisc }}
             </p>
             <span class="target">target:</span>
             <span>

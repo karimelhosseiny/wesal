@@ -6,14 +6,14 @@ export default {
     data() {
         return {
             cases: [
-                { id: "1",  title: "Food Aid", org: "Resala" },
-                { id: "2", title: "monmy", org: "Masr Elkhair"},
-                { id: "3", title: "clothing", org: "Orman" },
-                { id: "4", title: "zakah", org: "Baiet Elzakah" },
-                { id: "5", title: "clothing", org:"Resala" },
-                { id: "6", title: "food", org: "Resala" },
-                { id: "7", title: "clothing", org: "Orman" },
-                { id: "8", title: "clothi", org: "Resala" },
+                { id: "1", title: "Food Aid", org: "Resala", CaseDisc: "1Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "2", title: "monmy", org: "Masr Elkhair", CaseDisc: "2Lorem ipsum dolor sit amet consectetur adipisicing elit."},
+                { id: "3", title: "clothing", org: "Orman", CaseDisc: "3Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "4", title: "zakah", org: "Baiet Elzakah", CaseDisc: "4Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "5", title: "clothing", org:"Resala", CaseDisc: "5Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "6", title: "food", org: "Resala", CaseDisc: "6Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "7", title: "clothing", org: "Orman", CaseDisc: "7Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "8", title: "clothing", org: "Resala", CaseDisc: "8Lorem ipsum dolor sit amet consectetur adipisicing elit." },
             ],
         };
     },
@@ -43,6 +43,7 @@ export default {
                 :title="Case.title"
                 :org="Case.org"
                 :id="Case.id"
+                :CaseDisc="Case.CaseDisc"
             />
         </div>
     </div>
@@ -53,10 +54,13 @@ export default {
 @use "../../sass/colors" as *;
 
 .cases {
+    background-color: white;
     .caseTitle {
         display: flex;
         justify-content: space-between;
+        padding: 1em;
         h2 {
+            border-bottom: 0.1em solid $priColor;
             font-family: "Poppins";
             font-style: normal;
             font-weight: 600;
