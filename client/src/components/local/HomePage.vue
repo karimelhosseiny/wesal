@@ -1,25 +1,24 @@
 <script>
-import Navbar from "../global/Navbar.vue"
-import HeroSection from "./HeroSection.vue"
+import Navbar from "../global/Navbar.vue";
+import HeroSection from "./HeroSection.vue";
 import UserCaseCard from "./UserCaseCard.vue";
 export default {
     data() {
         return {
             cases: [
-                { title: 'Food Aid' },
-                { title: 'monmy' },
-                { title: 'clothing' },
-                { title: 'zakah' },
-                { title: 'clothing' },
-                { title: 'food' },
-                { title: 'clothing' },
-                { title: 'clothi' },
-            ]
+                { id: "1",  title: "Food Aid", org: "Resala" },
+                { id: "2", title: "monmy", org: "Masr Elkhair"},
+                { id: "3", title: "clothing", org: "Orman" },
+                { id: "4", title: "zakah", org: "Baiet Elzakah" },
+                { id: "5", title: "clothing", org:"Resala" },
+                { id: "6", title: "food", org: "Resala" },
+                { id: "7", title: "clothing", org: "Orman" },
+                { id: "8", title: "clothi", org: "Resala" },
+            ],
         };
     },
-    components: { Navbar, HeroSection, UserCaseCard }
-}
-
+    components: { Navbar, HeroSection, UserCaseCard },
+};
 </script>
 
 <template>
@@ -29,19 +28,29 @@ export default {
         <div class="caseTitle">
             <h2>Give Little get more</h2>
             <div class="searchContainer">
-                <input class="rounded-pill" type="text" placeholder="search cases" />
+                <input
+                    class="rounded-pill"
+                    type="text"
+                    placeholder="search cases"
+                />
                 <i class="bi bi-search searchIcon"></i>
             </div>
         </div>
         <div class="caseGrid">
-            <UserCaseCard v-for="Case in cases" :key="Case" :title="Case.title" org="Resala" />
+            <UserCaseCard
+                v-for="Case in cases"
+                :key="Case.id"
+                :title="Case.title"
+                :org="Case.org"
+                :id="Case.id"
+            />
         </div>
     </div>
 </template>
 <style lang="scss" scoped></style>
 =======
 <style lang="scss" scoped>
-@use '../../sass/colors' as *;
+@use "../../sass/colors" as *;
 
 .cases {
     .caseTitle {
@@ -90,7 +99,7 @@ export default {
     }
     .caseGrid {
         padding-inline: 1em;
-        padding-top: .9em;
+        padding-top: 0.9em;
         display: grid;
         grid-template-columns: repeat(12, auto);
         gap: 20px;

@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['title', 'org'],
+    props: ['title', 'org', 'id'],
     data() {
         return {
 
