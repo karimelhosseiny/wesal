@@ -6,18 +6,28 @@ export default {
     data() {
         return {
             cases: [
-                { id: "1", title: "Food Aid", org: "Resala", CaseDisc: "1Lorem ipsum dolor sit amet consectetur adipisicing elit." },
-                { id: "2", title: "monmy", org: "Masr Elkhair", CaseDisc: "2Lorem ipsum dolor sit amet consectetur adipisicing elit."},
-                { id: "3", title: "clothing", org: "Orman", CaseDisc: "3Lorem ipsum dolor sit amet consectetur adipisicing elit." },
-                { id: "4", title: "zakah", org: "Baiet Elzakah", CaseDisc: "4Lorem ipsum dolor sit amet consectetur adipisicing elit." },
-                { id: "5", title: "clothing", org:"Resala", CaseDisc: "5Lorem ipsum dolor sit amet consectetur adipisicing elit." },
-                { id: "6", title: "food", org: "Resala", CaseDisc: "6Lorem ipsum dolor sit amet consectetur adipisicing elit." },
-                { id: "7", title: "clothing", org: "Orman", CaseDisc: "7Lorem ipsum dolor sit amet consectetur adipisicing elit." },
-                { id: "8", title: "clothing", org: "Resala", CaseDisc: "8Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+                { id: "1", title: "Food Aid", org: "Resala", caseDisc: "1Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "2", title: "monmy", org: "Masr Elkhair", caseDisc: "2Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "3", title: "clothing", org: "Orman", caseDisc: "3Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "4", title: "zakah", org: "Baiet Elzakah", caseDisc: "4Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "5", title: "clothing", org:"Resala", caseDisc: "5Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "6", title: "food", org: "Resala", caseDisc: "6Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "7", title: "clothing", org: "Orman", caseDisc: "7Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
+                { id: "8", title: "clothing", org: "Resala", caseDisc: "8Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
             ],
         };
     },
     components: { Navbar, HeroSection, UserCaseCard },
+    methods:{
+        toggleFavoriteStatus(cardId){
+            const selectedCard = this.cases.find(Case => Case.id === cardId);
+            selectedCard.isFavorite = !selectedCard.isFavorite;
+        },
+        toggleReminderStatus(cardId){
+            const selectedCard = this.cases.find(Case => Case.id === cardId);
+            selectedCard.reminder = !selectedCard.reminder;
+        }
+    }
 };
 </script>
 
@@ -43,7 +53,11 @@ export default {
                 :title="Case.title"
                 :org="Case.org"
                 :id="Case.id"
-                :CaseDisc="Case.CaseDisc"
+                :case-disc="Case.caseDisc"
+                :is-favorite="Case.isFavorite"
+                :reminder="Case.reminder"
+                @toggle-favorite="toggleFavoriteStatus"
+                @toggle-reminder="toggleReminderStatus"
             />
         </div>
     </div>

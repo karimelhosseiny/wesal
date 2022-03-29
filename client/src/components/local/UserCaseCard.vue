@@ -1,18 +1,16 @@
 <script>
 export default {
-    props: ['title', 'org', 'id', 'CaseDisc'],
+    props: ['title', 'org', 'id', 'caseDisc', 'isFavorite', 'reminder'],
     data() {
         return {
-            heartClick:false,
-            calenderClick:false,
         }
     },
     methods:{
         ChangingHeartIcons(){
-            this.heartClick = !this.heartClick;
+            this.$emit('toggle-favorite', this.id)
         },
         ChangingcalendertIcons(){
-            this.calenderClick = !this.calenderClick;
+            this.$emit('toggle-reminder', this.id)
         },
     }
 }
@@ -28,13 +26,13 @@ export default {
                 <a class="org h6 fw-normal">{{ org }}</a>
             </div>
             <div class="icons">
-                <i @click="ChangingHeartIcons()" :class="heartClick ? 'bi bi-heart-fill text-success' : 'bi bi-heart' "></i>
-                <i @click="ChangingcalendertIcons()" :class="calenderClick ? 'bi bi-calendar-check text-success' : 'bi bi-calendar' "></i>
+                <i @click="ChangingHeartIcons()" :class="isFavorite ? 'bi bi-heart-fill text-success' : 'bi bi-heart' "></i>
+                <i @click="ChangingcalendertIcons()" :class="reminder ? 'bi bi-calendar-check text-success' : 'bi bi-calendar' "></i>
             </div>
         </div>
         <div class="mid">
             <p class="fw-bold">
-                {{ CaseDisc }}
+                {{ caseDisc }}
             </p>
             <span class="target">target:</span>
             <span>
@@ -119,7 +117,7 @@ $logoSize: 60px;
             justify-self: center;
             font-size: 20px;
             cursor: pointer;
-            
+
             i{
                 display: block;
             }
