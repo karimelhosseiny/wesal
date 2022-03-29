@@ -59,7 +59,7 @@ $logoSize:50px;
             color: $white;
             grid-column: 2/3;
             align-self: end;
-        } 
+        }
     }
     .navLinks{
         grid-column: 5/8;

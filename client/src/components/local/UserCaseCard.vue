@@ -3,8 +3,17 @@ export default {
     props: ['title', 'org', 'id', 'CaseDisc'],
     data() {
         return {
-
+            heartClick:false,
+            calenderClick:false,
         }
+    },
+    methods:{
+        ChangingHeartIcons(){
+            this.heartClick = !this.heartClick;
+        },
+        ChangingcalendertIcons(){
+            this.calenderClick = !this.calenderClick;
+        },
     }
 }
 
@@ -19,8 +28,8 @@ export default {
                 <a class="org h6 fw-normal">{{ org }}</a>
             </div>
             <div class="icons">
-                <i class="bi bi-heart d-block"></i>
-                <i class="bi bi-calendar"></i>
+                <i @click="ChangingHeartIcons()" :class="heartClick ? 'bi bi-heart-fill text-success' : 'bi bi-heart' "></i>
+                <i @click="ChangingcalendertIcons()" :class="calenderClick ? 'bi bi-calendar-check text-success' : 'bi bi-calendar' "></i>
             </div>
         </div>
         <div class="mid">
@@ -110,6 +119,10 @@ $logoSize: 60px;
             justify-self: center;
             font-size: 20px;
             cursor: pointer;
+            
+            i{
+                display: block;
+            }
         }
     }
     .mid {
