@@ -103,9 +103,10 @@ export default {
     }
     .caseGrid {
         padding-inline: 1em;
-        padding-top: 0.9em;
+        padding: 1em 0;
         display: grid;
-        grid-template-columns: repeat(12, auto);
+        justify-content: center;
+        grid-template-columns: repeat(4, auto);
         gap: 20px;
         overflow: auto;
     }
