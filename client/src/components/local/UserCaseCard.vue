@@ -1,6 +1,7 @@
 <script>
 export default {
     props: ['title', 'org', 'id', 'caseDisc', 'isFavorite', 'reminder'],
+    emits:['toggle-favorite', 'toggle-reminder'],
     data() {
         return {
         }
