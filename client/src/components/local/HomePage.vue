@@ -5,6 +5,7 @@ import UserCaseCard from "./UserCaseCard.vue";
 export default {
     data() {
         return {
+            search: "",
             cases: [
                 { id: "1", title: "Food Aid", org: "Resala", caseDisc: "1Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
                 { id: "2", title: "monmy", org: "Masr Elkhair", caseDisc: "2Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
@@ -18,6 +19,11 @@ export default {
         };
     },
     components: { Navbar, HeroSection, UserCaseCard },
+    computed:{
+        filterCards(){
+            return this.cases.filter(Case => Case.title.toLowerCase().includes(this.search.toLowerCase()));
+        },
+    },
     methods:{
         toggleFavoriteStatus(cardId){
             const selectedCard = this.cases.find(Case => Case.id === cardId);
@@ -42,13 +48,14 @@ export default {
                     class="rounded-pill"
                     type="text"
                     placeholder="search cases"
+                    v-model="search"
                 />
                 <i class="bi bi-search searchIcon"></i>
             </div>
         </div>
         <div class="caseGrid">
             <UserCaseCard
-                v-for="Case in cases"
+                v-for="Case in filterCards"
                 :key="Case.id"
                 :title="Case.title"
                 :org="Case.org"
