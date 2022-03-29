@@ -16,4 +16,9 @@ class Organization extends Model
     public function adminwhoVerified(){
         return $this->belongsTo(Admin::class,'id');
     }
+
+    public function orgcases()
+    {
+        return $this->hasMany(DonationCase::class,'organization_id');
+    }
 }

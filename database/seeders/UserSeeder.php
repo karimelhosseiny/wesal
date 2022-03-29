@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'name' => "Sergi",
                 'email' => "sergisamirboules@gmail.com",
                 'type' => "admin",
+                "image" => "/pp.png",
                 'password' => "qwerty",
                 "address" => "qwert",
                 "phonenumber" => "0122"
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'name' => "Karim",
                 'email' => "karim@gmail.com",
                 'type' => "user",
+                "image" => "/pp.png",
                 'password' => "qwerty",
                 "address" => "qwert",
                 "phonenumber" => "0122"
@@ -40,10 +42,21 @@ class UserSeeder extends Seeder
                 'name' => "Reda",
                 'email' => "reda@gmail.com",
                 'type' => "organization",
+                "image" => "/pp.png",
                 'password' => "qwerty",
                 "address" => "qwert",
                 "phonenumber" => "0122"
             ],
+            [
+                'id' => 4,
+                'name' => "hesham",
+                'email' => "mohamed@gmail.com",
+                'type' => "organization",
+                "image" => "/pp.png",
+                'password' => "qwerty",
+                "address" => "qwert",
+                "phonenumber" => "0122"
+            ]
         ];
 
         foreach ($users as $key => $value) {

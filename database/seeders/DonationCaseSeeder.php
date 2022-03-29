@@ -43,6 +43,18 @@ class DonationCaseSeeder extends Seeder
                 "category_id" => 2,
                 "user_id" => 3
             ],
+            [
+                'id' => 3,
+                'title' => "money for resala",
+                "goal_amount" => 1000,
+                "raised_amount" => 2000,
+                "image" => "png.png",
+                "deadline" => "2022-03-23 16:07:26",
+                "description" => "the money will go to the resala comp",
+                "organization_id" => 1,
+                "category_id" => 2,
+                "user_id" => 3
+            ],
         ];
 
         foreach ($cases as $key => $value) {

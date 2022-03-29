@@ -18,8 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $orgs= Admin::all();
-        dd($orgs[0]->verifiedOrganizations);
+         // $orgs= Admin::all();
+        // dd($orgs[0]->verifiedOrganizations);
 
 
         // $admin = Organization::all();
@@ -89,7 +89,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+           $users = User::find($id)->toJson();
+
+           $users = json_decode($users);
+           
+           return($users);
     }
 
     /**

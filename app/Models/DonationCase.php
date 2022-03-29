@@ -24,4 +24,9 @@ class DonationCase extends Model
     {
         return $this->belongsTo(Category::class,'category_id');
     }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class,'organization_id');
+    }
 }

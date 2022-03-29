@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Organization;
+use App\Models\DonationCase;
 
 use Illuminate\Http\Request;
 
-class OrganizationController extends Controller
+class CaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-       
+        //
     }
 
     /**
@@ -46,11 +46,11 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        $organizations = Organization::find($id)->toJson();
+        $cases = DonationCase::find($id)->toJson();
 
-        $organizations = json_decode($organizations);
-
-        return ($organizations);
+        $cases = json_decode($cases);
+        
+        return($cases);
     }
 
     /**

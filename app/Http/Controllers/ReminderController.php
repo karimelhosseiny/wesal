@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Organization;
 
+use App\Models\Reminder;
 use Illuminate\Http\Request;
 
-class OrganizationController extends Controller
+class ReminderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-       
+        //
     }
 
     /**
@@ -46,11 +46,9 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        $organizations = Organization::find($id)->toJson();
-
-        $organizations = json_decode($organizations);
-
-        return ($organizations);
+        $reminders = Reminder::find($id)->toJson();
+        $reminders = json_decode($reminders);
+        return($reminders);
     }
 
     /**

@@ -28,6 +28,12 @@ class ReminderSeeder extends Seeder
                 'message' =>"do not remind me please",
                 'user_id' => 2,   
             ],
+            [
+                'id' => 3,
+                'remind_at'=> "2022-03-23 16:01:44",
+                'message' =>"please remind",
+                'user_id' => 1,
+            ],
         ];
 
         foreach ($reminders as $key => $value) {
