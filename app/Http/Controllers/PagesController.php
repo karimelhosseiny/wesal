@@ -72,6 +72,7 @@ class PagesController extends Controller
 
 
         $totaldonors = DB::table('donation_operations')->where('case_id', $id)->count();
+    
 
 
         return response()->json([
@@ -83,7 +84,24 @@ class PagesController extends Controller
         ]);
     }
     //data shown in user profile page
-    public function userprofile(){
+    public function userprofile($id){
+
+        //there is how to access a many-to-many relationship between table 
+        $donationcase = User::find($id)->donationOperations;
+        $username = User::find($id)->name;
+        $useremail = User::find($id)->email;
+        $userimage = User::find($id)->image;
+        $userphone = User::find($id)->phonenumber;
+        $donationhistory = DB::table('donation_operations')->where('user_id',$id)->get();
+
+        return response()->json([
+            'username'=> $username,
+            'useremail'=> $useremail,
+            'userimage'=> $userimage,
+            'userphone'=> $userphone,
+            'donationhistory'=> $donationhistory,
+            'donationcase' => $donationcase
+        ]);
 
     }
 }
