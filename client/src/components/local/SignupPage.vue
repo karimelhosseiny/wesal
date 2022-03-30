@@ -1,23 +1,24 @@
 <script>
-export default{
-    data(){
-        return{
-            name:'',
-            email:'',
-            password:'',
-        }
-
-    }
-}
-
+export default {
+    data() {
+        return {
+            name: "",
+            email: "",
+            password: "",
+        };
+    },
+};
 </script>
-
 
 <template>
     <div class="mainContainer">
         <div class="visuals ps-3 pt-3">
             <div class="logoText d-flex w-25 align-items-start">
-                <img class="logo me-2 ms-4" src="../../assets/SVG/logo.svg" alt="wesal logo" />
+                <img
+                    class="logo me-2 ms-4"
+                    src="../../assets/SVG/logo.svg"
+                    alt="wesal logo"
+                />
                 <h4 class="fw-bold">wesal</h4>
             </div>
             <div class="slogan ms-4">
@@ -29,8 +30,18 @@ export default{
         <main>
             <h1 class="text-center fw-bold mb-4">Sign up</h1>
             <form class="mb-4">
-                <input class="rounded-pill" type="text" placeholder="name" v-model="name" />
-                <input class="rounded-pill" type="email" placeholder="email" v-model="email" />
+                <input
+                    class="rounded-pill"
+                    type="text"
+                    placeholder="name"
+                    v-model="name"
+                />
+                <input
+                    class="rounded-pill"
+                    type="email"
+                    placeholder="email"
+                    v-model="email"
+                />
                 <div class="passwordContainer">
                     <input
                         class="rounded-pill"
@@ -52,13 +63,15 @@ export default{
                     </span>
                 </div>
             </form>
-                <div class="signin text-center">
-                    Already have an account? <router-link to="/login" class="fw-bold text-decoration-none">sign in</router-link>
-                </div>
+            <div class="signin text-center">
+                Already have an account?
+                <router-link to="/login" class="fw-bold text-decoration-none"
+                    >sign in</router-link
+                >
+            </div>
         </main>
     </div>
 </template>
-
 
 <style lang="scss">
 *,
@@ -136,7 +149,7 @@ $priColor: #0f9172;
             }
             input {
                 border: 2px solid #57ce8d;
-                color:$priColor;
+                color: $priColor;
                 outline: none;
                 padding-inline: 2em;
                 width: 350px;
@@ -181,9 +194,9 @@ $priColor: #0f9172;
                 height: 30px;
             }
         }
-        .signin{
-            a{
-                color:$priColor
+        .signin {
+            a {
+                color: $priColor;
             }
         }
     }

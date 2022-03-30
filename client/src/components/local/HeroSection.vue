@@ -1,17 +1,14 @@
 <script>
 export default {
     data() {
-        return {
-
-        }
-    }
-}
-
+        return {};
+    },
+};
 </script>
 
 <template>
     <div class="hero">
-        <div class="img-fluid ">
+        <div class="img-fluid">
             <div class="text">
                 <h1>Hello, Youssef</h1>
                 <h4>
@@ -40,7 +37,7 @@ $white: #edf0f2;
                 rgba(255, 255, 255, 0) 100%
             ),
             url(../../assets/heroImage.png) no-repeat;
-            background-size: 100vw 100%;
+        background-size: 100vw 100%;
         .text,
         * > * {
             color: $white;
