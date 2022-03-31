@@ -20,7 +20,7 @@ export default {
                 </h4>
                 <h4>
                     last donation:
-                    <a href="#">case -</a> 72
+                    <a href="#">case</a> - 72
                     <sub>egp</sub>
                 </h4>
             </div>

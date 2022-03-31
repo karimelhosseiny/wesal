@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             search: "",
+            filteredCards:'',
             cases: [
                 { id: "1", title: "Food Aid", org: "Resala", caseDisc: "1Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
                 { id: "2", title: "monmy", org: "Masr Elkhair", caseDisc: "2Lorem ipsum dolor sit amet consectetur adipisicing elit.", isFavorite:false, reminder:false, },
@@ -20,7 +21,7 @@ export default {
     },
     components: { Navbar, HeroSection, UserCaseCard },
     computed:{
-        filterCards(){
+        filteredCards(){
             return this.cases.filter(Case => Case.title.toLowerCase().includes(this.search.toLowerCase()));
         },
     },
@@ -54,8 +55,9 @@ export default {
             </div>
         </div>
         <div class="caseGrid">
+            <p v-show="filteredCards==''" class=" SearchNotFound h1 opacity-50">Oh oh, we couldn`t find that!</p>
             <UserCaseCard
-                v-for="Case in filterCards"
+                v-for="Case in filteredCards"
                 :key="Case.id"
                 :title="Case.title"
                 :org="Case.org"
@@ -69,8 +71,6 @@ export default {
         </div>
     </div>
 </template>
-<style lang="scss" scoped></style>
-=======
 <style lang="scss" scoped>
 @use "../../sass/colors" as *;
 
@@ -130,6 +130,9 @@ export default {
         grid-template-columns: repeat(4, auto);
         gap: 20px;
         overflow: auto;
+        .SearchNotFound{
+            height: 70vh;
+        }
     }
 }
 </style>
