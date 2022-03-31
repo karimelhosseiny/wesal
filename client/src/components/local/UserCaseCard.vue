@@ -1,21 +1,19 @@
 <script>
 export default {
-    props: ['title', 'org', 'id', 'caseDisc', 'isFavorite', 'reminder'],
-    emits:['toggle-favorite', 'toggle-reminder'],
+    props: ["title", "org", "id", "caseDisc", "isFavorite", "reminder"],
+    emits: ["toggle-favorite", "toggle-reminder"],
     data() {
-        return {
-        }
+        return {};
     },
-    methods:{
-        ChangingHeartIcons(){
-            this.$emit('toggle-favorite', this.id)
+    methods: {
+        ChangingHeartIcons() {
+            this.$emit("toggle-favorite", this.id);
         },
-        ChangingcalendertIcons(){
-            this.$emit('toggle-reminder', this.id)
+        ChangingcalendertIcons() {
+            this.$emit("toggle-reminder", this.id);
         },
-    }
-}
-
+    },
+};
 </script>
 
 <template>
@@ -27,8 +25,22 @@ export default {
                 <a class="org h6 fw-normal">{{ org }}</a>
             </div>
             <div class="icons">
-                <i @click="ChangingHeartIcons()" :class="isFavorite ? 'bi bi-heart-fill text-success' : 'bi bi-heart' "></i>
-                <i @click="ChangingcalendertIcons()" :class="reminder ? 'bi bi-calendar-check text-success' : 'bi bi-calendar' "></i>
+                <i
+                    @click="ChangingHeartIcons()"
+                    :class="
+                        isFavorite
+                            ? 'bi bi-heart-fill text-success'
+                            : 'bi bi-heart'
+                    "
+                ></i>
+                <i
+                    @click="ChangingcalendertIcons()"
+                    :class="
+                        reminder
+                            ? 'bi bi-calendar-check text-success'
+                            : 'bi bi-calendar'
+                    "
+                ></i>
             </div>
         </div>
         <div class="mid">
@@ -41,7 +53,7 @@ export default {
                 <sub>egp</sub>
             </span>
             <div class="progressBar">
-                <div class="ammount mt-3 px-2 d-flex justify-content-between ">
+                <div class="ammount mt-3 px-2 d-flex justify-content-between">
                     <span>
                         15500
                         <sub>egp</sub>
@@ -51,7 +63,11 @@ export default {
                         <sub>egp</sub>
                     </span>
                 </div>
-                <progress class="bar bg-transparent" value="15" max="20"></progress>
+                <progress
+                    class="bar bg-transparent"
+                    value="15"
+                    max="20"
+                ></progress>
             </div>
         </div>
         <div class="bottom">
@@ -61,7 +77,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@use '../../sass/colors' as *;
+@use "../../sass/colors" as *;
 
 $logoSize: 60px;
 .card {
@@ -119,7 +135,7 @@ $logoSize: 60px;
             font-size: 20px;
             cursor: pointer;
 
-            i{
+            i {
                 display: block;
             }
         }
@@ -146,6 +162,7 @@ $logoSize: 60px;
                 width: 160%;
                 border-radius: 10px;
                 margin-top: 7px;
+                
             }
             .bar[value]::-webkit-progress-value {
                 background-color: $priColor;
