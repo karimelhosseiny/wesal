@@ -1,12 +1,52 @@
 <script>
 import Navbar from '../global/Navbar.vue'
+import UserCaseCard from '../local/UserCaseCard.vue'
+import UserCaseCard1 from './UserCaseCard.vue'
 export default {
     data() {
         return {
-
+            cases: [
+                {
+                    id: "1",
+                    title: "Food Aid",
+                    org: "Resala",
+                    caseDisc:
+                        "1Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                    isFavorite: false,
+                    reminder: false,
+                },
+                {
+                    id: "2",
+                    title: "monmy",
+                    org: "Masr Elkhair",
+                    caseDisc:
+                        "2Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                    isFavorite: false,
+                    reminder: false,
+                },
+                {
+                    id: "3",
+                    title: "clothing",
+                    org: "Orman",
+                    caseDisc:
+                        "3Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                    isFavorite: false,
+                    reminder: false,
+                }
+            ]
         }
     },
-    components: { Navbar }
+    methods: {
+        toggleFavoriteStatus(cardId) {
+            const selectedCard = this.cases.find((Case) => Case.id === cardId);
+            selectedCard.isFavorite = !selectedCard.isFavorite;
+        },
+        toggleReminderStatus(cardId) {
+            const selectedCard = this.cases.find((Case) => Case.id === cardId);
+            selectedCard.reminder = !selectedCard.reminder;
+        },
+    },
+    components: { Navbar, UserCaseCard, UserCaseCard1 }
 }
 
 </script>
@@ -35,6 +75,33 @@ export default {
                     </h4>
                 </div>
             </div>
+            <div class="bottomGrid">
+                <div class="donationHistory">
+                    <div class="title d-flex justify-content-between">
+                        <h1>Donation History</h1>
+                        <a href="#" class="me-5 mt-3">more</a>
+                    </div>
+                    <div class="caseGrid d-flex">
+                        <UserCaseCard
+                            v-for="Case in cases"
+                            :key="Case.id"
+                            :title="Case.title"
+                            :org="Case.org"
+                            :id="Case.id"
+                            :case-disc="Case.caseDisc"
+                            :is-favorite="Case.isFavorite"
+                            :reminder="Case.reminder"
+                            @toggle-favorite="toggleFavoriteStatus"
+                            @toggle-reminder="toggleReminderStatus"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="payment mt-5">
+                <h1>Payment details <i class="bi bi-pencil-square h2 ms-5"></i></h1>
+                <!-- payment control -->
+                
+            </div>
         </div>
     </div>
 </template>
@@ -53,8 +120,7 @@ export default {
 
     .dataContainer {
         margin: 130px 0 40px 0;
-        height: 76.9vh;
-        // height: 638px;
+        max-height: fit-content;
         border: 4px solid $priColor;
         border-radius: 37px;
         width: 1250px;
@@ -66,8 +132,6 @@ export default {
                 font-weight: 500;
                 font-size: 48px;
                 line-height: 72px;
-                /* identical to box height */
-
                 letter-spacing: -0.02em;
             }
             h4 {
@@ -75,8 +139,6 @@ export default {
                 font-weight: 500;
                 font-size: 24px;
                 line-height: 36px;
-                /* identical to box height */
-
                 letter-spacing: -0.02em;
                 i {
                     visibility: hidden;
@@ -84,6 +146,42 @@ export default {
                 }
             }
             h4:hover i {
+                visibility: visible;
+            }
+        }
+
+        .bottomGrid {
+            .donationHistory {
+                .title {
+                    h1 {
+                        color: $priColor;
+                        font-weight: 600;
+                        font-size: 36px;
+                        line-height: 54px;
+                        letter-spacing: -0.02em;
+                    }
+                    a {
+                        color: $priColor;
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 27px;
+                        letter-spacing: -0.02em;
+                    }
+                }
+                .caseGrid {
+                    padding: 1em;
+                    gap: 4em;
+                    justify-content: center;
+                }
+            }
+        }
+        .payment {
+            color: $priColor;
+            i{
+                visibility: hidden;
+                cursor: pointer;
+            }
+            h1:hover i{
                 visibility: visible;
             }
         }
@@ -102,8 +200,8 @@ export default {
             font-size: 18px;
             line-height: 27px;
             letter-spacing: -0.02em;
-            color:$priColor
+            color: $priColor;
         }
-    } 
+    }
 }
 </style>
