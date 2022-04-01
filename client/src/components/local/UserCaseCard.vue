@@ -71,7 +71,11 @@ export default {
             </div>
         </div>
         <div class="bottom">
-            <button class="btn btn-block more rounded-pill">More</button>
+            <router-link
+                to="./casepage"
+                class="btn btn-block more rounded-pill text-decoration-none text-light"
+                >More</router-link
+            >
         </div>
     </div>
 </template>
@@ -162,7 +166,6 @@ $logoSize: 60px;
                 width: 160%;
                 border-radius: 10px;
                 margin-top: 7px;
-                
             }
             .bar[value]::-webkit-progress-value {
                 background-color: $priColor;

@@ -1,7 +1,8 @@
 <script>
 import SlideShow from "./SlideShow.vue";
+import Navbar from "../global/Navbar.vue"
 export default {
-    components: { SlideShow },
+    components: { SlideShow, Navbar },
     data() {
         return {};
     },
@@ -9,6 +10,7 @@ export default {
 </script>
 
 <template>
+    <Navbar />
     <div class="container">
         <div class="row justify-content-center">
             <div class="col">
