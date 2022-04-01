@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Organization;
-
 use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
@@ -14,7 +13,11 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-       
+        $organizations = Organization::all()->toJson();
+
+        $organizations = json_decode($organizations);
+
+        return ($organizations);
     }
 
     /**
@@ -46,11 +49,7 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        $organizations = Organization::find($id)->toJson();
-
-        $organizations = json_decode($organizations);
-
-        return ($organizations);
+        //
     }
 
     /**
