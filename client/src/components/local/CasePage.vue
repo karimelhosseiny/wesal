@@ -60,16 +60,7 @@ export default {
                             ullam provident. Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Libero illo vel, aliquid corrupti dignissimos,
                             atque voluptatibus est facere eius rem adipisci
-                            suscipit fuga, beatae cumque quidem quo officiis
-                            ullam provident. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Libero illo vel, aliquid corrupti dignissimos,
-                            atque voluptatibus est facere eius rem adipisci
-                            suscipit fuga, beatae cumque quidem quo officiis
-                            ullam provident. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Libero illo vel, aliquid corrupti dignissimos,
-                            atque voluptatibus est facere eius rem adipisci
-                            suscipit fuga, beatae cumque quidem quo officiis
-                            ullam provident.
+                            suscipit fuga, beatae cumque quidem quo officiis quidem quo 
                         </p>
                     </div>
                     <div class="endSec row align-items-end">

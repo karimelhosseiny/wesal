@@ -2,6 +2,7 @@
 import Navbar from '../global/Navbar.vue'
 import UserCaseCard from '../local/UserCaseCard.vue'
 import UserCaseCard1 from './UserCaseCard.vue'
+import PaymentDetails from './PaymentDetails.vue'
 export default {
     data() {
         return {
@@ -46,7 +47,7 @@ export default {
             selectedCard.reminder = !selectedCard.reminder;
         },
     },
-    components: { Navbar, UserCaseCard, UserCaseCard1 }
+    components: { Navbar, UserCaseCard, UserCaseCard1, PaymentDetails }
 }
 
 </script>
@@ -73,6 +74,31 @@ export default {
                         +201065292537
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
+                    <button
+                        class="btn btn-block showPayment rounded-pill"
+                        data-bs-toggle="modal"
+                        data-bs-target="#paymentDetails"
+                    >show payment</button>
+                    <div class="modal fade" id="paymentDetails">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1>Payment Deatails</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <PaymentDetails />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn save">Save changes</button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger close"
+                                        data-bs-dismiss="modal"
+                                    >Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="bottomGrid">
@@ -97,56 +123,6 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="payment mt-5">
-                <h1>
-                    Payment details
-                    <i class="bi bi-pencil-square h2 ms-5"></i>
-                </h1>
-                <div class="paymentInfo d-flex flex-column">
-                    <label for="nameOnCard">Name on card</label>
-                    <input
-                        name="nameOnCard"
-                        placeholder="JHON DOE"
-                        class="rounded-pill"
-                        type="text"
-                    />
-                    <label for="cardNumber">Card number</label>
-                    <div class="creditCard">
-                        <input
-                            name="cardNumber"
-                            placeholder="xxxx xxxx xxxx xxxx"
-                            class="rounded-pill"
-                            type="text"
-                        />
-                        <img src="../../assets/SVG/mastercard.svg" alt="card type" />
-                    </div>
-                    <div class="expCvv gap-0">
-                        <div class="d-inline">
-                            <label class="me-2" for="expdate">exp</label>
-                            <input name="expdate" class="rounded-pill me-4" type="text" />
-                        </div>
-                        <div class="d-inline">
-                            <label class="me-2" for="cvv">cvv</label>
-                            <input name="cvv" class="rounded-pill" type="text" />
-                        </div>
-                    </div>
-                    <button class="btn btn-block save rounded-pill mb-4">save</button>
-                    <div class="otherPayemnts">
-                        <p class="mb-2">another payment service?</p>
-                        <div class="services px-2 d-flex gap-2">
-                            <a href="https://www.paypal.com/" target="blank">
-                                <img src="../../assets/SVG/paypal.svg" alt="paypal" />
-                            </a>
-                            <a href="https://www.paypal.com/" target="blank">
-                                <img src="../../assets/SVG/meeza logo.svg" alt="meeza" />
-                            </a>
-                            <a href="https://www.paypal.com/" target="blank">
-                                <img src="../../assets/SVG/fawry pay logo.svg" alt="fawry" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -167,7 +143,7 @@ export default {
         margin: 130px 0 40px 0;
         max-height: fit-content;
         border: 4px solid $priColor;
-        border-radius: 37px;
+        border-radius: 15px;
         width: 1250px;
 
         .personalInfo {
@@ -192,6 +168,18 @@ export default {
             }
             h4:hover i {
                 visibility: visible;
+            }
+            .showPayment {
+                background-color: $white;
+                margin: auto;
+                font-weight: 500;
+                font-size: 18px;
+                color: $priColor;
+                letter-spacing: 0.05em;
+                transition: 0.25s;
+            }
+            .showPayment:hover {
+                box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.5);
             }
         }
 
@@ -220,64 +208,23 @@ export default {
                 }
             }
         }
-        .payment {
-            color: $priColor;
-            i {
-                visibility: hidden;
-                cursor: pointer;
-            }
-            h1:hover i {
-                visibility: visible;
-            }
-            .paymentInfo {
-                label {
-                    color: black;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 18px;
-                    line-height: 27px;
-                    letter-spacing: -0.02em;
-                }
-                input {
-                    margin-top: 16px;
-                    border: none;
-                    padding-left: 1.5em;
-                    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-                    border: 1px solid transparent;
-                    outline: none;
-                    font-weight: 500;
-                    color: $priColor;
-                    margin-bottom: 20px;
-                    width: 20%;
-                }
-                .creditCard {
-                    position: relative;
-                    img {
-                        position: absolute;
-                        top: 14px;
-                        left: 190px;
-                    }
-                }
-
-                .expCvv {
-                    input {
-                        width: 5%;
-                        font-weight: 300;
-                        padding-left: 0.5em;
-                    }
-                }
-                //save button
-                .save {
+          .save {
                     background-color: $priColor;
-                    width: 10%;
-                    margin: auto;
+                    width: fit-content;
                     font-weight: normal;
                     font-size: 18px;
+                    border-radius: 50px;
                     color: $white;
                     letter-spacing: 0.05em;
                 }
-            }
-        }
+                .close{
+                    width: fit-content;
+                    font-weight: normal;
+                    font-size: 18px;
+                    border-radius: 50px;
+                    color: $white;
+                    letter-spacing: 0.05em;
+                }
     }
     .profPic {
         width: 240px;
