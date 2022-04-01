@@ -72,6 +72,7 @@ class PagesController extends Controller
 
 
         $totaldonors = DB::table('donation_operations')->where('case_id', $id)->count();
+    
 
 
         return response()->json([
