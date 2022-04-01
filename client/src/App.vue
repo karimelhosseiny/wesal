@@ -13,6 +13,9 @@ export default {
 </template>
 
 <style lang="scss">
+*{
+  font-family: poppins;
+}
 #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

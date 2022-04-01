@@ -10,7 +10,7 @@ export default {
     <div class="navbars">
         <div class="logo">
             <img src="../../assets/SVG/logo.svg" class="ms-3" />
-            <h3>wesal</h3>
+            <h4>wesal</h4>
         </div>
         <ul class="navLinks">
             <router-link to="/home" class>Home</router-link>
@@ -51,7 +51,7 @@ $logoSize: 50px;
             align-self: center;
             padding: 5px;
         }
-        h3 {
+        h4 {
             color: $white;
             grid-column: 2/3;
             align-self: end;
@@ -92,7 +92,7 @@ $logoSize: 50px;
             width: 90px;
             background-color: $white;
             color: $priColor;
-            font-weight: 700;
+            font-weight: 600;
         }
         img {
             width: $picSize;
