@@ -1,6 +1,15 @@
 <script>
 export default {
-    data() {},
+    data() {
+        return {
+            passwordShown: false,
+        }
+    },
+    methods: {
+        togglePassword() {
+            this.passwordShown = !this.passwordShown
+        }
+    }
 };
 </script>
 
@@ -8,11 +17,7 @@ export default {
     <div class="mainContainer">
         <div class="visuals ps-3 pt-3">
             <div class="logoText d-flex w-25 align-items-start">
-                <img
-                    class="logo me-2 ms-4"
-                    src="../../assets/SVG/logo.svg"
-                    alt="wesal logo"
-                />
+                <img class="logo me-2 ms-4" src="../../assets/SVG/logo.svg" alt="wesal logo" />
                 <h4 class="fw-bold">wesal</h4>
             </div>
             <div class="slogan ms-4">
@@ -24,21 +29,28 @@ export default {
         <main>
             <h1 class="text-center fw-bold mb-4">Login</h1>
             <form class="mb-4">
-                <input
-                    class="rounded-pill"
-                    type="email"
-                    placeholder="email"
-                    v-model="email"
-                />
-                <div class="passwordContainer">
+                <div class="form-floating">
                     <input
-                        class="rounded-pill"
-                        type="password"
-                        placeholder="password"
+                        class="rounded-pill form-control"
+                        id="floatingInput"
+                        type="email"
+                        placeholder="email"
+                        v-model="email"
+                    />
+                    <label for="floatingInput">email</label>
+                </div>
+                <div class="form-floating passwordContainer">
+                    <input
+                        class="rounded-pill form-control"
+                        :type="passwordShown ? 'text' : 'password'"
+                        placeholder="Password"
                         v-model="password"
                     />
-                    <i class="bi bi-eye eyeIcon"></i>
-                    <!-- <i class="bi bi-eye-slash eyeIcon"></i> -->
+                    <label for="floatingInput">password</label>
+                    <i
+                        @click="togglePassword"
+                        :class="['bi', passwordShown ? 'bi-eye-slash' : 'bi-eye', 'eyeIcon']"
+                    ></i>
                 </div>
                 <button class="border-0 rounded-pill fw-normal">sign in</button>
                 <h6 class="text-center">or login using</h6>
@@ -53,9 +65,7 @@ export default {
             </form>
             <div class="signup text-center">
                 Don`t have an account?
-                <router-link to="./" class="fw-bold text-decoration-none"
-                    >sign up</router-link
-                >
+                <router-link to="./" class="fw-bold text-decoration-none">sign up</router-link>
             </div>
         </main>
     </div>
@@ -144,10 +154,11 @@ $priColor: #0f9172;
                 height: 50px;
                 font-weight: bold;
             }
-            input::placeholder {
-                font-size: 13pt;
-                color: grey;
-                font-weight: normal;
+            label {
+                color: $priColor;
+                margin-inline: 20px;
+                margin-top: -5px;
+                font-weight: 500;
             }
             .thirdParty {
                 display: flex;

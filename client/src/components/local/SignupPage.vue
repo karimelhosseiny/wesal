@@ -2,11 +2,17 @@
 export default {
     data() {
         return {
-            name: "",
+            username: "",
             email: "",
             password: "",
+            passwordShown:false,
         };
     },
+    methods:{
+        togglePassword(){
+            this.passwordShown = !this.passwordShown
+        }
+    }
 };
 </script>
 
@@ -30,27 +36,35 @@ export default {
         <main>
             <h1 class="text-center fw-bold mb-4">Sign up</h1>
             <form class="mb-4">
-                <input
-                    class="rounded-pill"
-                    type="text"
-                    placeholder="name"
-                    v-model="name"
-                />
-                <input
-                    class="rounded-pill"
-                    type="email"
-                    placeholder="email"
-                    v-model="email"
-                />
-                <div class="passwordContainer">
+                <div class="form-floating">
                     <input
-                        class="rounded-pill"
-                        type="password"
-                        placeholder="password"
+                        class="rounded-pill form-control"
+                        id="floatingInput"
+                        type="text"
+                        placeholder="your name"
+                        v-model="username"
+                    />
+                    <label for="floatingInput">your name</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        class="rounded-pill form-control"
+                        id="floatingInput"
+                        type="email"
+                        placeholder="email"
+                        v-model="email"
+                    />
+                    <label for="floatingInput">email</label>
+                </div>
+                <div class="form-floating passwordContainer">
+                    <input
+                        class="rounded-pill form-control"
+                        :type="passwordShown?'text':'password'"
+                        placeholder="Password"
                         v-model="password"
                     />
-                    <i class="bi bi-eye eyeIcon"></i>
-                    <!-- <i class="bi bi-eye-slash eyeIcon"></i> -->
+                    <label for="floatingInput">password</label>
+                    <i @click="togglePassword" :class="['bi',passwordShown? 'bi-eye-slash': 'bi-eye', 'eyeIcon']"></i>
                 </div>
                 <button class="border-0 rounded-pill fw-normal">sign up</button>
                 <h6 class="text-center">or register using</h6>
@@ -157,10 +171,11 @@ $priColor: #0f9172;
                 height: 50px;
                 font-weight: bold;
             }
-            input::placeholder {
-                font-size: 13pt;
-                color: grey;
-                font-weight: normal;
+            label{
+                color: $priColor;
+                margin-inline: 20px;
+                margin-top: -5px;
+                font-weight: 500;
             }
             .thirdParty {
                 display: flex;
