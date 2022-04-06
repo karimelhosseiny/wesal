@@ -11,7 +11,7 @@ export default {
                     id: "1",
                     title: "Food Aid",
                     org: "Resala",
-                    caseDisc:
+                    caseDesc:
                         "1Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -20,7 +20,7 @@ export default {
                     id: "2",
                     title: "monmy",
                     org: "Masr Elkhair",
-                    caseDisc:
+                    caseDesc:
                         "2Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -29,7 +29,7 @@ export default {
                     id: "3",
                     title: "clothing",
                     org: "Orman",
-                    caseDisc:
+                    caseDesc:
                         "3Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -114,7 +114,7 @@ export default {
                             :title="Case.title"
                             :org="Case.org"
                             :id="Case.id"
-                            :case-disc="Case.caseDisc"
+                            :case-desc="Case.caseDesc"
                             :is-favorite="Case.isFavorite"
                             :reminder="Case.reminder"
                             @toggle-favorite="toggleFavoriteStatus"
