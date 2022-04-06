@@ -12,7 +12,7 @@ export default {
                     id: "1",
                     title: "Food Aid",
                     org: "Resala",
-                    caseDisc:
+                    caseDesc:
                         "1Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -21,7 +21,7 @@ export default {
                     id: "2",
                     title: "monmy",
                     org: "Masr Elkhair",
-                    caseDisc:
+                    caseDesc:
                         "2Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -30,7 +30,7 @@ export default {
                     id: "3",
                     title: "clothing",
                     org: "Orman",
-                    caseDisc:
+                    caseDesc:
                         "3Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -39,7 +39,7 @@ export default {
                     id: "4",
                     title: "zakah",
                     org: "Baiet Elzakah",
-                    caseDisc:
+                    caseDesc:
                         "4Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -48,7 +48,7 @@ export default {
                     id: "5",
                     title: "clothing",
                     org: "Resala",
-                    caseDisc:
+                    caseDesc:
                         "5Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -57,7 +57,7 @@ export default {
                     id: "6",
                     title: "food",
                     org: "Resala",
-                    caseDisc:
+                    caseDesc:
                         "6Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -66,7 +66,7 @@ export default {
                     id: "7",
                     title: "clothing",
                     org: "Orman",
-                    caseDisc:
+                    caseDesc:
                         "7Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -75,7 +75,7 @@ export default {
                     id: "8",
                     title: "clothing",
                     org: "Resala",
-                    caseDisc:
+                    caseDesc:
                         "8Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                     isFavorite: false,
                     reminder: false,
@@ -128,7 +128,7 @@ export default {
                 :title="Case.title"
                 :org="Case.org"
                 :id="Case.id"
-                :case-disc="Case.caseDisc"
+                :case-desc="Case.caseDesc"
                 :is-favorite="Case.isFavorite"
                 :reminder="Case.reminder"
                 @toggle-favorite="toggleFavoriteStatus"

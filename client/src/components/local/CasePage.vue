@@ -41,7 +41,7 @@ export default {
                     <progress class="bar bg-transparent" value="15" max="20"></progress>
                 </div>
             </div>
-            <div class="caseDisc col-6">
+            <div class="caseDesc col-6">
                 <div class="container align-items-end">
                     <div class="row align-self-end">
                         <p class="col">
@@ -114,7 +114,7 @@ export default {
 .slideShow {
     margin-bottom: 2em;
 }
-.caseDisc {
+.caseDesc {
     margin-bottom: 1em;
     border-left: 0.2em solid $priColor;
     padding: 2em 0;
@@ -155,7 +155,7 @@ export default {
                 background-color: #064234;
                 box-shadow: none
             }
-            
+
             .modal-content {
                 padding-inline: 1em;
                 .modal-header {
