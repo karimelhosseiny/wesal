@@ -18,6 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// admin routes middleware group
+Route::middleware(['auth', 'admin'])->group(function () {
+   Route::get('/sergawyusers', [UserController::class, 'index']) ;
+
+});
+
+
+// organization routes miidleware group
+Route::middleware(['auth', 'organization'])->group(function () {
+    Route::get('/redausers', [OrganizationController::class, 'index']) ;
+ 
+ });
+ 
+
+
 Route::resource('/users', UserController::class);
 Route::resource('/organizations', OrganizationController::class);
 Route::resource('/cases', CaseController::class);
@@ -32,3 +47,5 @@ Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where(
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+

@@ -1,15 +1,27 @@
-<script setup>
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import LoginPage from './components/LoginPage.vue';
+<script>
+import Footer from "./components/global/Footer.vue";
+import Navbar from './components/global/Navbar.vue';
+export default {
+    data() {},
+    components: { Footer, Navbar, Navbar, },
+};
 </script>
 
 <template>
-  <LoginPage/>
+    <router-view />
+    <Footer />
 </template>
 
-<style>
+<style lang="scss">
+*{
+  font-family: poppins;
+}
 #app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+:root {
+    $secColor: #91ffa2;
+    $priColor: #0f9172;
 }
 </style>

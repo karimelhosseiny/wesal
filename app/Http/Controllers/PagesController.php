@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Foreach_;
 
 class PagesController extends Controller
 {
-    //data shown in user homepgae
+    //data shown in user homepage
     public function userhomepage($id)
     {
 
@@ -104,4 +104,13 @@ class PagesController extends Controller
         ]);
 
     }
+
+
+    public function sergi(){
+        $users = User::find(1);
+        dd($users->admin);
+
+    }
+
+
 }

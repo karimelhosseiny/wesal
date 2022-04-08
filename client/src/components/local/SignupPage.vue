@@ -1,37 +1,73 @@
-<script setup>
-
+<script>
+export default {
+    data() {
+        return {
+            username: "",
+            email: "",
+            password: "",
+            passwordShown:false,
+        };
+    },
+    methods:{
+        togglePassword(){
+            this.passwordShown = !this.passwordShown
+        }
+    }
+};
 </script>
-
 
 <template>
     <div class="mainContainer">
         <div class="visuals ps-3 pt-3">
             <div class="logoText d-flex w-25 align-items-start">
-                <img class="logo me-2 ms-4" src="../assets/SVG/logo.svg" alt="wesal logo" />
+                <img
+                    class="logo me-2 ms-4"
+                    src="../../assets/SVG/logo.svg"
+                    alt="wesal logo"
+                />
                 <h4 class="fw-bold">wesal</h4>
             </div>
             <div class="slogan ms-4">
                 <h1 class="fw-bold">Help others</h1>
                 <h4 class="fw-normal">help you...</h4>
             </div>
-            <img class="hand" src="../assets/SVG/Hand.svg" alt />
+            <img class="hand" src="../../assets/SVG/Hand.svg" alt />
         </div>
         <main>
-            <h1 class="text-center fw-bold mb-4">Login</h1>
-            <form>
-                <input class="rounded-pill" type="email" placeholder="email" v-model="email" />
-                <div class="passwordContainer">
+            <h1 class="text-center fw-bold mb-4">Sign up</h1>
+            <form class="mb-4">
+                <div class="form-floating">
                     <input
-                        class="rounded-pill"
-                        type="password"
-                        placeholder="password"
+                        class="rounded-pill form-control"
+                        id="floatingInput"
+                        type="text"
+                        placeholder="your name"
+                        v-model="username"
+                    />
+                    <label for="floatingInput">your name</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                        class="rounded-pill form-control"
+                        id="floatingInput"
+                        type="email"
+                        placeholder="email"
+                        v-model="email"
+                    />
+                    <label for="floatingInput">email</label>
+                </div>
+                <div class="form-floating passwordContainer">
+                    <input
+                        class="rounded-pill form-control"
+                        :type="passwordShown?'text':'password'"
+                        placeholder="Password"
                         v-model="password"
                     />
-                    <i class="bi bi-eye eyeIcon"></i>
-                    <!-- <i class="bi bi-eye-slash eyeIcon"></i> -->
+                    <label for="floatingInput">password</label>
+                    <i @click="togglePassword" :class="['bi',passwordShown? 'bi-eye-slash': 'bi-eye', 'eyeIcon']"></i>
                 </div>
-                <button class="border-0 rounded-pill fw-normal">sign in</button>
-                <h6 class="text-center">or login using</h6>
+                <button class="border-0 rounded-pill fw-normal">sign up</button>
+                <h6 class="text-center">or register using</h6>
                 <div class="thirdParty">
                     <span class="border rounded-circle border-0 text-light">
                         <i class="bi bi-google"></i>
@@ -41,12 +77,18 @@
                     </span>
                 </div>
             </form>
+            <div class="signin text-center">
+                Already have an account?
+                <router-link to="/login" class="fw-bold text-decoration-none"
+                    >sign in</router-link
+                >
+            </div>
         </main>
     </div>
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 *,
 *::before,
 *::after {
@@ -122,16 +164,18 @@ $priColor: #0f9172;
             }
             input {
                 border: 2px solid #57ce8d;
+                color: $priColor;
                 outline: none;
-                padding-inline: 1em;
+                padding-inline: 2em;
                 width: 350px;
                 height: 50px;
                 font-weight: bold;
             }
-            input::placeholder {
-                font-size: 13pt;
-                color: grey;
-                font-weight: normal;
+            label{
+                color: $priColor;
+                margin-inline: 20px;
+                margin-top: -5px;
+                font-weight: 500;
             }
             .thirdParty {
                 display: flex;
@@ -164,6 +208,11 @@ $priColor: #0f9172;
                 font-size: 18px;
                 width: 100px;
                 height: 30px;
+            }
+        }
+        .signin {
+            a {
+                color: $priColor;
             }
         }
     }
