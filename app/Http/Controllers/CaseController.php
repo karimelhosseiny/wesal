@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\DonationCase;
 
+use App\Models\DonationCase;
+use App\Models\DonationOperation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class CaseController extends Controller
 {
@@ -35,9 +39,12 @@ class CaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        print_r(Auth::User());
+        Auth::User()->donationOperations()->attach($request->input('caseid'), [
+            "amount" => $request->input('amount'),
+            "currency" => $request->input('currency')
+        ]);
     }
-
     /**
      * Display the specified resource.
      *
@@ -47,10 +54,8 @@ class CaseController extends Controller
     public function show($id)
     {
         $cases = DonationCase::find($id)->toJson();
-
         $cases = json_decode($cases);
-        
-        return($cases);
+        return ($cases);
     }
 
     /**
