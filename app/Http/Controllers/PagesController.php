@@ -13,9 +13,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Foreach_;
+
 class PagesController extends Controller
 {
-    //data shown in user homepgae
+    //data shown in user homepage
     public function userhomepage($id)
     {
         $users = User::find($id);
@@ -77,7 +78,8 @@ class PagesController extends Controller
         ]);
     }
 
-    public function donationtest() {
+    public function donationtest()
+    {
         return view('layouts.donationtest');
     }
 }

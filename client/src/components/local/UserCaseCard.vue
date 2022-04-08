@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ["title", "org", "id", "caseDisc", "isFavorite", "reminder"],
+    props: ["title", "org", "id", "caseDesc", "isFavorite", "reminder"],
     emits: ["toggle-favorite", "toggle-reminder"],
     data() {
         return {};
@@ -45,7 +45,7 @@ export default {
         </div>
         <div class="mid">
             <p class="fw-bold">
-                {{ caseDisc }}
+                {{ caseDesc }}
             </p>
             <span class="target">target:</span>
             <span>
