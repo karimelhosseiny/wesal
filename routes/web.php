@@ -6,7 +6,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +27,7 @@ Route::get('/userhomepage/{id}', [PagesController::class, 'userhomepage'])->wher
 Route::get('/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
 Route::get('/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
+Route::get('/donationtest', [PagesController::class, 'donationtest']);
 
 
 Auth::routes();

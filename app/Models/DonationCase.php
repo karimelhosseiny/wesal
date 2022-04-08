@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DonationCase extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['amount' , 'currency'];
 
     public function user()
     {
