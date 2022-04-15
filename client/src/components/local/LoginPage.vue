@@ -13,14 +13,15 @@ export default {
     },
     fetchData() {
       axios
-        .get("http://127.0.0.1:8000/casepage/1", {
+        .get("/api/casepage/1", {
           mode: "no-cors",
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
           },
         })
-        .then((res) => console.log(res));
+        .then((res) => console.log(res))
+        .catch((e)=>console.log(e));
     },
   },
 };
