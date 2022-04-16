@@ -13,7 +13,7 @@ export default {
     },
     fetchData() {
       axios
-        .get("/api/casepage/1", {
+        .get("http://localhost:8000/api/casepage/1", {
           mode: "no-cors",
           headers: {
             "Access-Control-Allow-Origin": "*",

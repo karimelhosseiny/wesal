@@ -40,7 +40,7 @@ Route::resource('/reminders', ReminderController::class);
 
 Route::get('/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
 Route::get('/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
-Route::get('/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
+Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
 Route::get('/donationtest', [PagesController::class, 'donationtest']);
 
