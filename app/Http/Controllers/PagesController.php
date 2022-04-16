@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use PhpParser\Node\Stmt\Foreach_;
 
 class PagesController extends Controller
@@ -82,4 +83,44 @@ class PagesController extends Controller
     {
         return view('layouts.donationtest');
     }
+
+
+    // public function sergi(){
+    //     $users = User::find(1);
+    //     dd($users->admin);
+
+    // }
+
+    // gates check for admin, organization ,and user 
+    public function indexadmin()
+    {
+        if (Gate::allows('isAdmin')) {
+
+            dd('Admin allowed');
+        } else {
+
+            dd('You are not Admin');
+        }
+    }
+    public function indexuser()
+    {
+        if (Gate::allows('isUser')) {
+
+            dd('User allowed');
+        } else {
+
+            dd('You are not User');
+        }
+    }
+    public function indexorganization()
+    {
+        if (Gate::allows('isOrganization')) {
+
+            dd('Organization allowed');
+        } else {
+
+            dd('You are not Organization');
+        }
+    }
+
 }

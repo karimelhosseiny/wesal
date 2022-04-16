@@ -20,7 +20,7 @@ class OrganizationAuthenticated
         if (Auth::check()) {
             if (Auth::user()->organization == null) {
                 
-                return redirect()->route('organizationform')->with('warning', 'you are not an aorganization, Plz register');
+                return redirect()->route('home')->with('warning', 'you are not an aorganization, Plz register');
             } 
             else {
                 return $next($request);
@@ -29,3 +29,6 @@ class OrganizationAuthenticated
         return redirect()->route('login')->with('warning', 'you are not logged in, Plz login');
     }
 }
+
+
+// !return 401 unauthorized-------------------------------------
