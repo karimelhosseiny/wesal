@@ -18,6 +18,10 @@ class UserController extends Controller
      */
     public function index()
     {
+
+        $users = User::find(1);
+        dd($users->admin);
+
          // $orgs= Admin::all();
         // dd($orgs[0]->verifiedOrganizations);
 

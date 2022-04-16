@@ -1,0 +1,281 @@
+*   [33mcommit 4104bddfd12584cfd8f716827a2593ca972f5029[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m
+[31m|[m[32m\[m  Merge: 7187d18 52474f1
+[31m|[m [32m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[31m|[m [32m|[m Date:   Fri Apr 8 18:08:28 2022 +0200
+[31m|[m [32m|[m 
+[31m|[m [32m|[m     youssef: checking the merge
+[31m|[m [32m|[m   
+[31m|[m *   [33mcommit 52474f1e6685fc654787be409aaa48508bf88365[m
+[31m|[m [33m|[m[34m\[m  Merge: 47f28de 1a654ec
+[31m|[m [33m|[m [34m|[m Author: Youssef Abdulaziz <51815275+azizy5203@users.noreply.github.com>
+[31m|[m [33m|[m [34m|[m Date:   Fri Apr 8 18:00:48 2022 +0200
+[31m|[m [33m|[m [34m|[m 
+[31m|[m [33m|[m [34m|[m     Merge pull request #1 from karimelhosseiny/kimo
+[31m|[m [33m|[m [34m|[m     
+[31m|[m [33m|[m [34m|[m     Kimo
+[31m|[m [33m|[m [34m|[m   
+[31m|[m [33m|[m *   [33mcommit 1a654ecd540fa369ff57ad8fcde4a9ffef83fb46[m[33m ([m[1;31morigin/kimo[m[33m)[m
+[31m|[m [33m|[m [35m|[m[36m\[m  Merge: 0d58074 6506948
+[31m|[m [33m|[m [35m|[m [36m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[31m|[m [33m|[m [35m|[m [36m|[m Date:   Fri Apr 8 17:49:51 2022 +0200
+[31m|[m [33m|[m [35m|[m [36m|[m 
+[31m|[m [33m|[m [35m|[m [36m|[m     adding frontend
+[31m|[m [33m|[m [35m|[m [36m|[m   
+[31m|[m [33m|[m * [36m|[m   [33mcommit 0d5807461be5f381738196872c74099d0b8cab8d[m
+[31m|[m [33m|[m [1;31m|[m[33m\[m [36m\[m  Merge: 7e53a23 47f28de
+[31m|[m [33m|[m [1;31m|[m[33m/[m [36m/[m  Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[31m|[m [33m|[m[33m/[m[1;31m|[m [36m|[m   Date:   Fri Apr 8 17:41:00 2022 +0200
+[31m|[m [33m|[m [1;31m|[m [36m|[m   
+[31m|[m [33m|[m [1;31m|[m [36m|[m       fixing backend, cors problem in progress
+[31m|[m [33m|[m [1;31m|[m [36m|[m 
+[31m|[m * [1;31m|[m [36m|[m [33mcommit 47f28dea562a16940e6e8bb7dcd7e8eb5da8277e[m
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m Date:   Wed Apr 6 14:40:00 2022 +0200
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m 
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m     rewrite some variables
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m 
+[31m|[m * [1;31m|[m [36m|[m [33mcommit 0c0132c74312f0cb2b66567ae05e247ed620e97f[m
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m Date:   Wed Apr 6 14:38:41 2022 +0200
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m 
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m     rewrite some variables
+[31m|[m [1;32m|[m [1;31m|[m [36m|[m 
+* [1;32m|[m [1;31m|[m [36m|[m [33mcommit 7187d1836b8edb9a290922f6bfae557fe13c12fb[m
+[1;32m|[m [1;32m|[m [1;31m|[m [36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;32m|[m [1;32m|[m [1;31m|[m [36m|[m Date:   Fri Apr 8 18:06:16 2022 +0200
+[1;32m|[m [1;32m|[m [1;31m|[m [36m|[m 
+[1;32m|[m [1;32m|[m [1;31m|[m [36m|[m     youssef: checking merges
+[1;32m|[m [1;32m|[m [1;31m|[m [36m|[m   
+* [1;32m|[m [1;31m|[m [36m|[m   [33mcommit 1d25aac8158558e9b5d2ba10a27815a4d282cfc7[m
+[1;32m|[m[36m\[m [1;32m\[m [1;31m\[m [36m\[m  Merge: 2a0fee4 6506948
+[1;32m|[m [36m|[m[1;32m/[m [1;31m/[m [36m/[m  Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;32m|[m[1;32m/[m[36m|[m [1;31m|[m [36m/[m   Date:   Fri Apr 8 15:31:28 2022 +0200
+[1;32m|[m [36m|[m [1;31m|[m[36m/[m    
+[1;32m|[m [36m|[m[36m/[m[1;31m|[m         Merge branch 'kimo' of https://github.com/karimelhosseiny/wesal into development
+[1;32m|[m [36m|[m [1;31m|[m 
+[1;32m|[m * [1;31m|[m [33mcommit 650694851522283f7ec820409ec1b253e228700a[m
+[1;32m|[m [1;34m|[m [1;31m|[m Author: Mahmoud Reda <76265948+Mahmoud-Reda29@users.noreply.github.com>
+[1;32m|[m [1;34m|[m [1;31m|[m Date:   Fri Apr 8 14:08:35 2022 +0200
+[1;32m|[m [1;34m|[m [1;31m|[m 
+[1;32m|[m [1;34m|[m [1;31m|[m     donation
+[1;32m|[m [1;34m|[m [1;31m|[m 
+[1;32m|[m * [1;31m|[m [33mcommit a53768580e6a73a2a12c69685fa344ccc39ebf5b[m
+[1;32m|[m [1;35m|[m[1;31m\[m[1;31m|[m Merge: 1dc1972 7e53a23
+[1;32m|[m [1;35m|[m [1;31m|[m Author: Mahmoud Reda <76265948+Mahmoud-Reda29@users.noreply.github.com>
+[1;32m|[m [1;35m|[m [1;31m|[m Date:   Fri Apr 1 15:32:52 2022 +0200
+[1;32m|[m [1;35m|[m [1;31m|[m 
+[1;32m|[m [1;35m|[m [1;31m|[m     userprofile controller done
+[1;32m|[m [1;35m|[m [1;31m|[m 
+[1;32m|[m [1;35m|[m * [33mcommit 7e53a23bb08d406dc22c30aa49ec16af5dc33292[m
+[1;32m|[m [1;35m|[m [1;36m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[1;32m|[m [1;35m|[m [1;36m|[m Date:   Wed Mar 30 21:39:56 2022 +0200
+[1;32m|[m [1;35m|[m [1;36m|[m 
+[1;32m|[m [1;35m|[m [1;36m|[m     userprofile controller
+[1;32m|[m [1;35m|[m [1;36m|[m 
+[1;32m|[m * [1;36m|[m [33mcommit 1dc1972fcee3bef7f7585a8c1a1e42031e1b1c7b[m
+[1;32m|[m [1;36m|[m[1;36m/[m  Author: Mahmoud Reda <76265948+Mahmoud-Reda29@users.noreply.github.com>
+[1;32m|[m [1;36m|[m   Date:   Fri Apr 1 14:53:49 2022 +0200
+[1;32m|[m [1;36m|[m   
+[1;32m|[m [1;36m|[m       user profile controller
+[1;32m|[m [1;36m|[m 
+[1;32m|[m * [33mcommit 13eb82087742c64079717b9ceb80dc766867c461[m
+[1;32m|[m [1;36m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[1;32m|[m [1;36m|[m Date:   Tue Mar 29 19:51:10 2022 +0200
+[1;32m|[m [1;36m|[m 
+[1;32m|[m [1;36m|[m     casepage method in pagecontroller
+[1;32m|[m [1;36m|[m 
+[1;32m|[m * [33mcommit 085dbd1738fa5ae9a9067b1b2fccaab12d4c3fb1[m[33m ([m[1;32mkimo[m[33m)[m
+[1;32m|[m [1;36m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[1;32m|[m [1;36m|[m Date:   Wed Mar 23 17:40:53 2022 +0200
+[1;32m|[m [1;36m|[m 
+[1;32m|[m [1;36m|[m     finish models
+[1;32m|[m [1;36m|[m 
+[1;32m|[m * [33mcommit 9ba6e58072557767eef214a0d6fdbd9bb26cdb6e[m
+[1;32m|[m [1;36m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[1;32m|[m [1;36m|[m Date:   Tue Mar 22 21:17:03 2022 +0200
+[1;32m|[m [1;36m|[m 
+[1;32m|[m [1;36m|[m     migrations models seeders
+[1;32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 2a0fee4e75dbdb2362ac24c858c508cbf973588c[m
+[1;36m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;36m|[m [1;36m|[m Date:   Tue Apr 5 20:42:21 2022 +0200
+[1;36m|[m [1;36m|[m 
+[1;36m|[m [1;36m|[m     finished case donation modal, improved login and signup fields
+[1;36m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 3c1fde1a6b45257b0580963e6715bff07d092704[m
+[1;36m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;36m|[m [1;36m|[m Date:   Fri Apr 1 16:06:20 2022 +0200
+[1;36m|[m [1;36m|[m 
+[1;36m|[m [1;36m|[m     created PaymentDetails component,moved payment info to modal
+[1;36m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit b3fce7a42c5e9e3cc7909f0c3122f23fc5cfd881[m
+[1;36m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[1;36m|[m [1;36m|[m Date:   Fri Apr 1 14:33:39 2022 +0200
+[1;36m|[m [1;36m|[m 
+[1;36m|[m [1;36m|[m     adding More btn route
+[1;36m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 89627c449a673bace1ae2d19a649b6a5fdaa902c[m
+[1;36m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;36m|[m [1;36m|[m Date:   Fri Apr 1 14:21:01 2022 +0200
+[1;36m|[m [1;36m|[m 
+[1;36m|[m [1;36m|[m     finished user profile page, made some changes to design layout
+[1;36m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 04042c9ff55c481e9403b442ffa96f0cb7ce00ff[m
+[1;36m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;36m|[m [1;36m|[m Date:   Thu Mar 31 23:12:54 2022 +0200
+[1;36m|[m [1;36m|[m 
+[1;36m|[m [1;36m|[m     some design changes,still in progress
+[1;36m|[m [1;36m|[m   
+* [1;36m|[m   [33mcommit 936354f3d4a663e15f7d762731b9f0d59c6a9d89[m
+[31m|[m[32m\[m [1;36m\[m  Merge: 5504d5d bee3526
+[31m|[m [32m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[31m|[m [32m|[m [1;36m|[m Date:   Thu Mar 31 22:20:20 2022 +0200
+[31m|[m [32m|[m [1;36m|[m 
+[31m|[m [32m|[m [1;36m|[m     working on user profile page
+[31m|[m [32m|[m [1;36m|[m 
+[31m|[m * [1;36m|[m [33mcommit bee3526c6b1f5067f8418cb0f412c566337a8261[m
+[31m|[m [32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[31m|[m [32m|[m [1;36m|[m Date:   Wed Mar 30 23:06:12 2022 +0200
+[31m|[m [32m|[m [1;36m|[m 
+[31m|[m [32m|[m [1;36m|[m     case page is finished
+[31m|[m [32m|[m [1;36m|[m 
+* [32m|[m [1;36m|[m [33mcommit 5504d5d7f9ad4e86e28d5c8bb7d72f764738d974[m
+[32m|[m[32m/[m [1;36m/[m  Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[32m|[m [1;36m|[m   Date:   Thu Mar 31 21:58:23 2022 +0200
+[32m|[m [1;36m|[m   
+[32m|[m [1;36m|[m       some fine tunig and profile page
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 9ee201122052533040c28f257bbb7f8b1d675a7a[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Tue Mar 29 22:15:56 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     search bar is finished
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 33b1d4fc11d309a1a84a315cbfa1829bae3546f7[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Tue Mar 29 21:33:28 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     add emits SC
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit ddeff053beec0c23e88b37a225179df4d75af17f[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Tue Mar 29 21:27:38 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     icons emits is finished
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit d21ef1763e38757a8c16bb5e24d146728da6f1f2[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Tue Mar 29 20:35:12 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     Icons is finished
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 36c8e635c717dcb97d5166e0220be8ba2d1e37d9[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Tue Mar 29 20:12:02 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     finishing homepage
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 00292f63cf88c73385c4db15a80efb479a92afa9[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Mon Mar 28 23:02:38 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     Update all changes in development branch
+[32m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit 9b3589b814b01d3443a2be7514b4fe2d1f8259bb[m
+[32m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[32m|[m [1;36m|[m Date:   Mon Mar 28 21:24:30 2022 +0200
+[32m|[m [1;36m|[m 
+[32m|[m [1;36m|[m     after adding some user case card attributes
+[32m|[m [1;36m|[m   
+* [1;36m|[m   [33mcommit 6c08b1771aad237efa2ada7591a0103f2544e33b[m
+[33m|[m[34m\[m [1;36m\[m  Merge: b5f58e2 7c52017
+[33m|[m [34m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[33m|[m [34m|[m [1;36m|[m Date:   Mon Mar 28 20:56:35 2022 +0200
+[33m|[m [34m|[m [1;36m|[m 
+[33m|[m [34m|[m [1;36m|[m     after adding user case card
+[33m|[m [34m|[m [1;36m|[m 
+[33m|[m * [1;36m|[m [33mcommit 7c52017c81c3bbbdc0648f4164ce7288c9bd9b07[m[33m ([m[1;31morigin/youssef[m[33m, [m[1;32myoussef[m[33m)[m
+[33m|[m [34m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[33m|[m [34m|[m [1;36m|[m Date:   Sat Mar 26 20:21:49 2022 +0200
+[33m|[m [34m|[m [1;36m|[m 
+[33m|[m [34m|[m [1;36m|[m     fixed progress bar color
+[33m|[m [34m|[m [1;36m|[m 
+[33m|[m * [1;36m|[m [33mcommit a835dff505653cdd09da8300a554bf25c1e35044[m
+[33m|[m [34m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[33m|[m [34m|[m [1;36m|[m Date:   Sat Mar 26 18:58:33 2022 +0200
+[33m|[m [34m|[m [1;36m|[m 
+[33m|[m [34m|[m [1;36m|[m     finished user home page , added colors.scss to import colors from
+[33m|[m [34m|[m [1;36m|[m 
+* [34m|[m [1;36m|[m [33mcommit b5f58e258a5c1d1b1b023206bc6d514a63222ecb[m
+[34m|[m [34m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[34m|[m [34m|[m [1;36m|[m Date:   Fri Mar 25 21:25:43 2022 +0200
+[34m|[m [34m|[m [1;36m|[m 
+[34m|[m [34m|[m [1;36m|[m     after adding some changes in colors
+[34m|[m [34m|[m [1;36m|[m 
+* [34m|[m [1;36m|[m [33mcommit e485aa584fff4b388a876be423c4881ae2524365[m
+[34m|[m [34m|[m [1;36m|[m Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[34m|[m [34m|[m [1;36m|[m Date:   Fri Mar 25 21:20:51 2022 +0200
+[34m|[m [34m|[m [1;36m|[m 
+[34m|[m [34m|[m [1;36m|[m     after adding some changes in colors
+[34m|[m [34m|[m [1;36m|[m 
+* [34m|[m [1;36m|[m [33mcommit e7ef1109f03210fc27c08381b8afba7f168382b9[m
+[34m|[m[34m/[m [1;36m/[m  Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[34m|[m [1;36m|[m   Date:   Fri Mar 25 20:58:52 2022 +0200
+[34m|[m [1;36m|[m   
+[34m|[m [1;36m|[m       after adding footer
+[34m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit daf99bffde54873732ecbc45084be8608a61855f[m
+[34m|[m [1;36m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[34m|[m [1;36m|[m Date:   Fri Mar 25 15:43:11 2022 +0200
+[34m|[m [1;36m|[m 
+[34m|[m [1;36m|[m     created components/local,components/global
+[34m|[m [1;36m|[m   
+[34m|[m [1;36m|[m * [33mcommit cc6f4bb70659b848cc4c0e90599d2b9095e77a00[m[33m ([m[1;31morigin/main[m[33m)[m
+[34m|[m [1;36m|[m   Author: mohamedmoustafa612 <mido.moustafa612@gmail.com>
+[34m|[m [1;36m|[m   Date:   Fri Mar 25 15:58:11 2022 +0200
+[34m|[m [1;36m|[m   
+[34m|[m [1;36m|[m       fixing mohamed local repo
+[34m|[m [1;36m|[m   
+[34m|[m [1;36m|[m * [33mcommit 978cef8512453e21bf15ced2deb9fa8f3eb26885[m[33m ([m[1;31morigin/front[m[33m, [m[1;32mfront[m[33m)[m
+[34m|[m [1;36m|[m[34m/[m  Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[34m|[m[34m/[m[1;36m|[m   Date:   Fri Mar 25 14:47:20 2022 +0200
+[34m|[m [1;36m|[m   
+[34m|[m [1;36m|[m       first commit,deleted all but client
+[34m|[m [1;36m|[m 
+* [1;36m|[m [33mcommit cc47d9b69ed213e3d20894cf9edf95c1b55eb1e5[m
+[1;36m|[m[1;36m/[m  Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[1;36m|[m   Date:   Thu Mar 24 19:39:05 2022 +0200
+[1;36m|[m   
+[1;36m|[m       added routing, HomePage & Navbar components
+[1;36m|[m   
+*   [33mcommit 56e952ac2adf4ed4d4b95a80e4aeb4c65114c53d[m[33m ([m[1;31morigin/reda[m[33m, [m[1;31morigin/mohamed[m[33m, [m[1;32mreda[m[33m, [m[1;32mmohamed[m[33m, [m[1;32mmain[m[33m)[m
+[36m|[m[1;31m\[m  Merge: 9cd83d1 9c33035
+[36m|[m [1;31m|[m Author: YoussefAbdulaziz <azizy5203@gmail.com>
+[36m|[m [1;31m|[m Date:   Fri Mar 18 01:22:42 2022 +0200
+[36m|[m [1;31m|[m 
+[36m|[m [1;31m|[m     Merge branch 'main' of https://github.com/karimelhosseiny/wesal
+[36m|[m [1;31m|[m     fixing branches
+[36m|[m [1;31m|[m 
+[36m|[m * [33mcommit 9c330350ef7a29bf7c0aa8ab97b1f8cde8455977[m
+[36m|[m [1;31m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[36m|[m [1;31m|[m Date:   Wed Mar 16 23:11:07 2022 +0200
+[36m|[m [1;31m|[m 
+[36m|[m [1;31m|[m     initial commit
+[36m|[m [1;31m|[m 
+[36m|[m * [33mcommit 0b08814a76c9fccdadff20c7c5646f5b5140b0ab[m
+[36m|[m [1;31m|[m Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[36m|[m [1;31m|[m Date:   Wed Mar 16 23:09:01 2022 +0200
+[36m|[m [1;31m|[m 
+[36m|[m [1;31m|[m     initial commit
+[36m|[m [1;31m|[m 
+[36m|[m * [33mcommit 0e3330fd4eff63d6e40f3bf53070cdb5c0a61b98[m
+[36m|[m   Author: unknown <sim.karime.ahmed@alexu.edu.eg>
+[36m|[m   Date:   Wed Mar 16 22:11:06 2022 +0200
+[36m|[m   
+[36m|[m       initial commit
+[36m|[m 
+* [33mcommit 9cd83d17fd9e9393d622e401b79bf5f36333424d[m
+  Author: YoussefAbdulaziz <azizy5203@gmail.com>
+  Date:   Fri Mar 18 01:07:42 2022 +0200
+  
+      created login page

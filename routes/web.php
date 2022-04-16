@@ -18,6 +18,21 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// // admin routes middleware group
+// Route::middleware(['auth', 'admin'])->group(function () {
+//    Route::get('/sergawyusers', [UserController::class, 'index']) ;
+
+// });
+
+
+// // organization routes miidleware group
+// Route::middleware(['auth', 'organization'])->group(function () {
+//      Route::get('/redausers', [OrganizationController::class, 'index']) ;
+ 
+//  });
+ 
+
+
 Route::resource('/users', UserController::class);
 Route::resource('/organizations', OrganizationController::class);
 Route::resource('/cases', CaseController::class);
@@ -25,7 +40,7 @@ Route::resource('/reminders', ReminderController::class);
 
 Route::get('/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
 Route::get('/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
-Route::get('/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
+Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
 Route::get('/donationtest', [PagesController::class, 'donationtest']);
 
@@ -33,3 +48,8 @@ Route::get('/donationtest', [PagesController::class, 'donationtest']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/isadmin', [PagesController::class, 'indexadmin']);
+Route::get('/isorganization', [PagesController::class, 'indexorganization']);
+Route::get('/isuser', [PagesController::class, 'indexuser']);

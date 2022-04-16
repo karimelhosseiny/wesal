@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Organization;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
@@ -13,6 +15,8 @@ class OrganizationController extends Controller
      */
     public function index()
     {
+        // $users = User::find(3);
+        // dd($users->organization);
         $organizations = Organization::all()->toJson();
 
         $organizations = json_decode($organizations);
