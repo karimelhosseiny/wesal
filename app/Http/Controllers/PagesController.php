@@ -53,7 +53,7 @@ class PagesController extends Controller
     {
         // first method (eloquent)
         $case = DonationCase::find($id);
-        //second method (query builder) 
+        //second method (query builder)
         // $case = DB::table('donation_cases')->where('id', $id)->select('title', 'image', 'goal_amount', 'raised_amount', 'description')->get();
         $caseorg = DonationCase::find($id)->organization['title'];
         $casecat = DonationCase::find($id)->categories['title'];
@@ -91,7 +91,7 @@ class PagesController extends Controller
 
     // }
 
-    // gates check for admin, organization ,and user 
+    // gates check for admin, organization ,and user
     public function indexadmin()
     {
         if (Gate::allows('isAdmin')) {
@@ -121,6 +121,15 @@ class PagesController extends Controller
 
             dd('You are not Organization');
         }
+    }
+    //show all cases in home page
+    public function cases()
+    {
+        $cases = DonationCase::all()->toJson();
+        return response()->json([
+            'cases' => $cases,
+
+        ]);
     }
 
 }

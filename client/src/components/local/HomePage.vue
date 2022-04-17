@@ -1,4 +1,5 @@
 <script>
+import axios from "axios";
 import Navbar from "../global/Navbar.vue";
 import HeroSection from "./HeroSection.vue";
 import UserCaseCard from "./UserCaseCard.vue";
@@ -6,81 +7,8 @@ export default {
     data() {
         return {
             search: "",
-            filteredCards:'',
-            cases: [
-                {
-                    id: "1",
-                    title: "Food Aid",
-                    org: "Resala",
-                    caseDesc:
-                        "1Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "2",
-                    title: "monmy",
-                    org: "Masr Elkhair",
-                    caseDesc:
-                        "2Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "3",
-                    title: "clothing",
-                    org: "Orman",
-                    caseDesc:
-                        "3Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "4",
-                    title: "zakah",
-                    org: "Baiet Elzakah",
-                    caseDesc:
-                        "4Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "5",
-                    title: "clothing",
-                    org: "Resala",
-                    caseDesc:
-                        "5Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "6",
-                    title: "food",
-                    org: "Resala",
-                    caseDesc:
-                        "6Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "7",
-                    title: "clothing",
-                    org: "Orman",
-                    caseDesc:
-                        "7Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "8",
-                    title: "clothing",
-                    org: "Resala",
-                    caseDesc:
-                        "8Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                }
-            ],
+            filteredCards: "",
+            cases: [],
         };
     },
     components: { Navbar, HeroSection, UserCaseCard },
@@ -100,12 +28,47 @@ export default {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
             selectedCard.reminder = !selectedCard.reminder;
         },
+        getCases() {
+            axios
+                .get("http://localhost:8000/api/cases", {
+                    mode: "no-cors",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((response) => {
+                    if(response.statusText == 'OK'){
+                        return JSON.parse(response.data.cases);;
+
+                    }
+                }).then((data) => {
+                     var cases = [];
+                    for(let index in data){
+                        cases.push({
+                            id: data[index].id,
+                            title: data[index].title,
+                            goal: data[index].goal_amount,
+                            raised: data[index].raised_amount,
+                            pic: data[index].image,
+                            org: data[index].organization_id,
+                            caseDesc: data[index].description,
+
+                        })
+                    }
+                    this.cases = cases;
+                });
+        },
     },
+    mounted() {
+        this.getCases();
+    }
 };
 </script>
 
 <template>
-    <Navbar />
+    <div>
+        <Navbar />
     <HeroSection />
     <div class="cases container-fluid">
         <div class="caseTitle">
@@ -121,7 +84,12 @@ export default {
             </div>
         </div>
         <div class="caseGrid">
-            <p v-show="filteredCards==''" class=" SearchNotFound h1 opacity-50">Oh oh, we couldn`t find that!</p>
+            <p
+                v-show="filteredCards == ''"
+                class="SearchNotFound h1 opacity-50"
+            >
+                Oh oh, we couldn`t find that!
+            </p>
             <UserCaseCard
                 v-for="Case in filteredCards"
                 :key="Case.id"
@@ -135,6 +103,7 @@ export default {
                 @toggle-reminder="toggleReminderStatus"
             />
         </div>
+    </div>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -196,7 +165,7 @@ export default {
         grid-template-columns: repeat(4, auto);
         gap: 20px;
         overflow: auto;
-        .SearchNotFound{
+        .SearchNotFound {
             height: 70vh;
         }
     }
