@@ -14,7 +14,7 @@ export default {
             goal: 0,
             raised: 0,
             totalDonors: 0,
-            imgUrl: 'https://api.unsplash.com/search/photos/?query=london&count=1&per_page=3&w=1440&h=400&dpr=2&orientation=landscape&client_id=ThnOH88dogJ-2LqnyjhKV79EAde8r-tna--nKq9mKAA',
+            imgUrl: 'https://api.unsplash.com/search/photos/?query="charity donations"&count=1&per_page=3&w=1440&h=400&dpr=2&orientation=landscape&client_id=ThnOH88dogJ-2LqnyjhKV79EAde8r-tna--nKq9mKAA',
             caseImg: []
         };
     },
@@ -52,7 +52,6 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log(res.data.results[0].urls.regular)
                     const results = res.data.results
                     results.forEach(result => {
                         this.caseImg.push(result.urls.regular)

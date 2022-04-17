@@ -28,7 +28,7 @@ export default {
     </div>
     <div class="carousel-inner my-2 rounded">
       <div v-for="num in 3" :key="num" :class="num === 1 ? 'carousel-item active' : 'carousel-item'">
-        <img :src="imgLinksList[num]" class="d-block caseImg " alt="...">
+        <img :src="imgLinksList[num]" class="d-block caseImg" alt="...">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
