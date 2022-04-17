@@ -38,11 +38,11 @@ Route::resource('/organizations', OrganizationController::class);
 Route::resource('/cases', CaseController::class);
 Route::resource('/reminders', ReminderController::class);
 
-Route::get('/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
-Route::get('/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
+Route::get('api/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
+Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
-Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
-Route::get('/donationtest', [PagesController::class, 'donationtest']);
+Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
+Route::get('api/donationtest', [PagesController::class, 'donationtest']);
 
 
 Auth::routes();

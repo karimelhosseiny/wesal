@@ -2,11 +2,66 @@
 import SlideShow from "./SlideShow.vue";
 import Navbar from "../global/Navbar.vue"
 import CaseDonation from "./CaseDonation.vue";
+import axios from "axios";
 export default {
     components: { SlideShow, Navbar, CaseDonation },
     data() {
-        return {};
+        return {
+            caseName: '',
+            organization: '',
+            category: '',
+            desc: '',
+            goal: 0,
+            raised: 0,
+            totalDonors: 0,
+            imgUrl: 'https://api.unsplash.com/search/photos/?query=london&count=1&per_page=3&w=1440&h=400&dpr=2&orientation=landscape&client_id=ThnOH88dogJ-2LqnyjhKV79EAde8r-tna--nKq9mKAA',
+            caseImg: []
+        };
     },
+    mounted() {
+        this.fetchData()
+    },
+    methods: {
+        fetchData() {
+            //fetching case data
+            axios('http://localhost:8000/api/casepage/3', {
+                mode: "no-cors",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((res) => {
+                    const caseData = res.data
+                    this.caseName = caseData.case.title
+                    this.organization = caseData.organizationtitle
+                    this.category = caseData.categorytitle
+                    this.desc = caseData.case.description
+                    this.goal = caseData.case.goal_amount
+                    this.raised = caseData.case.raised_amount
+                    this.totalDonors = caseData.totaldonors
+                })
+                .catch(err => console.log(err))
+
+            //fetching case imgs
+            axios(this.imgUrl, {
+                mode: 'no-cors',
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "content-type": "application/json",
+                }
+            })
+                .then((res) => {
+                    console.log(res.data.results[0].urls.regular)
+                    const results = res.data.results
+                    results.forEach(result => {
+                        this.caseImg.push(result.urls.regular)
+                    });
+                })
+                .catch((e) => console.log(e))
+        }
+    },
+
 };
 </script>
 
@@ -16,13 +71,13 @@ export default {
         <div class="row justify-content-center">
             <div class="col">
                 <div class="upper">
-                    <h1>Case name</h1>
-                    <a href="#">Organization</a>
+                    <h1>{{ caseName }}</h1>
+                    <a href="#" class="ms-5">{{ organization }}</a>
                 </div>
             </div>
         </div>
         <div class="slideShow row">
-            <SlideShow />
+            <SlideShow :imgLinksList="caseImg" />
         </div>
         <div class="row">
             <div class="col-6">
@@ -30,11 +85,11 @@ export default {
                 <div class="progressBar">
                     <div class="ammount mt-3 px-2 d-flex justify-content-between">
                         <span>
-                            15500
+                            {{ raised }}
                             <sub>egp</sub>
                         </span>
                         <span>
-                            2200
+                            {{ goal - raised }}
                             <sub>egp</sub>
                         </span>
                     </div>
@@ -45,14 +100,7 @@ export default {
                 <div class="container align-items-end">
                     <div class="row align-self-end">
                         <p class="col">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Libero illo vel, aliquid corrupti dignissimos,
-                            atque voluptatibus est facere eius rem adipisci
-                            suscipit fuga, beatae cumque quidem quo officiis
-                            ullam provident. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Libero illo vel, aliquid corrupti dignissimos,
-                            atque voluptatibus est facere eius rem adipisci
-                            suscipit fuga, beatae cumque quidem quo officiis quidem quo
+                            {{ desc }}
                         </p>
                     </div>
                     <div class="endSec row align-items-end">
@@ -63,11 +111,8 @@ export default {
                             </p>
                         </div>
                         <div class="col-3 donate">
-                            <button
-                                class="btn btn-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#caseDonation"
-                            >Donate now</button>
+                            <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#caseDonation">Donate
+                                now</button>
                             <div class="modal" id="caseDonation">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -96,14 +141,17 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@use "../../sass/colors" as *;
+@use "../../sass/colors"as *;
+
 .upper {
     width: fit-content;
     margin: 0 auto;
+
     h1 {
         margin-top: 0.5em;
         color: $priColor;
     }
+
     a {
         text-decoration: none;
         color: $priColor;
@@ -111,17 +159,21 @@ export default {
         padding: 0 25%;
     }
 }
+
 .slideShow {
     margin-bottom: 2em;
 }
+
 .caseDesc {
     margin-bottom: 1em;
     border-left: 0.2em solid $priColor;
     padding: 2em 0;
+
     .col-9 p {
         margin: 0.7em 0;
         margin-top: 80px;
         color: $priColor;
+
         span {
             border: 0.01em solid $priColor;
             border-radius: 0.5em;
@@ -129,18 +181,21 @@ export default {
             padding: 0.2em;
         }
     }
+
     .endSec {
         button {
             width: 200px;
             background-color: $priColor;
             border-radius: 2em;
         }
+
         .donate {
             .btn-close {
                 width: auto;
                 background-color: transparent;
                 color: red !important;
             }
+
             .confirm {
                 color: $white;
                 margin: 0 auto;
@@ -151,15 +206,18 @@ export default {
                 letter-spacing: 0.05em;
                 box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.2);
             }
-            .confirm:focus{
+
+            .confirm:focus {
                 background-color: #064234;
                 box-shadow: none
             }
 
             .modal-content {
                 padding-inline: 1em;
+
                 .modal-header {
                     color: $priColor;
+
                     h4 {
                         font-weight: 400;
                         font-size: 18px;
@@ -169,11 +227,13 @@ export default {
         }
     }
 }
+
 img {
     margin: 0 15%;
     width: 427.5px;
     height: 250px;
 }
+
 .progressBar {
     width: 550px;
     margin-bottom: 1em;
@@ -185,10 +245,12 @@ img {
         margin-top: 7px;
         background-color: #ccc;
     }
+
     .bar[value]::-webkit-progress-value {
         background-color: $priColor;
         border-radius: 10px;
     }
+
     span {
         color: $priColor;
     }
