@@ -51,7 +51,7 @@ export default {
                             goal: data[index].goal_amount,
                             raised: data[index].raised_amount,
                             pic: data[index].image,
-                            org: data[index].organization_id,
+                            org: "Resala",
                             caseDesc: data[index].description,
 
                         })
@@ -85,7 +85,7 @@ export default {
         </div>
         <div class="caseGrid">
             <p
-                v-show="filteredCards == ''"
+                v-show="filteredCards == '' "
                 class="SearchNotFound h1 opacity-50"
             >
                 Oh oh, we couldn`t find that!
@@ -93,10 +93,13 @@ export default {
             <UserCaseCard
                 v-for="Case in filteredCards"
                 :key="Case.id"
+                :pic="Case.pic"
                 :title="Case.title"
                 :org="Case.org"
                 :id="Case.id"
                 :case-desc="Case.caseDesc"
+                :raised="Case.raised"
+                :goal="Case.goal"
                 :is-favorite="Case.isFavorite"
                 :reminder="Case.reminder"
                 @toggle-favorite="toggleFavoriteStatus"
