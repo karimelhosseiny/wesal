@@ -28,14 +28,14 @@ use Illuminate\Support\Facades\Auth;
 // // organization routes miidleware group
 // Route::middleware(['auth', 'organization'])->group(function () {
 //      Route::get('/redausers', [OrganizationController::class, 'index']) ;
- 
+
 //  });
- 
+
 
 
 Route::resource('/users', UserController::class);
 Route::resource('/organizations', OrganizationController::class);
-Route::resource('/cases', CaseController::class);
+Route::resource('api/cases', CaseController::class);
 Route::resource('/reminders', ReminderController::class);
 
 Route::get('api/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
@@ -43,6 +43,7 @@ Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->whe
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
 Route::get('api/donationtest', [PagesController::class, 'donationtest']);
+Route::get('api/cases', [PagesController::class, 'cases']);
 
 
 Auth::routes();

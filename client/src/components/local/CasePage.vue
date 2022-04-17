@@ -65,7 +65,8 @@ export default {
 </script>
 
 <template>
-    <Navbar />
+   <div>
+        <Navbar />
     <div class="container">
         <div class="row justify-content-center">
             <div class="col">
@@ -137,6 +138,7 @@ export default {
             </div>
         </div>
     </div>
+   </div>
 </template>
 
 <style lang="scss" scoped>
