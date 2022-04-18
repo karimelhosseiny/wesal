@@ -27,7 +27,7 @@ export default {
         aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner my-2 rounded">
-      <div v-for="num in 3" :key="num" :class="num === 1 ? 'carousel-item active' : 'carousel-item'">
+      <div v-for="num in Array(imgLinksList.length).keys()" :key="num" :class="num === 0 ? 'carousel-item active' : 'carousel-item'">
         <img :src="imgLinksList[num]" class="d-block caseImg" alt="...">
       </div>
     </div>
