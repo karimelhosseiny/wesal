@@ -3,7 +3,8 @@ export default {
     props: ["pic", "title", "org", "id", "caseDesc","goal", "raised","isFavorite", "reminder"],
     emits: ["toggle-favorite", "toggle-reminder"],
     data() {
-        return {};
+        return {
+        };
     },
     methods: {
         ChangingHeartIcons() {
@@ -72,7 +73,7 @@ export default {
         </div>
         <div class="bottom">
             <router-link
-                to="./casepage"
+                :to=/casepage/+this.id
                 class="btn btn-block more rounded-pill text-decoration-none text-light"
                 >More</router-link
             >

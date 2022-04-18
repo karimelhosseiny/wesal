@@ -15,7 +15,9 @@ export default {
             raised: 0,
             totalDonors: 0,
             imgUrl: 'https://api.unsplash.com/search/photos/?query="charity donations"&count=1&per_page=3&w=1440&h=400&dpr=2&orientation=landscape&client_id=ThnOH88dogJ-2LqnyjhKV79EAde8r-tna--nKq9mKAA',
-            caseImg: []
+            caseImg: [],
+            //case id aquired from page route, used to call api with
+            caseId:this.$route.params.id
         };
     },
     mounted() {
@@ -24,7 +26,7 @@ export default {
     methods: {
         fetchData() {
             //fetching case data
-            axios('http://localhost:8000/api/casepage/3', {
+            axios(`http://localhost:8000/api/casepage/${this.caseId}`, {
                 mode: "no-cors",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -93,7 +95,7 @@ export default {
                             <sub>egp</sub>
                         </span>
                     </div>
-                    <progress class="bar bg-transparent" value="15" max="20"></progress>
+                    <progress class="bar bg-transparent" :value="raised" :max="goal"></progress>
                 </div>
             </div>
             <div class="caseDesc col-6">
