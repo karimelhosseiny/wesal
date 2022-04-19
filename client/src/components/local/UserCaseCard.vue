@@ -1,9 +1,10 @@
 <script>
 export default {
-    props: ["title", "org", "id", "caseDesc", "isFavorite", "reminder"],
+    props: ["pic", "title", "org", "id", "caseDesc","goal", "raised","isFavorite", "reminder"],
     emits: ["toggle-favorite", "toggle-reminder"],
     data() {
-        return {};
+        return {
+        };
     },
     methods: {
         ChangingHeartIcons() {
@@ -49,30 +50,30 @@ export default {
             </p>
             <span class="target">target:</span>
             <span>
-                17700
+                {{' ' + goal }}
                 <sub>egp</sub>
             </span>
             <div class="progressBar">
                 <div class="ammount mt-3 px-2 d-flex justify-content-between">
                     <span>
-                        15500
+                        {{ raised }}
                         <sub>egp</sub>
                     </span>
                     <span>
-                        2200
+                        {{ goal }}
                         <sub>egp</sub>
                     </span>
                 </div>
                 <progress
                     class="bar bg-transparent"
-                    value="15"
-                    max="20"
+                    :value= "raised > 0 ? raised : 0"
+                    :max= "goal"
                 ></progress>
             </div>
         </div>
         <div class="bottom">
             <router-link
-                to="./casepage"
+                :to=/casepage/+this.id
                 class="btn btn-block more rounded-pill text-decoration-none text-light"
                 >More</router-link
             >
@@ -119,8 +120,8 @@ $logoSize: 60px;
             gap: 0;
             color: $priColor;
             .title {
-                font-size: 27px;
-                font-weight: 600;
+                font-size: 15px;
+                font-weight: 800;
             }
             .org {
                 font-size: 15px;
@@ -171,9 +172,6 @@ $logoSize: 60px;
                 background-color: $priColor;
                 border-radius: 10px;
             }
-            //     progress::-webkit-progress-bar {
-            //         background: rgb(13, 0, 128);
-            //     }
         }
     }
     .bottom {

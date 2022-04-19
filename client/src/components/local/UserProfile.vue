@@ -53,7 +53,8 @@ export default {
 </script>
 
 <template>
-    <Navbar />
+    <div>
+        <Navbar />
     <div class="mainContainer">
         <div class="profPic text-center d-flex flex-column">
             <img src="../../assets/7maya.png" alt="profile picture" />
@@ -124,6 +125,7 @@ export default {
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 

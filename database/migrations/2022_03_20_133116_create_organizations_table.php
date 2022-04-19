@@ -23,7 +23,7 @@ class CreateOrganizationsTable extends Migration
             $table->boolean('verified');
             $table->dateTime('verifiedat');
 
-            $table->unsignedInteger('verifiedby');
+            $table->unsignedInteger('verifiedby')->nullable();
             $table->foreign('verifiedby')
                     ->references('id')
                     ->on('admins')

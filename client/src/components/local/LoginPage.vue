@@ -11,18 +11,6 @@ export default {
     togglePassword() {
       this.passwordShown = !this.passwordShown;
     },
-    fetchData() {
-      axios
-        .get("http://localhost:8000/api/casepage/1", {
-          mode: "no-cors",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => console.log(res))
-        .catch((e)=>console.log(e));
-    },
   },
 };
 </script>
@@ -75,7 +63,6 @@ export default {
           ></i>
         </div>
         <button
-          @click.prevent="fetchData"
           class="border-0 rounded-pill fw-normal"
         >
           sign in
