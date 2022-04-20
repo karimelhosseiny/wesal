@@ -143,7 +143,6 @@ class UserController extends Controller
             'image' => $newimage,
             ]);
         }
-        return print_r('mama 7elwa');
         /*Auth::User()->attach($id,[
             'name' => $request->input('name'),
             'email' => $request->input('email'),
