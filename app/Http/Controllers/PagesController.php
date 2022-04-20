@@ -67,17 +67,7 @@ class PagesController extends Controller
         ]);
     }
     //data shown in user profile page
-    public function userprofile($id)
-    {
-        $donationcase = User::find($id)->donationOperations->groupBy('id');
-        $user = User::find($id);
-        $donationhistory = DB::table('donation_operations')->where('user_id', $id)->get();
-        return response()->json([
-            'user' => $user,
-            'donationhistory' => $donationhistory,
-            'donationcase' => $donationcase
-        ]);
-    }
+  
 
     public function donationtest()
     {
