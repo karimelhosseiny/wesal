@@ -21,7 +21,7 @@ export default {
     <div class="card p-2">
         <div class="top">
             <img src="../../assets/7maya.png" class="ms-3" alt="..." />
-            <div class="title ms-2">
+            <div class="title ms-2 mt-3">
                 <span class="title">{{ title }}</span>
                 <a class="org h6 fw-normal">{{ org }}</a>
             </div>
