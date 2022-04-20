@@ -26,7 +26,7 @@ class UserController extends Controller
             'users' => $users
         ]);
 
-         // $orgs= Admin::all();
+        // $orgs= Admin::all();
         // dd($orgs[0]->verifiedOrganizations);
 
 
@@ -44,7 +44,7 @@ class UserController extends Controller
         // $case = DonationCase::find(1);
         // dd($case->usersDonated->currency[0]);
 
-       // $case = User::find(3)->donationOperations;
+        // $case = User::find(3)->donationOperations;
         //dd($case[0]->pivot);
 
         // foreach (User::find(3)->donationOperations as $donation) {
@@ -97,11 +97,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-           $users = User::find($id)->toJson();
+        $users = User::find($id)->toJson();
 
-           $users = json_decode($users);
-           
-           return($users);
+        $users = json_decode($users);
+
+        return ($users);
     }
 
     /**

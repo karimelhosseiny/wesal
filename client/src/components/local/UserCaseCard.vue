@@ -3,7 +3,8 @@ export default {
     props: ["pic", "title", "org", "id", "caseDesc","goal", "raised","isFavorite", "reminder"],
     emits: ["toggle-favorite", "toggle-reminder"],
     data() {
-        return {};
+        return {
+        };
     },
     methods: {
         ChangingHeartIcons() {
@@ -20,7 +21,7 @@ export default {
     <div class="card p-2">
         <div class="top">
             <img src="../../assets/7maya.png" class="ms-3" alt="..." />
-            <div class="title ms-2">
+            <div class="title ms-2 mt-3">
                 <span class="title">{{ title }}</span>
                 <a class="org h6 fw-normal">{{ org }}</a>
             </div>
@@ -72,7 +73,7 @@ export default {
         </div>
         <div class="bottom">
             <router-link
-                to="./casepage"
+                :to=/casepage/+this.id
                 class="btn btn-block more rounded-pill text-decoration-none text-light"
                 >More</router-link
             >
@@ -123,6 +124,7 @@ $logoSize: 60px;
                 font-weight: 800;
             }
             .org {
+                width: fit-content;
                 font-size: 15px;
                 text-decoration: none;
                 color: $priColor;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrganizationController;
@@ -44,9 +45,25 @@ Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->whe
 Route::get('api/edittest', [UserController::class, 'edittest']);
 Route::get('api/cases', [PagesController::class, 'cases']);
 
+Route::get('api/cases', [PagesController::class, 'cases']);
+
+Route::get('/testforms', [PagesController::class, 'testforms']);
+
+
+
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/isadmin', [PagesController::class, 'indexadmin']);
 Route::get('/isorganization', [PagesController::class, 'indexorganization']);
 Route::get('/isuser', [PagesController::class, 'indexuser']);
 Route::get('/users',[UserController::class,'index']);
+
+
+Route::resource('/admin', AdminController::class);
+Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']);
+Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+');
+Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+');
+
+
+
+//TODO: 1)handle the exceptions of the retrieved request in All Applications

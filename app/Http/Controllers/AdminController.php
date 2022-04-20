@@ -6,10 +6,12 @@ use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class OrganizationController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +20,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        // $users = User::find(3);
-        // dd($users->organization);
-        $organizations = Organization::all()->toJson();
-
-        $organizations = json_decode($organizations);
-
-        return ($organizations);
+        //
     }
 
     /**
@@ -45,34 +41,7 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::allows('isUser')) {
-             $request->validate(['document' => 'required|mimes:txt,xlx,xls,pdf|max:2048']);
-
-            $organization = new Organization;
-
-            $organization->title = $request->input('title');
-
-            if ($request->file()) {
-
-                $fileName = time() . '.' . $request->document->extension();
-                print_r($fileName);
-
-                $request->document->move(public_path('/wesalorganizationdocuments'), $fileName);
-
-                $organization->verificationdocuments = '/wesalorganizationdocuments/' . $fileName;
-            }
-
-            $organization->phonenumber =  $request->input('number');
-            $organization->image = $request->input('image');
-            $organization->description = $request->input('description');
-            $organization->creator_id = Auth::user()->id;
-
-
-            $organization->save();
-        } else {
-
-            dd('You are not User');
-        }
+        //
     }
 
     /**
@@ -118,5 +87,37 @@ class OrganizationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //retrieve the organization requests
+    public function retrieverequests()
+    {
+        if (Gate::allows('isUser')) {
+            $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
+            return response()->json([
+                'organization' => $organization
+            ]);
+            // return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
+        } else {
+            dd('You are not User');
+        }
+    }
+    //accept the organization requests 
+    public function acceptrequest(Request $request, $id)
+    {
+        if (Gate::allows('isUser')) {
+            $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1]);
+        } else {
+            dd('You are not User');
+        }
+    }
+    //reject the organizations requests
+    public function rejectrequest($id)
+    {
+        if (Gate::allows('isUser')) {
+            $reject = DB::table('Organizations')->where('id', $id)->delete();
+        } else {
+            dd('You are not User');
+        }
     }
 }

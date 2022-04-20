@@ -23,9 +23,18 @@ class PagesController extends Controller
         $users = User::find($id);
         $n = count($users->donationOperations) - 1;
         $lastdonation = $users->donationOperations[$n];
-        $users['donation_operations'] = $lastdonation;
-        $cases = DonationCase::all();
         $reminders = $users->reminders;
+        $users['donation_operations'] = $lastdonation;
+        // $cases = DonationCase::all();
+        // $rg3ytitle = DB::table('organization')->where()->get('title') ;
+
+        $kimocases = DonationCase::get();
+        $cases = [];
+        foreach($kimocases as $case){
+            $cases[]= [[$case , $case->organization['title']]] ;
+            // $cases[]= $case;
+        }
+        
         return response()->json([
             'users' => $users,
             'cases' => $cases,
@@ -69,9 +78,11 @@ class PagesController extends Controller
     //data shown in user profile page
   
 
-    public function donationtest()
+    public function testforms()
     {
-        return view('layouts.donationtest');
+        // return view('layouts.donationtest'); 
+     return view('layouts.organizationtest');
+
     }
 
 

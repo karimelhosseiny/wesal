@@ -1,9 +1,9 @@
 <script>
 import Footer from "./components/global/Footer.vue";
-import Navbar from './components/global/Navbar.vue';
+import Navbar from "./components/global/Navbar.vue";
 export default {
     data() {},
-    components: { Footer, Navbar, Navbar, },
+    components: { Footer, Navbar, Navbar },
 };
 </script>
 
@@ -13,8 +13,8 @@ export default {
 </template>
 
 <style lang="scss">
-*{
-  font-family: poppins;
+* {
+    font-family: poppins;
 }
 #app {
     -webkit-font-smoothing: antialiased;

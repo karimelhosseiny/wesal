@@ -15,16 +15,20 @@ export default {
             raised: 0,
             totalDonors: 0,
             imgUrl: 'https://api.unsplash.com/search/photos/?query="charity donations"&count=1&per_page=3&w=1440&h=400&dpr=2&orientation=landscape&client_id=ThnOH88dogJ-2LqnyjhKV79EAde8r-tna--nKq9mKAA',
-            caseImg: []
+            caseImgs: [],
+            //case id acquired from page route, used to call api with
+            caseId: this.$route.params.id
         };
     },
     mounted() {
         this.fetchData()
+
     },
     methods: {
+         
         fetchData() {
             //fetching case data
-            axios('http://localhost:8000/api/casepage/3', {
+            axios(`http://localhost:8000/api/casepage/${this.caseId}`, {
                 mode: "no-cors",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -54,7 +58,7 @@ export default {
                 .then((res) => {
                     const results = res.data.results
                     results.forEach(result => {
-                        this.caseImg.push(result.urls.regular)
+                        this.caseImgs.push(result.urls.regular)
                     });
                 })
                 .catch((e) => console.log(e))
@@ -65,69 +69,71 @@ export default {
 </script>
 
 <template>
-   <div>
+    <div>
         <Navbar />
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col">
-                <div class="upper">
-                    <h1>{{ caseName }}</h1>
-                    <a href="#" class="ms-5">{{ organization }}</a>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col">
+                    <div class="upper">
+                        <h1>{{ caseName }}</h1>
+                        <a href="#" class="ms-5">{{ organization }}</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="slideShow row">
-            <SlideShow :imgLinksList="caseImg" />
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <img src="../../assets/SVG/GirlsClothesVector.svg" alt="Charity" />
-                <div class="progressBar">
-                    <div class="ammount mt-3 px-2 d-flex justify-content-between">
-                        <span>
-                            {{ raised }}
-                            <sub>egp</sub>
-                        </span>
-                        <span>
-                            {{ goal - raised }}
-                            <sub>egp</sub>
-                        </span>
-                    </div>
-                    <progress class="bar bg-transparent" value="15" max="20"></progress>
-                </div>
+            <div class="slideShow row">
+                <SlideShow :imgLinksList="caseImgs" />
             </div>
-            <div class="caseDesc col-6">
-                <div class="container align-items-end">
-                    <div class="row align-self-end">
-                        <p class="col">
-                            {{ desc }}
-                        </p>
+            <div class="row">
+                <div class="col-6">
+                    <img src="../../assets/SVG/GirlsClothesVector.svg" alt="Charity" />
+                    <div class="progressBar">
+                        <div class="ammount mt-3 px-2 d-flex justify-content-between">
+                            <span>
+                                {{ raised }}
+                                <sub>egp</sub>
+                            </span>
+                            <span>
+                                {{ goal - raised }}
+                                <sub>egp</sub>
+                            </span>
+                        </div>
+                        <progress class="bar bg-transparent" :value="raised" :max="goal"></progress>
                     </div>
-                    <div class="endSec row align-items-end">
-                        <div class="col-9">
-                            <p>
-                                Total donors:
-                                <span>400</span>
+                </div>
+                <div class="caseDesc col-6">
+                    <div class="container align-items-end">
+                        <div class="row align-self-end">
+                            <p class="col">
+                                {{ desc }}
                             </p>
                         </div>
-                        <div class="col-3 donate">
-                            <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#caseDonation">Donate
-                                now</button>
-                            <div class="modal" id="caseDonation">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="d-flex flex-column w-content">
-                                                <h1 class="modal-title">Case name</h1>
-                                                <h4>Resala . Feeding</h4>
+                        <div class="endSec row align-items-end">
+                            <div class="col-9">
+                                <p>
+                                    Total donors:
+                                    <span>400</span>
+                                </p>
+                            </div>
+                            <div class="col-3 donate">
+                                <button class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#caseDonation">Donate
+                                    now</button>
+                                <div class="modal" id="caseDonation">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="d-flex flex-column w-content">
+                                                    <h1 class="modal-title">Case name</h1>
+                                                    <h4>Resala . Feeding</h4>
+                                                </div>
+                                                <button class="btn-close mb-5" data-bs-dismiss="modal"></button>
                                             </div>
-                                            <button class="btn-close mb-5" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <CaseDonation />
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn confirm">confirm</button>
+                                            <div class="modal-body">
+                                                <CaseDonation />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn confirm">confirm</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +144,6 @@ export default {
             </div>
         </div>
     </div>
-   </div>
 </template>
 
 <style lang="scss" scoped>
