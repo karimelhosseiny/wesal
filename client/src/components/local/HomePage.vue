@@ -6,6 +6,7 @@ import UserCaseCard from "./UserCaseCard.vue";
 export default {
     data() {
         return {
+            isLoading: true,
             search: "",
             filteredCards: "",
             cases: [],
@@ -38,13 +39,14 @@ export default {
                     },
                 })
                 .then((response) => {
-                    if(response.statusText == 'OK'){
-                        return JSON.parse(response.data.cases);;
-
+                    if (response.statusText == "OK") {
+                        this.isLoading = false;
+                        return JSON.parse(response.data.cases);
                     }
-                }).then((data) => {
-                     var cases = [];
-                    for(let index in data){
+                })
+                .then((data) => {
+                    var cases = [];
+                    for (let index in data) {
                         cases.push({
                             id: data[index].id,
                             title: data[index].title,
@@ -53,8 +55,7 @@ export default {
                             pic: data[index].image,
                             org: "Resala",
                             caseDesc: data[index].description,
-
-                        })
+                        });
                     }
                     this.cases = cases;
                 });
@@ -62,56 +63,68 @@ export default {
     },
     mounted() {
         this.getCases();
-    }
+    },
 };
 </script>
 
 <template>
     <div>
         <Navbar />
-    <HeroSection />
-    <div class="cases container-fluid">
-        <div class="caseTitle">
-            <h2>Give Little get more</h2>
-            <div class="searchContainer">
-                <input
-                    class="rounded-pill"
-                    type="text"
-                    placeholder="search cases"
-                    v-model="search"
+        <HeroSection />
+        <div class="cases container-fluid">
+            <div class="caseTitle">
+                <h2>Give Little get more</h2>
+                <div class="searchContainer">
+                    <input
+                        class="rounded-pill"
+                        type="text"
+                        placeholder="search cases"
+                        v-model="search"
+                    />
+                    <i class="bi bi-search searchIcon"></i>
+                </div>
+            </div>
+            <div v-if="isLoading" class="text-center my-5">
+                <div
+                    class="spinner-grow mx-5 text-success"
+                    style="width: 10rem; height: 10rem"
+                    role="status"
+                >
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div v-else class="caseGrid">
+                <p
+                    v-show="filteredCards == ''"
+                    class="SearchNotFound h1 opacity-50"
+                >
+                    Oh oh, we couldn`t find that!
+                </p>
+                <UserCaseCard
+                    v-for="Case in filteredCards"
+                    :key="Case.id"
+                    :pic="Case.pic"
+                    :title="Case.title"
+                    :org="Case.org"
+                    :id="Case.id"
+                    :case-desc="Case.caseDesc"
+                    :raised="Case.raised"
+                    :goal="Case.goal"
+                    :is-favorite="Case.isFavorite"
+                    :reminder="Case.reminder"
+                    @toggle-favorite="toggleFavoriteStatus"
+                    @toggle-reminder="toggleReminderStatus"
                 />
-                <i class="bi bi-search searchIcon"></i>
             </div>
         </div>
-        <div class="caseGrid">
-            <p
-                v-show="filteredCards == '' "
-                class="SearchNotFound h1 opacity-50"
-            >
-                Oh oh, we couldn`t find that!
-            </p>
-            <UserCaseCard
-                v-for="Case in filteredCards"
-                :key="Case.id"
-                :pic="Case.pic"
-                :title="Case.title"
-                :org="Case.org"
-                :id="Case.id"
-                :case-desc="Case.caseDesc"
-                :raised="Case.raised"
-                :goal="Case.goal"
-                :is-favorite="Case.isFavorite"
-                :reminder="Case.reminder"
-                @toggle-favorite="toggleFavoriteStatus"
-                @toggle-reminder="toggleReminderStatus"
-            />
-        </div>
-    </div>
     </div>
 </template>
 <style lang="scss" scoped>
 @use "../../sass/colors" as *;
 
+.spin {
+    margin: 0 auto;
+}
 .cases {
     background-color: white;
     .caseTitle {
