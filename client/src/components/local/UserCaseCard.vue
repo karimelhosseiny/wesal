@@ -124,6 +124,7 @@ $logoSize: 60px;
                 font-weight: 800;
             }
             .org {
+                width: fit-content;
                 font-size: 15px;
                 text-decoration: none;
                 color: $priColor;
