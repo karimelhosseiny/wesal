@@ -73,7 +73,7 @@ export default {
         </div>
         <div class="bottom">
             <router-link
-                :to=/casepage/+this.id
+                :to=" '/casepage/' + this.id"
                 class="btn btn-block more rounded-pill text-decoration-none text-light"
                 >More</router-link
             >

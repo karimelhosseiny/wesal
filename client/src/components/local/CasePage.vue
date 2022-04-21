@@ -25,7 +25,7 @@ export default {
 
     },
     methods: {
-         
+
         fetchData() {
             //fetching case data
             axios(`http://localhost:8000/api/casepage/${this.caseId}`, {
@@ -93,7 +93,7 @@ export default {
                                 <sub>egp</sub>
                             </span>
                             <span>
-                                {{ goal - raised }}
+                                {{ goal }}
                                 <sub>egp</sub>
                             </span>
                         </div>
