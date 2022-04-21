@@ -25,16 +25,23 @@ class PagesController extends Controller
         $lastdonation = $users->donationOperations[$n];
         $reminders = $users->reminders;
         $users['donation_operations'] = $lastdonation;
+
+        
+        $cases = DonationCase::with(['organization' => function ($query) {
+            $query->select(['id', 'title']);
+        }])->get();
         // $cases = DonationCase::all();
         // $rg3ytitle = DB::table('organization')->where()->get('title') ;
 
-        $kimocases = DonationCase::get();
-        $cases = [];
-        foreach($kimocases as $case){
-            $cases[]= [[$case , $case->organization['title']]] ;
-            // $cases[]= $case;
-        }
-        
+        // $kimocases = DonationCase::get();
+        // $cases = [];
+        // foreach($kimocases as $case){
+        //     $cases[]= [[$case , $case->organization['title']]] ;
+        //     // $cases[]= $case;
+        // }
+
+
+
         return response()->json([
             'users' => $users,
             'cases' => $cases,
@@ -91,8 +98,7 @@ class PagesController extends Controller
     public function testforms()
     {
         // return view('layouts.donationtest'); 
-     return view('layouts.organizationtest');
-
+        return view('layouts.organizationtest');
     }
 
 
@@ -134,13 +140,5 @@ class PagesController extends Controller
         }
     }
     //show all cases in home page
-    public function cases()
-    {
-        $cases = DonationCase::all()->toJson();
-        return response()->json([
-            'cases' => $cases,
-
-        ]);
-    }
-
+   
 }

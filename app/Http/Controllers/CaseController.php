@@ -53,9 +53,9 @@ class CaseController extends Controller
      */
     public function show($id)
     {
-        $cases = DonationCase::find($id)->toJson();
-        $cases = json_decode($cases);
-        return ($cases);
+        // $cases = DonationCase::find($id)->toJson();
+        // $cases = json_decode($cases);
+        // return ($cases);
     }
 
     /**
@@ -90,5 +90,15 @@ class CaseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cases()
+    {
+        $cases = DonationCase::with(['organization' => function ($query) {
+            $query->select(['id', 'title']);
+        }])->get();
+        return response()->json([
+            'cases' => $cases,
+        ]);
     }
 }

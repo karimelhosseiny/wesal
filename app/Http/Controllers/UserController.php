@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\DonationCase;
 use App\Models\Organization;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -18,9 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::find(1);
-        dd($users->admin);
+        $users = User::all();
+        return response()->json([
+            'allusers' => $users,
+        ]);
+        // $users = User::find(1);
+        // dd($users->admin);
 
         // $orgs= Admin::all();
         // dd($orgs[0]->verifiedOrganizations);
@@ -134,5 +138,19 @@ class UserController extends Controller
         //
     }
 
-    
+    public function usersadmins()
+    {
+        $admins = User::all()->where('type', '=', 'admin');
+        return response()->json([
+            'admins' => $admins,
+        ]);
+    }
+
+    public function usersnotadmins()
+    {
+        $users = User::all()->where('type', '!=', 'admin');
+        return response()->json([
+            'usersnotadmins' => $users,
+        ]);
+    }
 }

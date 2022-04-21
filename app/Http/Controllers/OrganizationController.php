@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,11 +21,11 @@ class OrganizationController extends Controller
     {
         // $users = User::find(3);
         // dd($users->organization);
-        $organizations = Organization::all()->toJson();
+        // $organizations = Organization::all()->toJson();
 
-        $organizations = json_decode($organizations);
+        // $organizations = json_decode($organizations);
 
-        return ($organizations);
+        // return ($organizations);
     }
 
     /**
@@ -46,7 +47,7 @@ class OrganizationController extends Controller
     public function store(Request $request)
     {
         if (Gate::allows('isUser')) {
-             $request->validate(['document' => 'required|mimes:txt,xlx,xls,pdf|max:2048']);
+            $request->validate(['document' => 'required|mimes:txt,xlx,xls,pdf|max:2048']);
 
             $organization = new Organization;
 
@@ -83,7 +84,18 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        //
+        $organization = DB::table('organizations')->where('organizations.id', $id)
+            ->join('users', 'verifiedby', '=', 'users.id')
+                ->select('organizations.*', 'users.name')
+                    ->get();  //query builder method
+        // $organization = organization::find($id);  //eloquent method
+        // $adminwhoverified = organization::find($id)->adminwhoVerified->user->name;
+
+        return response()->json([
+            'organization' => $organization
+            // 'organization' => $organization,
+            // 'adminwhoverified' => $adminwhoverified
+        ]);
     }
 
     /**
@@ -118,5 +130,14 @@ class OrganizationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function organizations()
+    {
+
+        $organizations = Organization::all();
+        return response()->json([
+            'organizations' => $organizations,
+        ]);
     }
 }
