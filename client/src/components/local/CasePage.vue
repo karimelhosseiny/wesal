@@ -177,7 +177,7 @@ export default {
     border-left: 0.2em solid $priColor;
     padding: 2em 0;
 
-    .scrollable{
+    .scrollable {
         width: fit-content;
         height: 193px;
         overflow: hidden;
@@ -187,18 +187,18 @@ export default {
         transition: 0.5s;
 
     }
-    .scrollable:hover{
+    .scrollable:hover {
         overflow: scroll;
         overflow-x: hidden;
         border-bottom-width: 5px;
     }
-    .scrollable::-webkit-scrollbar{
+    .scrollable::-webkit-scrollbar {
         background-color: #ccc;
     }
-    .scrollable::-webkit-scrollbar-track{
+    .scrollable::-webkit-scrollbar-track {
         background-color: #eee;
     }
-    .scrollable::-webkit-scrollbar-thumb{
+    .scrollable::-webkit-scrollbar-thumb {
         background-color: $priColor;
         border-radius: 10px;
     }

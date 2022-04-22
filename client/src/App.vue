@@ -25,15 +25,15 @@ export default {
     $priColor: #0f9172;
 }
 ::-webkit-scrollbar {
-    background-color: #ccc;
+    background-color: #ccc ;
 
 }
 ::-webkit-scrollbar-track {
-    background-color: #eee;
+    background-color: #eee ;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #aaa;
-    border-radius: 10px;
-    height: 90%;
+    background-color: #aaa ;
+    border-radius: 10px ;
+    height: 90% ;
 }
 </style>

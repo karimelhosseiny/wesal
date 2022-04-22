@@ -154,9 +154,9 @@ $logoSize: 60px;
             width: 252.5px;
             height: 50px;
             color: black;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: nowrap ;
+            overflow: hidden ;
+            text-overflow: ellipsis ;
         }
 
         .target {
