@@ -33,7 +33,6 @@ use Illuminate\Support\Facades\Auth;
 //  });
 
 
-
 //User Controller
 Route::get('api/allusers', [UserController::class, 'index']); // show all users+admins
 Route::get('api/admins', [UserController::class, 'usersadmins']); // show all users admins
@@ -64,6 +63,9 @@ Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->whe
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
 Route::get('/testforms', [PagesController::class, 'testforms']);
+Route::get('/isadmin', [PagesController::class, 'indexadmin']);
+Route::get('/isorganization', [PagesController::class, 'indexorganization']);
+Route::get('/isuser', [PagesController::class, 'indexuser']);
 //----------------------------------------------------------------------------------------------------
 
 
@@ -73,18 +75,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Admin Controller
-Route::get('/isadmin', [PagesController::class, 'indexadmin']);
-Route::get('/isorganization', [PagesController::class, 'indexorganization']);
-Route::get('/isuser', [PagesController::class, 'indexuser']);
-//----------------------------------------------------------------------------
-
-
-//admin retrieve request and accept and delete requests
-Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']);
-Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+');
-Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+');
+Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']); //admin retrieves requests
+Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
+Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
 Route::resource('/admin', AdminController::class);
-//------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
 
 
