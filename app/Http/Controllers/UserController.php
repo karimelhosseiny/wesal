@@ -9,6 +9,9 @@ use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Validator;
 
 class UserController extends Controller
 {
@@ -112,7 +115,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -124,9 +126,47 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]
+        );
+        $newimage = time().'-'.$request->name.'.'.$request->file('image')->extension();
+        $request->file('image')->move(public_path('images'), $newimage);
+        if($id==Auth::id())
+        { 
+            $user=User::find($id);
+        $user->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'phonenumber' => $request->input('phone'),
+            'address' => $request->input('address'),
+            'image' => $newimage,
+            ]);
+        }
+        return print_r('mama 7elwa');
+        /*Auth::User()->attach($id,[
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'phonenumber' => $request->input('phone'),
+            'address' => $request->input('address'),
+            'image' => $newimage,
+        ])->save();*/
     }
-
+    public function userprofile($id)
+    {
+        $donationcase = User::find($id)->donationOperations->groupBy('id');
+        $user = User::find($id);
+        $donationhistory = DB::table('donation_operations')->where('user_id', $id)->get();
+        return response()->json([
+            'user' => $user,
+            'donationhistory' => $donationhistory,
+            'donationcase' => $donationcase
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -137,6 +177,12 @@ class UserController extends Controller
     {
         //
     }
+    public function edittest()
+    {
+        return view('layouts.donationtest');
+    }
+
+
 
     public function usersadmins()
     {

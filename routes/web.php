@@ -62,7 +62,10 @@ Route::get('api/userhomepage/{id}', [PagesController::class, 'userhomepage'])->w
 Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
+
+Route::get('api/edittest', [UserController::class, 'edittest']);
 Route::get('/testforms', [PagesController::class, 'testforms']);
+
 Route::get('/isadmin', [PagesController::class, 'indexadmin']);
 Route::get('/isorganization', [PagesController::class, 'indexorganization']);
 Route::get('/isuser', [PagesController::class, 'indexuser']);

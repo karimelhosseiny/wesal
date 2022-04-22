@@ -45,6 +45,10 @@ class CaseController extends Controller
             "currency" => $request->input('currency')
         ]);
     }
+    public function favcase()
+    {
+            
+    }
     /**
      * Display the specified resource.
      *
