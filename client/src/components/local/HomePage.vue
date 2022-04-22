@@ -41,7 +41,7 @@ export default {
                 .then((response) => {
                     if (response.statusText == "OK") {
                         this.isLoading = false;
-                        return JSON.parse(response.data.cases);
+                        return response.data.cases;
                     }
                 })
                 .then((data) => {
@@ -53,7 +53,7 @@ export default {
                             goal: data[index].goal_amount,
                             raised: data[index].raised_amount,
                             pic: data[index].image,
-                            org: "Resala",
+                            org:  data[index].organization.title,
                             caseDesc: data[index].description,
                         });
                     }
@@ -61,7 +61,7 @@ export default {
                 });
         },
     },
-    mounted() {
+    created() {
         this.getCases();
     },
 };

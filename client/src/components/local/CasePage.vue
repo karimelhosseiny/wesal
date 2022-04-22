@@ -20,7 +20,7 @@ export default {
             caseId: this.$route.params.id
         };
     },
-    mounted() {
+    created() {
         this.fetchData()
 
     },
@@ -100,22 +100,22 @@ export default {
                         <progress class="bar bg-transparent" :value="raised" :max="goal"></progress>
                     </div>
                 </div>
-                <div class="caseDesc col-6">
-                    <div class="container align-items-end">
-                        <div class="row align-self-end">
+                <div class="caseDesc col-6 ">
+                    <div class="container h-100">
+                        <div class="row align-self-end h-75">
                             <p class="col">
                                 {{ desc }}
                             </p>
                         </div>
-                        <div class="endSec row align-items-end">
-                            <div class="col-9">
+                        <div class="endSec row align-items-center ">
+                            <div class="col-4 ">
                                 <p>
                                     Total donors:
-                                    <span>400</span>
+                                    <span>{{totalDonors}}</span>
                                 </p>
                             </div>
-                            <div class="col-3 donate">
-                                <button class="btn btn-success" data-bs-toggle="modal"
+                            <div class="col-8 donate d-flex justify-content-end">
+                                <button class="btn btn-success m-1" data-bs-toggle="modal"
                                     data-bs-target="#caseDonation">Donate
                                     now</button>
                                 <div class="modal" id="caseDonation">
