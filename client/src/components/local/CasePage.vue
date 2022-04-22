@@ -20,12 +20,12 @@ export default {
             caseId: this.$route.params.id
         };
     },
-    mounted() {
+    created() {
         this.fetchData()
 
     },
     methods: {
-         
+
         fetchData() {
             //fetching case data
             axios(`http://localhost:8000/api/casepage/${this.caseId}`, {
@@ -93,29 +93,31 @@ export default {
                                 <sub>egp</sub>
                             </span>
                             <span>
-                                {{ goal - raised }}
+                                {{ goal }}
                                 <sub>egp</sub>
                             </span>
                         </div>
                         <progress class="bar bg-transparent" :value="raised" :max="goal"></progress>
                     </div>
                 </div>
-                <div class="caseDesc col-6">
-                    <div class="container align-items-end">
-                        <div class="row align-self-end">
-                            <p class="col">
+                <div class="caseDesc col-6 ">
+                    <div class="container h-100">
+                        <div class="row align-self-end h-75">
+                            <div class="scrollable">
+                                <p class="col">
                                 {{ desc }}
                             </p>
+                            </div>
                         </div>
-                        <div class="endSec row align-items-end">
-                            <div class="col-9">
+                        <div class="endSec row align-items-center ">
+                            <div class="col-4 ">
                                 <p>
                                     Total donors:
-                                    <span>400</span>
+                                    <span class="border border-2 rounded rounded-pill border-success px-3">{{totalDonors}}</span>
                                 </p>
                             </div>
-                            <div class="col-3 donate">
-                                <button class="btn btn-success" data-bs-toggle="modal"
+                            <div class="col-8 donate d-flex justify-content-end">
+                                <button class="btn btn-success m-1" data-bs-toggle="modal"
                                     data-bs-target="#caseDonation">Donate
                                     now</button>
                                 <div class="modal" id="caseDonation">
@@ -175,20 +177,39 @@ export default {
     border-left: 0.2em solid $priColor;
     padding: 2em 0;
 
+    .scrollable {
+        width: fit-content;
+        height: 193px;
+        overflow: hidden;
+        border-bottom: 1px solid $priColor;
+        border-radius: 5px;
+        scrollbar-width: thin;
+        transition: 0.5s;
+
+    }
+    .scrollable:hover {
+        overflow: scroll;
+        overflow-x: hidden;
+        border-bottom-width: 5px;
+    }
+    .scrollable::-webkit-scrollbar {
+        background-color: #ccc;
+    }
+    .scrollable::-webkit-scrollbar-track {
+        background-color: #eee;
+    }
+    .scrollable::-webkit-scrollbar-thumb {
+        background-color: $priColor;
+        border-radius: 10px;
+    }
     .col-9 p {
         margin: 0.7em 0;
         margin-top: 80px;
         color: $priColor;
-
-        span {
-            border: 0.01em solid $priColor;
-            border-radius: 0.5em;
-            margin: 0.5em;
-            padding: 0.2em;
-        }
     }
 
     .endSec {
+        margin-top: 40px;
         button {
             width: 200px;
             background-color: $priColor;

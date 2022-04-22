@@ -24,4 +24,16 @@ export default {
     $secColor: #91ffa2;
     $priColor: #0f9172;
 }
+::-webkit-scrollbar {
+    background-color: #ccc ;
+
+}
+::-webkit-scrollbar-track {
+    background-color: #eee ;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #aaa ;
+    border-radius: 10px ;
+    height: 90% ;
+}
 </style>

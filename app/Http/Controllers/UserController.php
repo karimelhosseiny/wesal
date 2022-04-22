@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\DonationCase;
 use App\Models\Organization;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -20,11 +21,12 @@ class UserController extends Controller
      */
     public function index()
     {
-
         $users = User::all();
         return response()->json([
-            'users' => $users
+            'allusers' => $users,
         ]);
+        // $users = User::find(1);
+        // dd($users->admin);
 
         // $orgs= Admin::all();
         // dd($orgs[0]->verifiedOrganizations);
@@ -178,4 +180,21 @@ class UserController extends Controller
         return view('layouts.donationtest');
     }
 
+
+
+    public function usersadmins()
+    {
+        $admins = User::all()->where('type', '=', 'admin');
+        return response()->json([
+            'admins' => $admins,
+        ]);
+    }
+
+    public function usersnotadmins()
+    {
+        $users = User::all()->where('type', '!=', 'admin');
+        return response()->json([
+            'usersnotadmins' => $users,
+        ]);
+    }
 }

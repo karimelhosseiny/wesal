@@ -62,7 +62,7 @@ export default {
             ]"
           ></i>
         </div>
-        <button
+        <button @click.prevent="this.$router.push('/home')"
           class="border-0 rounded-pill fw-normal"
         >
           sign in

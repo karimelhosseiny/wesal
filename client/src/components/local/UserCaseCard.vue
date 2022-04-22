@@ -45,7 +45,7 @@ export default {
             </div>
         </div>
         <div class="mid">
-            <p class="fw-bold">
+            <p class="descr fw-bold">
                 {{ caseDesc }}
             </p>
             <span class="target">target:</span>
@@ -73,7 +73,7 @@ export default {
         </div>
         <div class="bottom">
             <router-link
-                :to=/casepage/+this.id
+                :to=" '/casepage/' + this.id"
                 class="btn btn-block more rounded-pill text-decoration-none text-light"
                 >More</router-link
             >
@@ -151,7 +151,12 @@ $logoSize: 60px;
         padding: 1.3em;
         color: $priColor;
         p {
+            width: 252.5px;
+            height: 50px;
             color: black;
+            white-space: nowrap ;
+            overflow: hidden ;
+            text-overflow: ellipsis ;
         }
 
         .target {

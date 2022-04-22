@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -92,12 +91,12 @@ class AdminController extends Controller
     //retrieve the organization requests
     public function retrieverequests()
     {
-        if (Gate::allows('isUser')) {
+        if (Gate::allows('isAmin')) {
             $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
-            return response()->json([
-                'organization' => $organization
-            ]);
-            // return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
+            // return response()->json([
+            //     'organization' => $organization
+            // ]);
+            return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
         } else {
             dd('You are not User');
         }
@@ -105,8 +104,8 @@ class AdminController extends Controller
     //accept the organization requests 
     public function acceptrequest(Request $request, $id)
     {
-        if (Gate::allows('isUser')) {
-            $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1]);
+        if (Gate::allows('isAdmin')) {
+            $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1, 'verifiedby' =>  Auth::user()->id]);
         } else {
             dd('You are not User');
         }
@@ -114,7 +113,7 @@ class AdminController extends Controller
     //reject the organizations requests
     public function rejectrequest($id)
     {
-        if (Gate::allows('isUser')) {
+        if (Gate::allows('isAdmin')) {
             $reject = DB::table('Organizations')->where('id', $id)->delete();
         } else {
             dd('You are not User');
