@@ -43,7 +43,7 @@ Route::get('api/users', [UserController::class, 'usersnotadmins']); // show all 
 
 //Organization controller
 Route::get('api/organizations', [OrganizationController::class, 'organizations']); // show all organizations form database
-Route::resource('/organization', OrganizationController::class);
+Route::resource('/organization', OrganizationController::class); //to use function show() in organization controller type: http://127.0.0.1:8000/organization/{id}
 //-------------------------------------------------------------------------------------------------------------------------
 
 
