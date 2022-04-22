@@ -34,40 +34,56 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-// Route::resource('/users', UserController::class);
+//User Controller
 Route::get('api/allusers', [UserController::class, 'index']); // show all users+admins
 Route::get('api/admins', [UserController::class, 'usersadmins']); // show all users admins
 Route::get('api/users', [UserController::class, 'usersnotadmins']); // show all users  without admins
+// Route::resource('/users', UserController::class);
+//-----------------------------------------------------------------------------------------------------
+
+
+//Organization controller
 Route::get('api/organizations', [OrganizationController::class, 'organizations']); // show all organizations form database
-Route::get('api/cases', [CaseController::class, 'cases']); // show all cases from database
-//------------------------------------------------------------------------------------------------------------------------
-
 Route::resource('/organization', OrganizationController::class);
-Route::resource('/reminders', ReminderController::class);
+//-------------------------------------------------------------------------------------------------------------------------
 
+
+//Case Controller
+Route::get('api/cases', [CaseController::class, 'cases']); // show all cases from database
+//-----------------------------------------------------------------------------------------
+
+
+//Reminder Controller
+Route::resource('/reminders', ReminderController::class);
+//-------------------------------------------------------
+
+
+//Pages Controller
 Route::get('api/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
 Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
-
 Route::get('/testforms', [PagesController::class, 'testforms']);
-
+//----------------------------------------------------------------------------------------------------
 
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//----------------------------------------------------------------------------------------
 
 
+// Admin Controller
 Route::get('/isadmin', [PagesController::class, 'indexadmin']);
 Route::get('/isorganization', [PagesController::class, 'indexorganization']);
 Route::get('/isuser', [PagesController::class, 'indexuser']);
+//----------------------------------------------------------------------------
 
 
-Route::resource('/admin', AdminController::class);
 //admin retrieve request and accept and delete requests
 Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']);
 Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+');
 Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+');
+Route::resource('/admin', AdminController::class);
 //------------------------------------------------------------------------------------------------
 
 
