@@ -111,7 +111,7 @@ export default {
                             <div class="col-4 ">
                                 <p>
                                     Total donors:
-                                    <span>{{totalDonors}}</span>
+                                    <span class="border border-2 rounded rounded-pill border-success px-3">{{totalDonors}}</span>
                                 </p>
                             </div>
                             <div class="col-8 donate d-flex justify-content-end">
