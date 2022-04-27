@@ -10,6 +10,8 @@ export default {
             search: "",
             filteredCards: "",
             cases: [],
+            filteredCategory: "",
+            referance: "0",
         };
     },
     components: { Navbar, HeroSection, UserCaseCard },
@@ -18,6 +20,9 @@ export default {
             return this.cases.filter((Case) =>
                 Case.title.toLowerCase().includes(this.search.toLowerCase())
             );
+        },
+        filteredCategory() {
+            return this.cases.filter((Case) => Case.cat === parseInt(this.referance));
         },
     },
     methods: {
@@ -53,7 +58,8 @@ export default {
                             goal: data[index].goal_amount,
                             raised: data[index].raised_amount,
                             pic: data[index].image,
-                            org:  data[index].organization.title,
+                            org: data[index].organization.title,
+                            cat: data[index].category_id,
                             caseDesc: data[index].description,
                         });
                     }
@@ -73,6 +79,24 @@ export default {
         <HeroSection />
         <div class="cases container-fluid">
             <div class="caseTitle">
+                <div class="categories">
+                    <div class="btn-group pt-2">
+                        <button class="btn btn-success btn-sm" type="button">
+                            <i class="h1 bi bi-filter-circle"></i>
+                        </button>
+                        <select
+                            class="btn btn-sm btn-success dropdown-toggle"
+                            aria-expanded="false"
+                            v-model="referance"
+                        >
+                            <option value="0">All categories</option>
+                            <option value="1">Food</option>
+                            <option value="2">Clothes</option>
+                            <option value="3">Sick</option>
+                            <option value="4">Sadaka</option>
+                        </select>
+                    </div>
+                </div>
                 <h2>Give Little get more</h2>
                 <div class="searchContainer">
                     <input
@@ -101,8 +125,24 @@ export default {
                     Oh oh, we couldn`t find that!
                 </p>
                 <UserCaseCard
+                    v-if="referance == 0"
                     v-for="Case in filteredCards"
                     :key="Case.id"
+                    :pic="Case.pic"
+                    :title="Case.title"
+                    :org="Case.org"
+                    :id="Case.id"
+                    :case-desc="Case.caseDesc"
+                    :raised="Case.raised"
+                    :goal="Case.goal"
+                    :is-favorite="Case.isFavorite"
+                    :reminder="Case.reminder"
+                    @toggle-favorite="toggleFavoriteStatus"
+                    @toggle-reminder="toggleReminderStatus"
+                />
+                <UserCaseCard
+                    v-else
+                    v-for="Case in filteredCategory"
                     :pic="Case.pic"
                     :title="Case.title"
                     :org="Case.org"
@@ -170,6 +210,12 @@ export default {
                 cursor: pointer;
                 border: none;
                 outline: none;
+            }
+        }
+        .categories {
+            width: 280px;
+            option {
+                color: white;
             }
         }
     }
