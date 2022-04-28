@@ -19,6 +19,7 @@ export default {
 #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
 }
 :root {
     $secColor: #91ffa2;
@@ -26,6 +27,8 @@ export default {
 }
 ::-webkit-scrollbar {
     background-color: #ccc ;
+    width: 11px;
+    height: 0;
 
 }
 ::-webkit-scrollbar-track {
@@ -34,6 +37,9 @@ export default {
 ::-webkit-scrollbar-thumb {
     background-color: #aaa ;
     border-radius: 10px ;
-    height: 90% ;
+    height: 80% ;
 }
+ ::-webkit-scrollbar-thumb:horizontal{
+        height: 0;
+    }
 </style>
