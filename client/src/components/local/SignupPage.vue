@@ -35,7 +35,7 @@ export default {
         </div>
         <main>
             <h1 class="text-center fw-bold mb-4">Sign up</h1>
-            <form class="mb-4">
+            <form class="mb-4"  method="POST" action="http://127.0.0.1:8000/register">
                 <div class="form-floating">
                     <input
                         class="rounded-pill form-control"

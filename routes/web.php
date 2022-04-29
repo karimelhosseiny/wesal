@@ -7,6 +7,11 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\http\Controllers\Auth\ResetPasswordController;
+
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +77,6 @@ Route::get('/isuser', [PagesController::class, 'indexuser']);
 //----------------------------------------------------------------------------------------------------
 
 
-Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //----------------------------------------------------------------------------------------
 
@@ -80,10 +84,25 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Admin Controller
 Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']); //admin retrieves requests
 Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
-Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
+Route::get('api/rejected/{id}', [AdminController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
 Route::resource('/admin', AdminController::class);
 //----------------------------------------------------------------------------
 
+// Auth::routes();
+
+Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('api/login', [LoginController::class, 'login']); //youssef
+Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
+
+// Registration Routes...
+Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('api/register', [RegisterController::class, 'register']); //youssef
+
+// Password Reset Routes...
+Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
+Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
+Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
 
 
 //TODO: 1)handle the exceptions of the retrieved request in All Applications
