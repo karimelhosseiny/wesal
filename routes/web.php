@@ -96,4 +96,15 @@ Route::post('/setreminder', [UserController::class, 'setreminder']);
 Route::post('/deletefavcase', [UserController::class, 'deletefavcase']);
 //delete reminder
 Route::post('/deletereminder', [UserController::class, 'deletereminder']);
+Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('api/login', [LoginController::class, 'login']); //youssef
+Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
+// Registration Routes...
+Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('api/register', [RegisterController::class, 'register']); //youssef
+// Password Reset Routes...
+Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
+Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
+Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
 //TODO: 1)handle the exceptions of the retrieved request in All Applications
