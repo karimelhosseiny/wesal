@@ -9,7 +9,9 @@ export default {
 <template>
     <div class="navbars">
         <div class="logo">
-            <img src="../../assets/SVG/logo.svg" class="ms-3" />
+            <router-link to="/home">
+                <img src="../../assets/SVG/logo.svg" class="ms-3" />
+            </router-link>
             <h4>wesal</h4>
         </div>
         <ul class="navLinks">

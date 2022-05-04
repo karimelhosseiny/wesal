@@ -90,10 +90,11 @@ class OrganizationController extends Controller
             ->join('users', 'verifiedby', '=', 'users.id')
                 ->select('organizations.*', 'users.name')
                     ->get();  //query builder method
+                    
         // $organization = organization::find($id);  //eloquent method
         // $adminwhoverified = organization::find($id)->adminwhoVerified->user->name;
         return response()->json([
-            'organization' => $organization
+            'organization' => $organization,
             // 'organization' => $organization,
             // 'adminwhoverified' => $adminwhoverified
         ]);

@@ -7,6 +7,11 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\http\Controllers\Auth\ResetPasswordController;
+
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -70,13 +75,14 @@ Route::get('/isadmin', [PagesController::class, 'indexadmin']);
 Route::get('/isorganization', [PagesController::class, 'indexorganization']);
 Route::get('/isuser', [PagesController::class, 'indexuser']);
 //----------------------------------------------------------------------------------------------------
-Auth::routes();
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //----------------------------------------------------------------------------------------
 // Admin Controller
 Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']); //admin retrieves requests
 Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
-Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
+Route::get('api/rejected/{id}', [AdminController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
 Route::resource('/admin', AdminController::class);
 //----------------------------------------------------------------------------
 //SHOWFAVCASE TEST

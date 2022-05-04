@@ -93,10 +93,10 @@ class AdminController extends Controller
     {
         if (Gate::allows('isAdmin')) {
             $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
-            // return response()->json([
-            //     'organization' => $organization
-            // ]);
-            return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
+            return response()->json([
+                'organization' => $organization
+            ]);
+            // return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
         } else {
             dd('You are not admin');
         }

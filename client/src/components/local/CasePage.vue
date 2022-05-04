@@ -103,7 +103,7 @@ export default {
                 <div class="caseDesc col-6 ">
                     <div class="container h-100">
                         <div class="row align-self-end h-75">
-                            <div class="scrollable">
+                            <div class="scrollable w-100">
                                 <p class="col">
                                 {{ desc }}
                             </p>
@@ -133,6 +133,7 @@ export default {
                                             <div class="modal-body">
                                                 <CaseDonation />
                                             </div>
+                                            
                                             <div class="modal-footer">
                                                 <button class="btn confirm">confirm</button>
                                             </div>
@@ -184,7 +185,10 @@ export default {
         border-bottom: 1px solid $priColor;
         border-radius: 5px;
         scrollbar-width: thin;
-        transition: 0.5s;
+        transition: 0.3s;
+        p{
+            max-width: 50ch;
+        }
 
     }
     .scrollable:hover {
@@ -194,6 +198,7 @@ export default {
     }
     .scrollable::-webkit-scrollbar {
         background-color: #ccc;
+        max-width: 10px;
     }
     .scrollable::-webkit-scrollbar-track {
         background-color: #eee;

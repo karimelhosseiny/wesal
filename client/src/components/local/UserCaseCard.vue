@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ["pic", "title", "org", "id", "caseDesc","goal", "raised","isFavorite", "reminder"],
+    props: ["pic", "title", "org", "id", "caseDesc","goal", "raised","isFavorite", "reminder","cat"],
     emits: ["toggle-favorite", "toggle-reminder"],
     data() {
         return {

@@ -36,7 +36,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
 // Route::get('/cases', [PagesController::class, 'cases']);
 
-// Auth::routes();
 
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
