@@ -125,34 +125,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]
+        $request->validate(
+            [
+                'email' => 'required',
+                'password' => 'required',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]
         );
-        $newimage = time().'-'.$request->name.'.'.$request->file('image')->extension();
+        $newimage = time() . '-' . $request->name . '.' . $request->file('image')->extension();
         $request->file('image')->move(public_path('images'), $newimage);
-        if($id==Auth::id())
-        { 
-            $user=User::find($id);
-        $user->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'phonenumber' => $request->input('phone'),
-            'address' => $request->input('address'),
-            'image' => $newimage,
+        if ($id == Auth::id()) {
+            $user = User::find($id);
+            $user->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
+                'phonenumber' => $request->input('phone'),
+                'address' => $request->input('address'),
+                'image' => $newimage,
             ]);
         }
-        /*Auth::User()->attach($id,[
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'phonenumber' => $request->input('phone'),
-            'address' => $request->input('address'),
-            'image' => $newimage,
-        ])->save();*/
     }
     public function userprofile($id)
     {
@@ -163,6 +155,56 @@ class UserController extends Controller
             'user' => $user,
             'donationhistory' => $donationhistory,
             'donationcase' => $donationcase
+        ]);
+    }
+    public function createfavcase(Request $request)
+    {
+        $request->validate([
+            'case_id' => ['required', 'exists:donation_cases,id'],
+        ]);
+        
+       if(Auth::User()->favoriteCases()->where('case_id', $request->input('case_id'))->exists()){
+        return ('already exists');
+       }
+       else{
+        Auth::User()->favoriteCases()->attach($request->input('case_id'));
+       }
+    }
+    public function deletefavcase(Request $request)
+    {
+        Auth::User()->favoriteCases()->detach($request->input('case_id'));
+    }
+    public function deletereminder(Request $request)
+    {
+        Auth::User()->reminders()->delete(Auth::id());
+    }
+    public function setreminder(Request $request){
+        $request->validate(
+            [
+                'remind_at' => 'required',
+                'message' => 'required',
+            ]
+        );
+        Auth::User()->reminders()->create([
+            'remind_at'=>$request->input('remind_at'),
+            'message'=>$request->input('message'),
+            'user_id'=>Auth::id()
+        ]);
+    }
+
+    public function remindertest(){
+        return view('layouts.testreminder');   
+    }
+    public function favcasepage()
+    {
+        return view('layouts.favcasetest');
+    }
+    /*user 3ando kaza case we ana bsgl case id we user id fa ana 3ayez ageb cases */
+    public function showfavcase()
+    {
+        $Favcases=User::find(Auth::id())->showfavcases()->get();
+        return response()->json([
+            'favcase' => $Favcases
         ]);
     }
     /**
@@ -179,9 +221,6 @@ class UserController extends Controller
     {
         return view('layouts.donationtest');
     }
-
-
-
     public function usersadmins()
     {
         $admins = User::all()->where('type', '=', 'admin');

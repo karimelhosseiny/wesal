@@ -7,7 +7,8 @@ use Illuminate\Database\Seeder;
 
 class FavoriteCaseSeeder extends Seeder
 {
-    //php artisan db:seed --class=FavoriteCaseSeeder
+
+    //To insert seeds in DB: php artisan db:seed --class=FavoriteCaseSeeder
     /**
      * Run the database seeds.
      *

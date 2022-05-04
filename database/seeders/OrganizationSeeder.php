@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class OrganizationSeeder extends Seeder
 {
-    // php artisan db:seed --class=OrganizationSeeder
+    //To insert seeds in DB: php artisan db:seed --class=OrganizationSeeder
     /**
      * Run the database seeds.
      *

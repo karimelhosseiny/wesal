@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
-    //php artisan db:seed --class=CategorySeeder
+    //To insert seeds in DB: php artisan db:seed --class=CategorySeeder
     /**
      * Run the database seeds.
      *

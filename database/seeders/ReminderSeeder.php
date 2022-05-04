@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class ReminderSeeder extends Seeder
 {
-    // php artisan db:seed --class=ReminderSeeder
+    //To insert seeds in DB: php artisan db:seed --class=ReminderSeeder
     /**
      * Run the database seeds.
      *

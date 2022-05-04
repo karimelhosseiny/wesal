@@ -8,7 +8,7 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    //php artisan db:seed --class=UserSeeder
+    //To insert seeds in DB: php artisan db:seed --class=UserSeeder
     /**
      * Run the database seeds.
      *

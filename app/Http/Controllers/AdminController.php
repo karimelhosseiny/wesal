@@ -91,14 +91,14 @@ class AdminController extends Controller
     //retrieve the organization requests
     public function retrieverequests()
     {
-        if (Gate::allows('isAmin')) {
+        if (Gate::allows('isAdmin')) {
             $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
             // return response()->json([
             //     'organization' => $organization
             // ]);
             return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
         } else {
-            dd('You are not User');
+            dd('You are not admin');
         }
     }
     //accept the organization requests 

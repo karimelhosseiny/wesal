@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class DonationOperationSeeder extends Seeder
 {
-    //php artisan db:seed --class=DonationOperationSeeder
+    //To insert seeds in DB: php artisan db:seed --class=DonationOperationSeeder
     /**
      * Run the database seeds.
      *

@@ -26,6 +26,7 @@ class User extends Authenticatable
         'image',
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -54,21 +55,21 @@ class User extends Authenticatable
 
     public function favoriteCases()
     {
-        return $this->belongsToMany(DonationCase::class, "favourite_cases", "user_id", "case_id");
+        return $this->belongsToMany(DonationCase::class, "favourite_cases", "user_id", "case_id")->withTimestamps();
     }
-
     public function donationOperations()
     {
         return $this->belongsToMany(DonationCase::class, "donation_operations", "user_id", "case_id")->withPivot("amount", "currency");
     }
-
     public function admin()
     {
         return $this->hasOne(Admin::class,'id');
     }
-
     public function reminders(){
         return $this->hasMany(Reminder::class,'user_id');
+    }
+    public function showfavcases(){
+        return $this->belongsToMany(DonationCase::class, "favourite_cases", "user_id", "case_id");
     }
 }
 

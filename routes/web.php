@@ -63,27 +63,31 @@ Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->whe
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
 Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
 
-Route::get('api/edittest', [UserController::class, 'edittest']);
+Route::get('api/edittest', [UserController::class, 'edittest']);  
 Route::get('/testforms', [PagesController::class, 'testforms']);
 
 Route::get('/isadmin', [PagesController::class, 'indexadmin']);
 Route::get('/isorganization', [PagesController::class, 'indexorganization']);
 Route::get('/isuser', [PagesController::class, 'indexuser']);
 //----------------------------------------------------------------------------------------------------
-
-
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //----------------------------------------------------------------------------------------
-
-
 // Admin Controller
 Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']); //admin retrieves requests
 Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
 Route::get('api/rejected/{id}', [AdminController::class ,'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
 Route::resource('/admin', AdminController::class);
 //----------------------------------------------------------------------------
-
-
-
+//SHOWFAVCASE TEST
+Route::get('/showfavcase', [UserController::class, 'showfavcase']);
+Route::post('/createfavcase', [UserController::class, 'createfavcase']);
+Route::get('/testfavcase', [UserController::class, 'favcasepage']);
+//reminder test
+Route::get('/remindertest', [UserController::class, 'remindertest']);
+Route::post('/setreminder', [UserController::class, 'setreminder']);
+//delete favcase
+Route::post('/deletefavcase', [UserController::class, 'deletefavcase']);
+//delete reminder
+Route::post('/deletereminder', [UserController::class, 'deletereminder']);
 //TODO: 1)handle the exceptions of the retrieved request in All Applications

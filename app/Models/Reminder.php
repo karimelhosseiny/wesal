@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reminder extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['remind_at', 'message'];
     public function usermakereminder(){
         return $this->belongsTo(User::class,'id');
     }
