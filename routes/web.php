@@ -90,6 +90,8 @@ Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showR
 Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
 
 //add user by admin test
-Route::get('/testadd', [AdminController::class, 'testadduser']);
-Route::post('/adduser', [AdminController::class, 'adduser']);
+Route::get('/testadduser', [AdminController::class, 'testadduser']);
+Route::get('/testaddorg', [AdminController::class, 'testaddorg']);
+
+Route::post('/adduser', [AdminController::class, 'addUserWithType']);
 //TODO: 1)handle the exceptions of the retrieved request in All Applications
