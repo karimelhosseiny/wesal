@@ -107,7 +107,7 @@ class AdminController extends Controller
         if (Gate::allows('isAdmin')) {
             $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1, 'verifiedby' =>  Auth::user()->id]);
         } else {
-            dd('You are not User');
+            dd('You are not Admin');
         }
     }
     //reject the organizations requests
@@ -116,7 +116,7 @@ class AdminController extends Controller
         if (Gate::allows('isAdmin')) {
             $reject = DB::table('Organizations')->where('id', $id)->delete();
         } else {
-            dd('You are not User');
+            dd('You are not Admin');
         }
     }
 }
