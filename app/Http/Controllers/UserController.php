@@ -190,6 +190,7 @@ class UserController extends Controller
             'message'=>$request->input('message'),
             'user_id'=>Auth::id()
         ]);
+        
     }
 
     public function remindertest(){

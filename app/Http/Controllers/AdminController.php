@@ -40,9 +40,66 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // $user = new User;
+       // $admin = new Admin;
+        if (Gate::allows('isAdmin')){
+            Auth::Admin()->user()->create([
+                'name'=> $request->input('name'),
+                'email'=> $request->input('email'),
+                'password'=> bcrypt($request->input('password')),
+                'phone'=> $request->input('phone'),
+                'address'=> $request->input('address'),
+                'type'=> $request->input('type'),
+            ]);
+        }
+        else
+        {
+            dd('you are not admin');
+        }
+       
     }
+    public function addadmin(Request $request)
+    {
+        if (Gate::allows('isAdmin')){
 
+            Auth::user()->create([
+                'name'=> $request->input('name'),
+                'email'=> $request->input('email'),
+                'password'=> bcrypt($request->input('password')),
+                'phone'=> $request->input('phone'),
+                'address'=> $request->input('address'),
+                'type'=> $request->input('type'),
+            ]);
+            $id= DB::table('users')->where('email',$request->input('email'))->value('id');
+            DB::table('admins')->insert([
+                'id'=> $id,
+            ]);
+        }
+        else
+        {
+            dd('you are not admin');
+        }
+    }
+    public function adduser(Request $request)
+    {
+        if (Gate::allows('isAdmin')){
+            Auth::user()->create([
+                'name'=> $request->input('name'),
+                'email'=> $request->input('email'),
+                'password'=> bcrypt($request->input('password')),
+                'phone'=> $request->input('phone'),
+                'address'=> $request->input('address'),
+                'type'=> $request->input('type'),]);
+            }
+            else
+        {
+            dd('you are not admin');
+        }
+    }
+    public function testadduser()
+    {
+        return view('layouts.adduserbyadmin');
+    }
     /**
      * Display the specified resource.
      *
@@ -107,7 +164,7 @@ class AdminController extends Controller
         if (Gate::allows('isAdmin')) {
             $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1, 'verifiedby' =>  Auth::user()->id]);
         } else {
-            dd('You are not User');
+            dd('You are not Admin');
         }
     }
     //reject the organizations requests
@@ -116,7 +173,7 @@ class AdminController extends Controller
         if (Gate::allows('isAdmin')) {
             $reject = DB::table('Organizations')->where('id', $id)->delete();
         } else {
-            dd('You are not User');
+            dd('You are not Admin');
         }
     }
 }

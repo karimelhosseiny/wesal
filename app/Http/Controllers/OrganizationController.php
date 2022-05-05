@@ -62,7 +62,6 @@ class OrganizationController extends Controller
 
                 $organization->verificationdocuments = '/wesalorganizationdocuments/' . $fileName;
             }
-
             $organization->phonenumber =  $request->input('number');
             $organization->image = $request->input('image');
             $organization->description = $request->input('description');
