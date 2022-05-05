@@ -80,12 +80,12 @@ class AdminController extends Controller
                 'type'=> $request->input('type'),]);
                 $id= DB::table('users')->where('email',$request->input('email'))->value('id');
 
-                // $request->validate(
-                //         [
-                //           'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                //           'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
-                //         ]
-                //     );
+                $request->validate(
+                        [
+                          'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                          'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+                        ]
+                    );
                     $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                     $request->file('image')->move(public_path('orgimages'), $newimage);
                     
