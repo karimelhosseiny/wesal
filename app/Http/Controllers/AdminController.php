@@ -68,8 +68,6 @@ class AdminController extends Controller
     public function addUserWithType(Request $request)
     {
         // dd($request->input('type')=='organization');
-        
-
         if (Gate::allows('isAdmin')){
             Auth::user()->create([
                 'name'=> $request->input('name'),
@@ -123,7 +121,118 @@ class AdminController extends Controller
             dd('you are not admin');
         }
     }
+    public function adminupdateusertoadmin(Request $request)
+    {
+        if (Gate::allows('isAdmin')){
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('user_image')->extension();
+                $request->file('user_image')->move(public_path('userimages'), $newimage);
+            }
+            $user = User::find($request->input('user_id'));
+            $user->name = $request->input('name');
+            $user->phonenumber = $request->input('phone');
+            $user->address = $request->input('address');
+            $user->image = $newimage;
+            $user->type = $request->input('type');
+            if($user->type == 'admin'){
+                $date = new DateTime();
+                 DB::table('admins')->insert([
+                    'id'=> $user->id,
+                    'access_level' =>$user->name,
+                    'created_at' =>$date->format('Y-m-d H:i:s'),
+                    'updated_at'=>$date->format('Y-m-d H:i:s'),
+                ]);
+            }
+    }
+}
+    // update user to organization
+    public function adminupdateusertoorg(Request $request)
+    {
+        $request->validate(
+            [
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]
+        );
+        if (Gate::allows('isAdmin'))
+        {
+            $user = User::find($request->input('user_id'));
+            $user->type = $request->input('type');
+            if($user->type == 'organization')
+            {
+                $request->validate(
+                    [
+                      'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                      'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+                    ]
+                );
+                if($request->file()){
+                    $neworgimage = time() . '-' . $request->input('title') . '.' . $request->file('org_image')->extension();
+                    $request->file('org_image')->move(public_path('orgimages'), $neworgimage);
+                    
+                    $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
+                    $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
+                }
+                $date = new DateTime();
+                DB::table('organizations')->insert([
+                    'title' =>$request->input('title'),
+                    'verificationdocuments' =>$verificationdocuments,
+                    'phonenumber' =>$request->input('phonenumber'),
+                    'image' =>$neworgimage,
+                    'description' =>$request->input('description'),
+                    'verified' => true,
+                    'verifiedat' =>$date->format('Y-m-d H:i:s'),
+                    'verifiedby' => Auth::id(),
+                    'creator_id'=> $user->id,
+                    'created_at' =>$date->format('Y-m-d H:i:s'),
+                    'updated_at'=>$date->format('Y-m-d H:i:s'),
+                 ]);
 
+            }
+            $user->save();
+        }
+        else
+        {
+            dd('you are not admin');
+        }
+    }
+    // update organization data
+    public function adminupdateorganizationprofile(Request $request)
+    {
+        $request->validate(
+            [
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+              'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+            ]
+        );
+        if (Gate::allows('isAdmin'))
+        {
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('orgimages'), $newimage);
+                $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
+                $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
+            }
+            $organization = Organization::find($request->input('organization_id'));
+            $organization->title = $request->input('title');
+            $organization->phonenumber = $request->input('phonenumber');
+            $organization->image = $newimage;
+            $organization->description = $request->input('description');
+            $organization->verificationdocuments = $verificationdocuments;
+            $organization->save();
+        }
+        else
+        {
+            dd('you are not admin');
+        }
+    }
+    public function Adminupdateorg()
+    {
+        return view('layouts.AdminUpdateOrganization');
+    }
+    public function Adminupdateuser()
+    {
+        return view('layouts.AdminUpdateUser');
+    }
     public function testadduser()
     {
         return view('layouts.adduserbyadmin');
