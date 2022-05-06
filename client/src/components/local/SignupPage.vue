@@ -1,16 +1,28 @@
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
-            username: "",
-            email: "",
-            password: "",
-            passwordShown:false,
+            form: {
+                username: "youssefs",
+                email: "youssefs@gmail.com",
+                password: "Habdahabda",
+                confirmPassword: "Habdahabda"
+            },
+            passwordShown: false,
         };
     },
-    methods:{
-        togglePassword(){
+    methods: {
+        togglePassword() {
             this.passwordShown = !this.passwordShown
+        },
+        registerUser() {
+            axios.post('http://localhost:8000/api/register', this.form).then((res) => {
+                console.log(res)
+                res.status >= 200 ? this.$router.push('/home') : ''
+            }, (err) => {
+                console.log(err)
+            })
         }
     }
 };
@@ -20,11 +32,7 @@ export default {
     <div class="mainContainer">
         <div class="visuals ps-3 pt-3">
             <div class="logoText d-flex w-25 align-items-start">
-                <img
-                    class="logo me-2 ms-4"
-                    src="../../assets/SVG/logo.svg"
-                    alt="wesal logo"
-                />
+                <img class="logo me-2 ms-4" src="../../assets/SVG/logo.svg" alt="wesal logo" />
                 <h4 class="fw-bold">wesal</h4>
             </div>
             <div class="slogan ms-4">
@@ -35,38 +43,25 @@ export default {
         </div>
         <main>
             <h1 class="text-center fw-bold mb-4">Sign up</h1>
-            <form class="mb-4"  method="POST" action="http://127.0.0.1:8000/register">
+            <form class="mb-4" method="POST" action="http://127.0.0.1:8000/register">
                 <div class="form-floating">
-                    <input
-                        class="rounded-pill form-control"
-                        id="floatingInput"
-                        type="text"
-                        placeholder="your name"
-                        v-model="username"
-                    />
+                    <input class="rounded-pill form-control" id="floatingInput" type="text" placeholder="your name"
+                        v-model="form.username" />
                     <label for="floatingInput">your name</label>
                 </div>
                 <div class="form-floating">
-                    <input
-                        class="rounded-pill form-control"
-                        id="floatingInput"
-                        type="email"
-                        placeholder="email"
-                        v-model="email"
-                    />
+                    <input class="rounded-pill form-control" id="floatingInput" type="email" placeholder="email"
+                        v-model="form.email" />
                     <label for="floatingInput">email</label>
                 </div>
                 <div class="form-floating passwordContainer">
-                    <input
-                        class="rounded-pill form-control"
-                        :type="passwordShown?'text':'password'"
-                        placeholder="Password"
-                        v-model="password"
-                    />
+                    <input class="rounded-pill form-control" :type="passwordShown ? 'text' : 'password'"
+                        placeholder="Password" v-model="form.password" />
                     <label for="floatingInput">password</label>
-                    <i @click="togglePassword" :class="['bi',passwordShown? 'bi-eye-slash': 'bi-eye', 'eyeIcon']"></i>
+                    <i @click="togglePassword"
+                        :class="['bi', passwordShown ? 'bi-eye-slash' : 'bi-eye', 'eyeIcon']"></i>
                 </div>
-                <button class="border-0 rounded-pill fw-normal">sign up</button>
+                <button @click.prevent="registerUser" class="border-0 rounded-pill fw-normal">sign up</button>
                 <h6 class="text-center">or register using</h6>
                 <div class="thirdParty">
                     <span class="border rounded-circle border-0 text-light">
@@ -79,9 +74,7 @@ export default {
             </form>
             <div class="signin text-center">
                 Already have an account?
-                <router-link to="/login" class="fw-bold text-decoration-none"
-                    >sign in</router-link
-                >
+                <router-link to="/login" class="fw-bold text-decoration-none">sign in</router-link>
             </div>
         </main>
     </div>
@@ -95,6 +88,7 @@ export default {
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+
 $secColor: #91ffa2;
 $priColor: #0f9172;
 
@@ -103,6 +97,7 @@ $priColor: #0f9172;
     display: grid;
     column-gap: 20px;
     grid-template-columns: repeat(12, 1fr);
+
     .visuals {
         height: 100%;
         width: 100%;
@@ -111,6 +106,7 @@ $priColor: #0f9172;
         grid-column: 1/8;
         display: grid;
         grid-template-rows: repeat(3, auto);
+
         .logoText {
             .logo {
                 width: 2rem;
@@ -120,15 +116,19 @@ $priColor: #0f9172;
                 color: #0a5c49;
             }
         }
+
         .slogan {
             color: #0a5c49;
+
             h1 {
                 font-size: 64px;
             }
+
             h4 {
                 font-size: 30px;
             }
         }
+
         .hand {
             width: 500px;
             width: fit-content;
@@ -138,21 +138,26 @@ $priColor: #0f9172;
             // background: red;
         }
     }
+
     main {
         grid-column: 9/12;
         align-self: center;
         justify-self: center;
+
         // border: 1px solid red;
         h1 {
             color: $priColor;
             font-size: 64px;
         }
+
         form {
             display: grid;
             row-gap: 1.3em;
+
             .passwordContainer {
                 // display: flex;
                 position: relative;
+
                 .eyeIcon {
                     position: absolute;
                     color: #57ce8d;
@@ -162,6 +167,7 @@ $priColor: #0f9172;
                     cursor: pointer;
                 }
             }
+
             input {
                 border: 2px solid #57ce8d;
                 color: $priColor;
@@ -171,16 +177,19 @@ $priColor: #0f9172;
                 height: 50px;
                 font-weight: bold;
             }
-            label{
+
+            label {
                 color: $priColor;
                 margin-inline: 20px;
                 margin-top: -5px;
                 font-weight: 500;
             }
+
             .thirdParty {
                 display: flex;
                 justify-self: center;
                 gap: 1em;
+
                 span {
                     width: 40px;
                     height: 40px;
@@ -201,6 +210,7 @@ $priColor: #0f9172;
                     }
                 }
             }
+
             button {
                 background: $priColor;
                 color: white;
@@ -210,6 +220,7 @@ $priColor: #0f9172;
                 height: 30px;
             }
         }
+
         .signin {
             a {
                 color: $priColor;

@@ -5,12 +5,24 @@ export default {
   data() {
     return {
       passwordShown: false,
+      form:{
+        email:'habdas@gmail.com',
+        password:'Habdahabda',
+      }
     };
   },
   methods: {
     togglePassword() {
       this.passwordShown = !this.passwordShown;
     },
+    loginUser(){
+      axios.post('http://localhost:8000/api/login',this.form).then((res)=>{
+        console.log(res)
+        res.status>=200?this.$router.push('/home'):''
+      },(err)=>{
+        console.log(err)
+      })
+    }
   },
 };
 </script>
@@ -34,14 +46,14 @@ export default {
     </div>
     <main>
       <h1 class="text-center fw-bold mb-4">Login</h1>
-      <form class="mb-4" method="POST" action="http://127.0.0.1:8000/login">
+      <form class="mb-4" method="POST">
         <div class="form-floating">
           <input
             class="rounded-pill form-control"
             id="floatingInput"
             type="email"
             placeholder="email"
-            v-model="email"
+            v-model="form.email"
           />
           <label for="floatingInput">email</label>
         </div>
@@ -50,7 +62,7 @@ export default {
             class="rounded-pill form-control"
             :type="passwordShown ? 'text' : 'password'"
             placeholder="Password"
-            v-model="password"
+            v-model="form.password"
           />
           <label for="floatingInput">password</label>
           <i
@@ -62,7 +74,7 @@ export default {
             ]"
           ></i>
         </div>
-        <button @click.prevent="this.$router.push('/home')"
+        <button @click.prevent="loginUser"
           class="border-0 rounded-pill fw-normal"
         >
           sign in
