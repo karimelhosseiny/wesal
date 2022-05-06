@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="/organizations" method="POST" enctype="multipart/form-data">
+<form action="/postorg" method="POST" enctype="multipart/form-data">
     @csrf
     <div>
         title

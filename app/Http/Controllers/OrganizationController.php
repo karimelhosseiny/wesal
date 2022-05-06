@@ -99,6 +99,12 @@ class OrganizationController extends Controller
         ]);
     }
 
+    public function testorgforms()
+    {
+        // return view('layouts.donationtest'); 
+        return view('layouts.organizationtest');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

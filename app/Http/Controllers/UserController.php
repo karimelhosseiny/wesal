@@ -163,6 +163,11 @@ class UserController extends Controller
             'donationcase' => $donationcase
         ]);
     }
+
+
+
+
+
     public function createfavcase(Request $request)
     {
         $request->validate([
@@ -176,14 +181,20 @@ class UserController extends Controller
         Auth::User()->favoriteCases()->attach($request->input('case_id'));
        }
     }
+
+
+
+
     public function deletefavcase(Request $request)
     {
         Auth::User()->favoriteCases()->detach($request->input('case_id'));
     }
+
     public function deletereminder(Request $request)
     {
         Auth::User()->reminders()->delete(Auth::id());
     }
+
     public function setreminder(Request $request){
         $request->validate(
             [
@@ -228,6 +239,7 @@ class UserController extends Controller
     {
         return view('layouts.donationtest');
     }
+    
     public function usersadmins()
     {
         $admins = User::all()->where('type', '=', 'admin');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -224,6 +225,31 @@ class AdminController extends Controller
         {
             dd('you are not admin');
         }
+    }
+    
+    public function adminDeleteUser(Request $request ){
+        if (Gate::allows('isAdmin')){
+            DB::table('users')->where('id', $request->input('user_id'))->delete();
+            }
+        else{
+            dd('you are not admin');
+            }
+    }
+
+    public function adminDeleteOrg(Request $request){
+        if (Gate::allows('isAdmin')){
+            DB::table('organizations')->where('id', $request->input('org_id'))->delete();            }
+        else{
+            dd('you are not admin');
+            }
+    }
+
+
+
+
+    public function admindeleteuserandorg()
+    {
+    return view('layouts.admindeleteuserandorg');
     }
     public function Adminupdateorg()
     {

@@ -85,11 +85,7 @@ class PagesController extends Controller
     //data shown in user profile page
   
 
-    public function testforms()
-    {
-        // return view('layouts.donationtest'); 
-        return view('layouts.organizationtest');
-    }
+  
 
 
     // public function sergi(){
