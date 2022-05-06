@@ -123,7 +123,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
+    {
+    
+    }
+    public function editprofile(Request $request)
     {
         $request->validate(
             [
@@ -132,17 +136,20 @@ class UserController extends Controller
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
-        $newimage = time() . '-' . $request->name . '.' . $request->file('image')->extension();
-        $request->file('image')->move(public_path('images'), $newimage);
-        if ($id == Auth::id()) {
-            $user = User::find($id);
+        //upload image
+        if ($request->file()){
+            $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $request->file('image')->move(public_path('userimages'), $newimage);
+        }
+        if (Auth::id() != 0) {
+            $user = User::find(Auth::id());
             $user->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
                 'phonenumber' => $request->input('phone'),
                 'address' => $request->input('address'),
-                'image' => $newimage,
+                'image' =>  $newimage,
             ]);
         }
     }

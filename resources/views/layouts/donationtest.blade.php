@@ -2,8 +2,7 @@
 
 @section('content')
 
-<form action="/users/{{Auth::id()}}" method="POST" enctype="multipart/form-data">
-    @method('PUT')
+<form action="/edituser" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <input type='text' name= 'user_id' value="6" hidden></input>

@@ -101,7 +101,6 @@ class AdminController extends Controller
                     'updated_at'=>$date->format('Y-m-d H:i:s'),
                 ]);
             }
-            
             elseif($request->input('type') =='organization'){
                 $date = new DateTime();
                 DB::table('organizations')->insert([
