@@ -145,8 +145,7 @@ class UserController extends Controller
             $user = User::find(Auth::id());
             $user->update([
                 'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => $request->input('password'),
+                'password'=> bcrypt($request->input('password')),
                 'phonenumber' => $request->input('phone'),
                 'address' => $request->input('address'),
                 'image' =>  $newimage,

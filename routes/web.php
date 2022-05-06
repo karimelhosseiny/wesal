@@ -88,12 +88,17 @@ Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequ
 Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
 Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
-
-//add user by admin test
+//add user & org & another admin by admin test
 Route::get('/testadduser', [AdminController::class, 'testadduser']);
 Route::get('/testaddorg', [AdminController::class, 'testaddorg']);
 Route::post('/adduser', [AdminController::class, 'addUserWithType']);
-//edit test mara tanyia 
+//editprofile lluser test mara tanyia 
 Route::get('/testedit', [UserController::class, 'edittest']);
 Route::post('/edituser', [UserController::class, 'editprofile']);
+//admin update user profile test
+Route::get('/edituserbyadmin', [AdminController::class, 'Adminupdateuser']);
+Route::post('/updatedone', [AdminController::class, 'adminupdateuserprofile']);
+//admin update organization profile test
+Route::get('/editorgbyadmin', [AdminController::class, 'Adminupdateorg']);
+Route::post('/updateorgdone', [AdminController::class, 'adminupdateorganizationprofile']);
 //TODO: 1)handle the exceptions of the retrieved request in All Applications
