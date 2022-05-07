@@ -44,3 +44,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/isadmin', [PagesController::class, 'indexadmin']);
 // Route::get('/isorganization', [PagesController::class, 'indexorganization']);
 // Route::get('/isuser', [PagesController::class, 'indexuser']);
+
+
+

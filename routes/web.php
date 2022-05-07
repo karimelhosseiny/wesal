@@ -137,6 +137,6 @@ Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
 
 
 
-
+Route::post('api/register', [RegisterController::class ,'register']);
 
 //TODO: 1)handle the exceptions of the retrieved request in All Applications
