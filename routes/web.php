@@ -109,6 +109,9 @@ Route::post('/updateorgdone', [AdminController::class, 'adminupdateorganizationp
 Route::get('/admindeleteuserandorg', [AdminController::class, 'admindeleteuserandorg']); //(just test form) to delete user and organization by admin
 Route::post('/userdeleted', [AdminController::class, 'adminDeleteUser']); //delete user record from database
 Route::post('/orgdeleted', [AdminController::class, 'adminDeleteOrg']); //delete organization record from database
+
+Route::get('/adminaddcase' ,[AdminController::class, 'adminaddnewcase']); //(just test from) to add new case by admin
+Route::post('/caseadded',[AdminController::class, 'adminaddcase']); //store new case in database
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
 

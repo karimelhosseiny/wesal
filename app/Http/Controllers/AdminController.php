@@ -226,6 +226,39 @@ class AdminController extends Controller
             dd('you are not admin');
         }
     }
+
+
+
+    public function adminaddcase(Request $request){
+        if (Gate::allows('isAdmin')){
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('userimages'), $newimage);
+            
+            $date = new DateTime();
+            DB::table('donation_cases')->insert([
+                    'title' =>$request->input('title'),
+                    'goal_amount' =>$request->input('goalamount'),
+                    'raised_amount' =>0,
+                    'image' =>$newimage,
+                    'deadline' => $request->input('deadline'),
+                    'organization_id' =>$request->input('organizationid'),
+                    'category_id'=>$request->input('categoryid'),
+                    'user_id'=>Auth::id(),
+                    'created_at' =>$date->format('Y-m-d H:i:s'),
+                    'updated_at'=>$date->format('Y-m-d H:i:s'),
+                 ]);
+            }
+        }
+        else{
+            dd('you are not admin');
+            }
+    }
+
+    public function adminaddnewcase()
+    {
+    return view('layouts.adminaddcase');
+    }
     
     public function adminDeleteUser(Request $request ){
         if (Gate::allows('isAdmin')){
