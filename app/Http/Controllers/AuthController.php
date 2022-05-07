@@ -11,39 +11,31 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function registeruser(Request $request){
-        $validateddata = Validator::make($request->all(),[ 'name' => 'required|string',
-        'email' => 'required|email|string|unique:users,email',
-         'password' =>[
-             'required',
-             'confirmed',
-             Password::min(8)->mixedCase()->numbers()->symbols()]
+        $validateddata = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        if ($validateddata->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validateddata->errors()
             ]);
-            // 'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-        
-        
-    //    $data = $request->validate([
-        // 'name' => 'required|string',
-        // 'email' => 'required|email|string|unique:users,email',
-        // 'password' =>[
-        //     'required',
-        //     'confirmed',
-        //     Password::min(8)->mixedCase()->numbers()->symbols()
-        // ]
-        // ]);
-        // dd('yarab');
-        $data = $validateddata->validated();
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
-        $token = $user->createToken('main')->plainTextToken;
-        return response([
-            'user' => $user,
-            'token' => $token
-        ]);
+        }
+        else{
+            $data = $validateddata->validated();
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password'])
+            ]);
+            $token = $user->createToken('main')->plainTextToken;
+            return response([
+                'user' => $user,
+                'token' => $token
+            ]);
+        }
+       
 
     }
     
