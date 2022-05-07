@@ -11,8 +11,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers;
+// use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,25 +120,21 @@ Route::get('/adminupdatecase', [AdminController::class, 'adminupdateanycase']); 
 Route::post('/caseupdated', [AdminController::class, 'adminupdatecase']); //store the new updates for the case
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-//authentication for all users to login and signup
-Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('api/login', [LoginController::class, 'login']); //youssef
-Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
-// Registration Routes...
-Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('api/register', [RegisterController::class, 'register']); //youssef
-// Password Reset Routes...
-Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
-Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
-Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
-//---------------------------------------------------------------------------------------------------
-
-
+// Auth::routes();
+// //authentication for all users to login and signup
+// Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('api/login', [LoginController::class, 'login']); //youssef
+// Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
+// // Registration Routes...
+// Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::post('api/register', [RegisterController::class, 'register']); //youssef
+// // Password Reset Routes...
+// Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
+// Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+// Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
+// Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
+// //---------------------------------------------------------------------------------------------------
 
 
-
-Route::post('api/register', [RegisterController::class ,'register']);
 
 //TODO: 1)handle the exceptions of the retrieved request in All Applications

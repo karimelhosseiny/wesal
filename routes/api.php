@@ -7,7 +7,9 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthController;
+
+// use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -46,4 +48,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/isuser', [PagesController::class, 'indexuser']);
 
 
+Route::post('/register', [AuthController::class ,'registeruser']);
 
