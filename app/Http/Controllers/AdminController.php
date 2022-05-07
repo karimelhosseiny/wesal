@@ -254,13 +254,15 @@ class AdminController extends Controller
             dd('you are not admin');
             }
     }
-
-    public function adminaddnewcase()
-    {
-    return view('layouts.adminaddcase');
+    public function admindeletecase(Request $request){
+        if (Gate::allows('isAdmin')){
+            DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
+            }
+        else{
+            dd('you are not admin');
+            }
     }
-    
-    public function adminDeleteUser(Request $request ){
+     public function adminDeleteUser(Request $request ){
         if (Gate::allows('isAdmin')){
             DB::table('users')->where('id', $request->input('user_id'))->delete();
             }
@@ -299,6 +301,14 @@ class AdminController extends Controller
     public function testaddorg()
     {
         return view('layouts.addorgbyadmin');
+    }
+    public function adminaddnewcase()
+    {
+    return view('layouts.adminaddcase');
+    }
+    public function admindeleteanycase()
+    {
+    return view('layouts.admindeletecase');
     }
 
     /**

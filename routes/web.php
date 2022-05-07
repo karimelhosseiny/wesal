@@ -112,6 +112,8 @@ Route::post('/orgdeleted', [AdminController::class, 'adminDeleteOrg']); //delete
 
 Route::get('/adminaddcase' ,[AdminController::class, 'adminaddnewcase']); //(just test from) to add new case by admin
 Route::post('/caseadded',[AdminController::class, 'adminaddcase']); //store new case in database
+Route::get('/admindeletecase', [AdminController::class, 'admindeleteanycase']);
+Route::post('/casedeleted', [AdminController::class, 'admindeletecase']);
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
