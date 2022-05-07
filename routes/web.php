@@ -112,8 +112,10 @@ Route::post('/orgdeleted', [AdminController::class, 'adminDeleteOrg']); //delete
 
 Route::get('/adminaddcase' ,[AdminController::class, 'adminaddnewcase']); //(just test from) to add new case by admin
 Route::post('/caseadded',[AdminController::class, 'adminaddcase']); //store new case in database
-Route::get('/admindeletecase', [AdminController::class, 'admindeleteanycase']);
-Route::post('/casedeleted', [AdminController::class, 'admindeletecase']);
+Route::get('/admindeletecase', [AdminController::class, 'admindeleteanycase']); //(just test form) to delete case by admin
+Route::post('/casedeleted', [AdminController::class, 'admindeletecase']); //delete case record from database
+Route::get('/adminupdatecase', [AdminController::class, 'adminupdateanycase']); //(just test from) to update case by admin
+Route::post('/caseupdated', [AdminController::class, 'adminupdatecase']); //store the new updates for the case
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
 

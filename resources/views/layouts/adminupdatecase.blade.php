@@ -2,18 +2,20 @@
 
 @section('content')
 
-<form action="/caseadded" method="POST" enctype="multipart/form-data">
+<form action="/caseupdated" method="POST" enctype="multipart/form-data">
     
     @csrf
     <div class="form-group">
-    <label>organizationid</label>
-        <input type="text" name="organizationid" value="2" ></input>
+        <input type="text" name="case_id" value="7" hidden ></input>
         <br>
         <label>title</label>
         <input type='text' name= 'title'></input>
         <br>
         <label>goalamount</label>
         <input type='text'name= 'goalamount'></input>
+        <br>
+        <label>raisedamount</label>
+        <input type='text'name= 'raisedamount'></input>
         <br>
         <label>image</label>
         <input type='file' name= 'image' class="custom-file-input"></input>
@@ -23,6 +25,9 @@
         <br>
         <label>description</label>
         <input type='text' name= 'description'></input>
+        <br>
+        <label>organizationid</label>
+        <input type='text' name= 'organizationid'></input>
         <br>
         <label>categoryid</label>
         <input type='text' name= 'categoryid'></input>

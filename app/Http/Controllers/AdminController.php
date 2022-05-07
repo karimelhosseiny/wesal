@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\DonationCase;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -233,7 +234,7 @@ class AdminController extends Controller
         if (Gate::allows('isAdmin')){
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-                $request->file('image')->move(public_path('userimages'), $newimage);
+                $request->file('image')->move(public_path('caseimages'), $newimage);
             
             $date = new DateTime();
             DB::table('donation_cases')->insert([
@@ -242,6 +243,7 @@ class AdminController extends Controller
                     'raised_amount' =>0,
                     'image' =>$newimage,
                     'deadline' => $request->input('deadline'),
+                    'description' => $request->input('description'),
                     'organization_id' =>$request->input('organizationid'),
                     'category_id'=>$request->input('categoryid'),
                     'user_id'=>Auth::id(),
@@ -254,6 +256,36 @@ class AdminController extends Controller
             dd('you are not admin');
             }
     }
+
+    public function adminupdatecase(Request $request){
+        $request->validate(
+            [
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]
+        );
+        if (Gate::allows('isAdmin'))
+        {
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('caseimages'), $newimage);
+                 }
+            $case = DonationCase::find($request->input('case_id'));
+            $case->title = $request->input('title');
+            $case->goal_amount = $request->input('goalamount');
+            $case->raised_amount = $request->input('raisedamount');
+            $case->image = $newimage;
+            $case->deadline = $request->input('deadline');
+            $case->description = $request->input('description');
+            $case->organization_id = $request->input('organizationid');
+            $case->category_id = $request->input('categoryid');
+            $case->save();
+        }
+        else
+        {
+            dd('you are not admin');
+        }
+    }
+
     public function admindeletecase(Request $request){
         if (Gate::allows('isAdmin')){
             DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
@@ -309,6 +341,10 @@ class AdminController extends Controller
     public function admindeleteanycase()
     {
     return view('layouts.admindeletecase');
+    }
+    public function adminupdateanycase()
+    {
+    return view('layouts.adminupdatecase');
     }
 
     /**
