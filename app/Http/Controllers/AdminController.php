@@ -335,10 +335,6 @@ class AdminController extends Controller
             dd('you are not admin');
             }
     }
-
-
-
-
     public function admindeleteuserandorg()
     {
     return view('layouts.admindeleteuserandorg');
