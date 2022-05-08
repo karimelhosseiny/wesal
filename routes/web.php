@@ -118,6 +118,14 @@ Route::get('/admindeletecase', [AdminController::class, 'admindeleteanycase']); 
 Route::post('/casedeleted', [AdminController::class, 'admindeletecase']); //delete case record from database
 Route::get('/adminupdatecase', [AdminController::class, 'adminupdateanycase']); //(just test from) to update case by admin
 Route::post('/caseupdated', [AdminController::class, 'adminupdatecase']); //store the new updates for the case
+
+
+Route::get('/adminaddcategory' ,[AdminController::class, 'adminaddnewcategory']); //(just test from) to add new category by admin
+Route::post('/categoryadded',[AdminController::class, 'adminaddcategory']); //store new category in database
+Route::get('/admindeletecategory', [AdminController::class, 'admindeleteanycategory']); //(just test form) to delete category by admin
+Route::post('/categorydeleted', [AdminController::class, 'admindeletecategory']); //delete category record from database
+Route::get('/adminupdatecategory', [AdminController::class, 'adminupdateanycategory']); //(just test from) to update category by admin
+Route::post('/categoryupdated', [AdminController::class, 'adminupdatecategory']); //store the new updates for the category
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Auth::routes();

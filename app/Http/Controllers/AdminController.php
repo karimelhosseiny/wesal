@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\DonationCase;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -286,6 +287,47 @@ class AdminController extends Controller
         }
     }
 
+    public function adminaddcategory(Request $request){
+        if (Gate::allows('isAdmin')){
+            $date = new DateTime();
+            DB::table('categories')->insert([
+                'title' =>$request->input('title'),
+                'description' => $request->input('description'),
+                'created_at' =>$date->format('Y-m-d H:i:s'),
+                'updated_at'=>$date->format('Y-m-d H:i:s'),
+             ]);
+            }
+        else{
+            dd('you are not admin');
+            }
+    }
+    public function admindeletecategory(Request $request){
+        if (Gate::allows('isAdmin')){
+            DB::table('categories')->where('id', $request->input('category_id'))->delete();
+            }
+        else{
+            dd('you are not admin');
+            }
+    }
+
+    public function adminupdatecategory(Request $request){
+        if (Gate::allows('isAdmin'))
+        {
+            $category = Category::find($request->input('category_id'));
+            $category->title = $request->input('title');
+            $category->description = $request->input('description');
+            $category->save();
+            $date = new DateTime();
+            DB::table('categories')->where('id', $request->input('category_id'))->update([
+                'updated_at'=>$date->format('Y-m-d H:i:s'),
+             ]);            
+        }  
+        else
+        {
+            dd('you are not admin');
+        }
+    }
+
     public function admindeletecase(Request $request){
         if (Gate::allows('isAdmin')){
             DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
@@ -345,6 +387,17 @@ class AdminController extends Controller
     public function adminupdateanycase()
     {
     return view('layouts.adminupdatecase');
+    }
+    public function adminaddnewcategory()
+    {
+    return view('layouts.adminaddcategory');
+    }
+    public function admindeleteanycategory(){
+        return view('layouts.admindeletecategory');
+     }
+     public function adminupdateanycategory(){
+        return view('layouts.adminupdatecategory');
+
     }
 
     /**
