@@ -79,7 +79,6 @@ class AdminController extends Controller
                 'address'=> $request->input('address'),
                 'type'=> $request->input('type'),]);
                 $id= DB::table('users')->where('email',$request->input('email'))->value('id');
-
                 $request->validate(
                         [
                           'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -227,7 +226,33 @@ class AdminController extends Controller
             dd('you are not admin');
         }
     }
-
+// admin update user profile
+    public function adminupdateuserprofile(Request $request)
+    {
+        $request->validate(
+            [
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]
+        );
+        if (Gate::allows('isAdmin'))
+        {
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('user_image')->extension();
+                $request->file('user_image')->move(public_path('userimages'), $newimage);
+            }
+            $user = User::find($request->input('user_id'));
+            $user->name = $request->input('name');
+            $user->phonenumber = $request->input('phone');
+            $user->address = $request->input('address');
+            $user->password = bcrypt($request->input('password'));
+            $user->image = $newimage;
+            $user->save();
+        }
+        else
+        {
+            dd('you are not admin');
+        }
+    }
 
 
     public function adminaddcase(Request $request){
