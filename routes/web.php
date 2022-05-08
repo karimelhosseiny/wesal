@@ -70,8 +70,11 @@ Route::post('/postorg', [OrganizationController::class, 'store']); //store the  
 
 Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']); //(just test from) to add new case by organization
 Route::post('/newcaseadded', [OrganizationController::class, 'orgAddCase']); //store new case in database
-Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateanycase']); 
-Route::post('/newcaseupdated',[OrganizationController::class, 'orgUpdateCase']);
+Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateanycase']); //(just test from) to update new case by organization
+Route::post('/newcaseupdated',[OrganizationController::class, 'orgUpdateCase']); //store new updatesfor the case in database
+Route::get('/orgeletecase', [OrganizationController::class ,'orgdeleteanycase']); //(just test from) to add delete case by organization
+Route::post('/anycasedeleted',[OrganizationController::class, 'orgDeleteCase']); //delete case record from the database
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

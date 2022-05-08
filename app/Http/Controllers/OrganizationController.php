@@ -213,6 +213,16 @@ class OrganizationController extends Controller
         }
     }
 
+         //organization delete case
+    public function orgDeleteCase(Request $request){
+        if (Gate::allows('isOrganization')){
+            DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
+            }
+        else{
+            dd('you are not an organization');
+            }
+    }
+
 
 
 
@@ -221,10 +231,12 @@ class OrganizationController extends Controller
     {
     return view('layouts.orgaddcase');
     }
-
-    
     public function orgupdateanycase()
     {
     return view('layouts.orgupdatecase');
+    }
+    public function orgdeleteanycase()
+    {
+    return view('layouts.orgdeletecase');
     }
 }
