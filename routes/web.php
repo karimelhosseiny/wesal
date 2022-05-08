@@ -12,7 +12,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers;
-// use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminOrgController;
+use App\Http\Controllers\AdminCaseController;
+use App\Http\Controllers\AdminCateController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -92,56 +96,65 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Admin Controller
-Route::get('api/retrieverequests', [AdminController::class, 'retrieverequests']); //admin retrieves requests
-Route::get('api/accepted/{id}', [AdminController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
-Route::get('api/rejected/{id}', [AdminController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
-
+Route::get('api/retrieverequests', [AdminUserController::class, 'retrieverequests']); //admin retrieves requests
 Route::resource('/admin', AdminController::class);
-
 Route::get('/testadduser', [AdminController::class, 'testadduser']); //(just test form) to add user
 Route::get('/testaddorg', [AdminController::class, 'testaddorg']); //(just test form) to add organization
-Route::post('/adduser', [AdminController::class, 'addUserWithType']); //store new user or organization or admin
-
 Route::get('/edituserbyadmin', [AdminController::class, 'Adminupdateuser']); //(just test from) to edit user profile by admin
-Route::post('/updatedone', [AdminController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
-
 Route::get('/editorgbyadmin', [AdminController::class, 'Adminupdateorg']); //(just test from) to edit organization profile by admin
-Route::post('/updateorgdone', [AdminController::class, 'adminupdateorganizationprofile']); //store the new updates for the organization profile
+Route::get('/admindeleteuserwithtype', [AdminController::class, 'admindeleteanyuser']); //(just test form) to delete user and organization by admin
+//------------------------------------------------------------------------------------------------------------------------------------
 
-Route::get('/admindeleteuserandorg', [AdminController::class, 'admindeleteuserandorg']); //(just test form) to delete user and organization by admin
-Route::post('/userdeleted', [AdminController::class, 'adminDeleteUser']); //delete user record from database
-Route::post('/orgdeleted', [AdminController::class, 'adminDeleteOrg']); //delete organization record from database
 
+// AdminUserController
+Route::get('api/accepted/{id}', [AdminUserController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
+Route::get('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
+Route::post('/userdeleted', [AdminUserController::class, 'adminDeleteUserByType']); //delete user record from database
+Route::post('/adduser', [AdminUserController::class, 'addUserWithType']); //store new user or organization or admin
+Route::post('/updatedone', [AdminUserController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
+//------------------------------------------------------------------------------------------------------------------------------------
+
+
+// AdminOrgController
+Route::post('/orgdeleted', [AdminOrgController::class, 'adminDeleteOrg']); //delete organization record from database
+Route::post('/updateorgdone', [AdminOrgController::class, 'adminupdateorganizationprofile']); //store the new updates for the organization profile
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// AdminCaseController
 Route::get('/adminaddcase' ,[AdminController::class, 'adminaddnewcase']); //(just test from) to add new case by admin
-Route::post('/caseadded',[AdminController::class, 'adminaddcase']); //store new case in database
+Route::post('/caseadded',[AdminCaseController::class, 'adminaddcase']); //store new case in database
 Route::get('/admindeletecase', [AdminController::class, 'admindeleteanycase']); //(just test form) to delete case by admin
-Route::post('/casedeleted', [AdminController::class, 'admindeletecase']); //delete case record from database
+Route::post('/casedeleted', [AdminCaseController::class, 'admindeletecase']); //delete case record from database
 Route::get('/adminupdatecase', [AdminController::class, 'adminupdateanycase']); //(just test from) to update case by admin
-Route::post('/caseupdated', [AdminController::class, 'adminupdatecase']); //store the new updates for the case
+Route::post('/caseupdated', [AdminCaseController::class, 'adminupdatecase']); //store the new updates for the case
+//------------------------------------------------------------------------------------------------------------------------------------
 
 
+// AdminCateController
 Route::get('/adminaddcategory' ,[AdminController::class, 'adminaddnewcategory']); //(just test from) to add new category by admin
-Route::post('/categoryadded',[AdminController::class, 'adminaddcategory']); //store new category in database
+Route::post('/categoryadded',[AdminCateController::class, 'adminaddcategory']); //store new category in database
 Route::get('/admindeletecategory', [AdminController::class, 'admindeleteanycategory']); //(just test form) to delete category by admin
-Route::post('/categorydeleted', [AdminController::class, 'admindeletecategory']); //delete category record from database
+Route::post('/categorydeleted', [AdminCateController::class, 'admindeletecategory']); //delete category record from database
 Route::get('/adminupdatecategory', [AdminController::class, 'adminupdateanycategory']); //(just test from) to update category by admin
-Route::post('/categoryupdated', [AdminController::class, 'adminupdatecategory']); //store the new updates for the category
+Route::post('/categoryupdated', [AdminCateController::class, 'adminupdatecategory']); //store the new updates for the category
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
-// Auth::routes();
-// //authentication for all users to login and signup
-// Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('api/login', [LoginController::class, 'login']); //youssef
-// Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
-// // Registration Routes...
-// Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('api/register', [RegisterController::class, 'register']); //youssef
-// // Password Reset Routes...
-// Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
-// Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-// Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
-// Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
-// //---------------------------------------------------------------------------------------------------
+
+Auth::routes();
+//authentication for all users to login and signup
+Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('api/login', [LoginController::class, 'login']); //youssef
+Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
+// Registration Routes...
+Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('api/register', [RegisterController::class, 'register']); //youssef
+// Password Reset Routes...
+Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
+Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::get('api/password/reset/{token}', [ResetPasswordController::class, 'showResetForm']);
+Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
+//---------------------------------------------------------------------------------------------------
 
 
 
