@@ -179,6 +179,40 @@ class OrganizationController extends Controller
             }
     }
 
+     //organization update case
+     public function orgUpdateCase(Request $request){
+        $request->validate(
+            [
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]
+        );
+        if (Gate::allows('isOrganization'))
+        {
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('caseimages'), $newimage);
+                 }
+            $case = DonationCase::find($request->input('case_id'));
+            $case->title = $request->input('title');
+            $case->goal_amount = $request->input('goalamount');
+            $case->raised_amount = $request->input('raisedamount');
+            $case->image = $newimage;
+            $case->deadline = $request->input('deadline');
+            $case->description = $request->input('description');
+            $case->organization_id = $request->input('organizationid');
+            $case->category_id = $request->input('categoryid');
+            $case->save();
+            $date = new DateTime();
+            DB::table('donation_cases')->where('id', $request->input('cases_id'))->update([
+                'updated_at'=>$date->format('Y-m-d H:i:s'),
+             ]);  
+        }
+        else
+        {
+            dd('you are not an organization');
+        }
+    }
+
 
 
 
@@ -186,5 +220,11 @@ class OrganizationController extends Controller
     public function orgaddanycase()
     {
     return view('layouts.orgaddcase');
+    }
+
+    
+    public function orgupdateanycase()
+    {
+    return view('layouts.orgupdatecase');
     }
 }

@@ -68,8 +68,10 @@ Route::resource('/organization', OrganizationController::class); //to use functi
 Route::get('/testorgforms', [OrganizationController::class, 'testorgforms']); // (just test from) to apply to be organization 
 Route::post('/postorg', [OrganizationController::class, 'store']); //store the  organization requests in database
 
-Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']);
-Route::post('/newcaseadded', [OrganizationController::class, 'orgAddCase']);
+Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']); //(just test from) to add new case by organization
+Route::post('/newcaseadded', [OrganizationController::class, 'orgAddCase']); //store new case in database
+Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateanycase']); 
+Route::post('/newcaseupdated',[OrganizationController::class, 'orgUpdateCase']);
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
