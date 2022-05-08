@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\DonationCase;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use DateTime;
+
 
 class OrganizationController extends Controller
 {
@@ -146,5 +150,41 @@ class OrganizationController extends Controller
         return response()->json([
             'organizations' => $organizations,
         ]);
+    }
+    // organization add case
+    public function orgAddCase(Request $request){
+        if (Gate::allows('isOrganization')){
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('caseimages'), $newimage);
+            
+            $date = new DateTime();
+            DB::table('donation_cases')->insert([
+                    'title' =>$request->input('title'),
+                    'goal_amount' =>$request->input('goalamount'),
+                    'raised_amount' =>0,
+                    'image' =>$newimage,
+                    'deadline' => $request->input('deadline'),
+                    'description' => $request->input('description'),
+                    'organization_id' =>$request->input('organizationid'),
+                    'category_id'=>$request->input('categoryid'),
+                    'user_id'=>Auth::id(),
+                    'created_at' =>$date->format('Y-m-d H:i:s'),
+                    'updated_at'=>0,
+                 ]);
+            }
+        }
+        else{
+            dd('you are not an Organization');
+            }
+    }
+
+
+
+
+
+    public function orgaddanycase()
+    {
+    return view('layouts.orgaddcase');
     }
 }

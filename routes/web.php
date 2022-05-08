@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminOrgController;
 use App\Http\Controllers\AdminCaseController;
 use App\Http\Controllers\AdminCateController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminDashBoardController;
 
 
 /*
@@ -66,6 +67,9 @@ Route::get('api/organizations', [OrganizationController::class, 'organizations']
 Route::resource('/organization', OrganizationController::class); //to use function show() in organization controller type: http://127.0.0.1:8000/organization/{id}
 Route::get('/testorgforms', [OrganizationController::class, 'testorgforms']); // (just test from) to apply to be organization 
 Route::post('/postorg', [OrganizationController::class, 'store']); //store the  organization requests in database
+
+Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']);
+Route::post('/newcaseadded', [OrganizationController::class, 'orgAddCase']);
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -139,6 +143,12 @@ Route::post('/categorydeleted', [AdminCateController::class, 'admindeletecategor
 Route::get('/adminupdatecategory', [AdminController::class, 'adminupdateanycategory']); //(just test from) to update category by admin
 Route::post('/categoryupdated', [AdminCateController::class, 'adminupdatecategory']); //store the new updates for the category
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// Admin Dashboard
+Route::get('/userdashboard', [AdminDashBoardController::class , 'userDashBoard']);
+Route::get('/catedashboard', [AdminDashBoardController::class , 'cateDashBoard']);
+//----------------------------------------------------------------------------------------------------------------------------------------------
 
 
 Auth::routes();
