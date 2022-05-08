@@ -5,7 +5,10 @@
 <form action="/updatedone" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-    {{--<label>Name</label>
+        <label>user_id</label>
+        <input type="text" name="user_id" value="2" ></input>
+        <br> 
+    <label>Name</label>
         <input type='text' name= 'name'></input>
         <br>
         <label>phone</label>
@@ -22,8 +25,9 @@
             <input type="file" name="user_image" class="custom-file-input">
             <label class="custom-file-label" for="chooseFile">Choose image</label>   
         </div>
-        <br>   --}}    
-        <input type='text' name= 'user_id' value="10" hidden></input>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>    
+      {{--  <input type='text' name= 'user_id' value="10" hidden></input>
         <label>type</label>
         <input type="text" name='type'></input>
         <br>
@@ -43,7 +47,7 @@
         <label>description</label>
         <input type='text' name= 'description'></input>
         <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>--}}   
     </div>
 </form>
 @endsection
