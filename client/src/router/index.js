@@ -2,38 +2,61 @@ import { createRouter, createWebHistory } from "vue-router";
 import SignupPage from "../components/local/SignupPage.vue";
 import LoginPage from "../components/local/LoginPage.vue";
 import HomePage from "../components/local/HomePage.vue";
-import CasePage from "../components/local/CasePage.vue"
-import UserProfile from "../components/local/UserProfile.vue"
+import CasePage from "../components/local/CasePage.vue";
+import UserProfile from "../components/local/UserProfile.vue";
+import { useUser } from "../store/UserStore";
+
 const routes = [
     {
         path: "/",
-        name: "SignupPage",
-        component: SignupPage,
+        redirect: "/home",
+    },
+    {
+        path: "/home",
+        name: "HomePage",
+        component: HomePage,
+        meta: { requiresAuth: true },
     },
     {
         path: "/login",
         name: "LoginPage",
+        meta: {isGuest: true},
         component: LoginPage,
+        meta: {isGuest: true},
     },
     {
-        path: '/home',
-        name: 'HomePage',
-        component: HomePage
+        path: "/signup",
+        name: "SignupPage",
+        component: SignupPage,
+        meta: {isGuest: true},
     },
     {
-        path: '/casepage/:id',
-        name: 'CasePage',
-        component: CasePage
+        path: "/casepage/:id",
+        name: "CasePage",
+        component: CasePage,
     },
     {
-        path: '/profile',
-        name: 'UserProfile',
-        component: UserProfile
-    }
+        path: "/profile",
+        name: "UserProfile",
+        component: UserProfile,
+    },
 ];
 const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+router.beforeEach((to, from, next) => {
+    const store = useUser()
+    if (to.meta.requiresAuth && !store.$state.token) {
+        next({ name: "LoginPage" })
+    } else if(store.$state.token && to.meta.isGuest) {
+        next({name:'HomePage'})
+    }
+    else{
+        next()
+    }
+});
+
 
 export default router;

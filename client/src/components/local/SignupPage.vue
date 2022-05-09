@@ -1,5 +1,6 @@
 <script>
-import axios from 'axios'
+import { useUser } from "../../store/UserStore";
+import { mapActions,mapWritableState } from "pinia";
 export default {
     data() {
         return {
@@ -14,6 +15,11 @@ export default {
             passValid: null,
         };
     },
+    computed:{
+        ...mapWritableState(useUser,{
+            storeUser: 'user',
+        })
+    },
     methods: {
         togglePassword() {
             this.passwordShown = !this.passwordShown
@@ -24,13 +30,13 @@ export default {
         checkPassValidity() {
             this.passValid = this.$refs.pass.checkValidity()
         },
+          ...mapActions(useUser,{
+            register: 'register'
+        }),
         registerUser() {
-            axios.post('http://localhost:8000/api/register', this.form).then((res) => {
-                console.log(res)
-                res.status >= 200 ? this.$router.push('/home') : ''
-            }, (err) => {
-                console.log(err)
-            })
+           this.register(this.form)
+           console.log('action happened')
+           console.log(this.storeUser)
         }
     }
 };

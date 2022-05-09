@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
-
+import { useUser } from "../../store/UserStore";
+import { mapActions,mapWritableState } from "pinia";
 export default {
   data() {
     return {
@@ -88,7 +89,7 @@ export default {
       </form>
       <div class="signup text-center">
         Don`t have an account?
-        <router-link to="./" class="fw-bold text-decoration-none">sign up</router-link>
+        <router-link to="./signup" class="fw-bold text-decoration-none">sign up</router-link>
       </div>
     </main>
   </div>
