@@ -4,17 +4,25 @@ export default {
     data() {
         return {
             form: {
-                username: "youssefs",
-                email: "youssefs@gmail.com",
-                password: "Habdahabda",
-                confirmPassword: "Habdahabda"
+                username: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
             },
             passwordShown: false,
+            mailValid: null,
+            passValid: null,
         };
     },
     methods: {
         togglePassword() {
             this.passwordShown = !this.passwordShown
+        },
+        checkMailValidity() {
+            this.mailValid = this.$refs.mail.checkValidity()
+        },
+        checkPassValidity() {
+            this.passValid = this.$refs.pass.checkValidity()
         },
         registerUser() {
             axios.post('http://localhost:8000/api/register', this.form).then((res) => {
@@ -45,19 +53,34 @@ export default {
             <h1 class="text-center fw-bold mb-4">Sign up</h1>
             <form class="mb-4" method="POST" action="http://127.0.0.1:8000/register">
                 <div class="form-floating">
-                    <input class="rounded-pill form-control" id="floatingInput" type="text" placeholder="your name"
+                    <input class="rounded-pill form-control" id="floatingInputName" type="text" placeholder="your name"
                         v-model="form.username" />
-                    <label for="floatingInput">your name</label>
+                    <label for="floatingInputName">your name</label>
                 </div>
                 <div class="form-floating">
                     <input class="rounded-pill form-control" id="floatingInput" type="email" placeholder="email"
-                        v-model="form.email" />
+                        @keydown="checkMailValidity" v-model="form.email" required ref="mail" />
                     <label for="floatingInput">email</label>
+                    <span v-if="mailValid == false && form.email != ''" class="valdFail">please enter a valid email</span>
+                    <span v-else-if="mailValid && form.email != ''" class="valdSuccess">all good</span>
                 </div>
                 <div class="form-floating passwordContainer">
                     <input class="rounded-pill form-control" :type="passwordShown ? 'text' : 'password'"
-                        placeholder="Password" v-model="form.password" />
-                    <label for="floatingInput">password</label>
+                        placeholder="Password" v-model="form.password" @keydown="checkPassValidity"
+                        id="floatingInputPass" required ref="pass" minlength="7" />
+                    <label for="floatingInputPass">password</label>
+                    <span v-if="passValid == false && form.password != ''" class="valdFail">must be at least 8 letters</span>
+                    <span v-else-if="passValid && form.password != ''" class="valdSuccess">all good</span>
+                    <i @click="togglePassword"
+                        :class="['bi', passwordShown ? 'bi-eye-slash' : 'bi-eye', 'eyeIcon']"></i>
+                </div>
+                <div class="form-floating passwordContainer">
+                    <input class="rounded-pill form-control" :type="passwordShown ? 'text' : 'password'"
+                        placeholder="Password" v-model="form.confirmPassword" @keydown="checkPassValidity"
+                        id="floatingInputPassConfirm" required minlength="7" />
+                    <label for="floatingInputPassConfirm">confirm password</label>
+                    <span v-if="form.password !== form.confirmPassword && form.confirmPassword != ''" class="valdFail">passwords do not match</span>
+                    <span v-else-if="form.password === form.confirmPassword && form.confirmPassword != ''" class="valdSuccess">password match</span>
                     <i @click="togglePassword"
                         :class="['bi', passwordShown ? 'bi-eye-slash' : 'bi-eye', 'eyeIcon']"></i>
                 </div>
@@ -184,6 +207,18 @@ $priColor: #0f9172;
                 margin-top: -5px;
                 font-weight: 500;
             }
+            .valdFail{
+        margin-left: 35px;
+        color: crimson;
+        font-weight: 500;
+        font-size: 15px;
+      }
+      .valdSuccess{
+        margin-left: 35px;
+        color: $priColor;
+        font-weight: 500;
+        font-size: 15px;
+      }
 
             .thirdParty {
                 display: flex;

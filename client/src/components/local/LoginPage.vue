@@ -5,37 +5,44 @@ export default {
   data() {
     return {
       passwordShown: false,
-      form:{
-        email:'habdas@gmail.com',
-        password:'Habdahabda',
-      }
+      form: {
+        email: '',
+        password: '',
+        mailValid:null,
+        passValid:null,
+      },
     };
-  },
+  },  
   methods: {
     togglePassword() {
       this.passwordShown = !this.passwordShown;
     },
-    loginUser(){
-      axios.post('http://localhost:8000/api/login',this.form).then((res)=>{
-        console.log(res)
-        res.status>=200?this.$router.push('/home'):''
-      },(err)=>{
-        console.log(err)
-      })
-    }
-  },
-};
+    checkMailValidity(){
+    this.mailValid = this.$refs.mail.checkValidity()
+    },
+    checkPassValidity(){
+    this.passValid = this.$refs.pass.checkValidity()
+    },
+  loginUser() {
+    // this.validity = this.$refs.form.checkValidity()
+    // this.validity?console.log('valid'): console.log('invalid')
+    // axios.post('http://localhost:8000/api/login', this.form).then((res) => {
+    //   console.log(res)
+    //   res.status >= 200 ? '' : ''
+    // }, (err) => {
+    //   console.log(err)
+    // })
+  }
+ 
+  }
+}
 </script>
 
 <template>
   <div class="mainContainer">
     <div class="visuals ps-3 pt-3">
       <div class="logoText d-flex w-25 align-items-start">
-        <img
-          class="logo me-2 ms-4"
-          src="../../assets/SVG/logo.svg"
-          alt="wesal logo"
-        />
+        <img class="logo me-2 ms-4" src="../../assets/SVG/logo.svg" alt="wesal logo" />
         <h4 class="fw-bold">wesal</h4>
       </div>
       <div class="slogan ms-4">
@@ -46,37 +53,27 @@ export default {
     </div>
     <main>
       <h1 class="text-center fw-bold mb-4">Login</h1>
-      <form class="mb-4" method="POST">
+      <form ref="form" :class="['mb-4']" method="POST">
         <div class="form-floating">
-          <input
-            class="rounded-pill form-control"
-            id="floatingInput"
-            type="email"
-            placeholder="email"
-            v-model="form.email"
-          />
+          <input class="rounded-pill form-control" id="floatingInput" type="email"
+            placeholder="email"  @keydown="checkMailValidity" v-model="form.email"  required ref="mail" />
           <label for="floatingInput">email</label>
+          <span v-if="mailValid==false&&form.email!=''" class="valdFail">please enter a valid email</span>
+          <span v-else-if="mailValid&&form.email!=''" class="valdSuccess">all good</span>
         </div>
         <div class="form-floating passwordContainer">
-          <input
-            class="rounded-pill form-control"
-            :type="passwordShown ? 'text' : 'password'"
-            placeholder="Password"
-            v-model="form.password"
-          />
-          <label for="floatingInput">password</label>
-          <i
-            @click="togglePassword"
-            :class="[
-              'bi',
-              passwordShown ? 'bi-eye-slash' : 'bi-eye',
-              'eyeIcon',
-            ]"
-          ></i>
+          <input class="rounded-pill form-control" :type="passwordShown ? 'text' : 'password'" placeholder="Password"
+            v-model="form.password" @keydown="checkPassValidity" id="floatingInputPass" required ref="pass" minlength="7" />
+          <label for="floatingInputPass">password</label>
+          <span v-if="passValid==false&&form.password!=''" class="valdFail">must be at least 8 letters</span>
+          <span v-else-if="passValid&&form.password!=''" class="valdSuccess">all good</span>
+          <i @click="togglePassword" :class="[
+            'bi',
+            passwordShown ? 'bi-eye-slash' : 'bi-eye',
+            'eyeIcon',
+          ]"></i>
         </div>
-        <button @click.prevent="loginUser"
-          class="border-0 rounded-pill fw-normal"
-        >
+        <button @click.prevent="loginUser" type="submit" class="border-0 rounded-pill fw-normal">
           sign in
         </button>
         <h6 class="text-center">or login using</h6>
@@ -91,9 +88,7 @@ export default {
       </form>
       <div class="signup text-center">
         Don`t have an account?
-        <router-link to="./" class="fw-bold text-decoration-none"
-          >sign up</router-link
-        >
+        <router-link to="./" class="fw-bold text-decoration-none">sign up</router-link>
       </div>
     </main>
   </div>
@@ -106,6 +101,7 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 $secColor: #91ffa2;
 $priColor: #0f9172;
 
@@ -114,6 +110,7 @@ $priColor: #0f9172;
   display: grid;
   column-gap: 20px;
   grid-template-columns: repeat(12, 1fr);
+
   .visuals {
     height: 100%;
     width: 100%;
@@ -122,6 +119,7 @@ $priColor: #0f9172;
     grid-column: 1/8;
     display: grid;
     grid-template-rows: repeat(3, auto);
+
     .logoText {
       .logo {
         width: 2rem;
@@ -131,15 +129,19 @@ $priColor: #0f9172;
         color: #0a5c49;
       }
     }
+
     .slogan {
       color: #0a5c49;
+
       h1 {
         font-size: 64px;
       }
+
       h4 {
         font-size: 30px;
       }
     }
+
     .hand {
       width: 500px;
       width: fit-content;
@@ -149,21 +151,26 @@ $priColor: #0f9172;
       // background: red;
     }
   }
+
   main {
     grid-column: 9/12;
     align-self: center;
     justify-self: center;
+
     // border: 1px solid red;
     h1 {
       color: $priColor;
       font-size: 64px;
     }
+
     form {
       display: grid;
       row-gap: 1.3em;
+
       .passwordContainer {
         // display: flex;
         position: relative;
+
         .eyeIcon {
           position: absolute;
           color: #57ce8d;
@@ -173,6 +180,7 @@ $priColor: #0f9172;
           cursor: pointer;
         }
       }
+
       input {
         border: 2px solid #57ce8d;
         color: $priColor;
@@ -182,16 +190,31 @@ $priColor: #0f9172;
         height: 50px;
         font-weight: bold;
       }
+
       label {
         color: $priColor;
         margin-inline: 20px;
         margin-top: -5px;
         font-weight: 500;
       }
+        .valdFail{
+          margin-left: 35px;
+          color: crimson;
+          font-weight: 500;
+          font-size: 15px;
+        }
+        .valdSuccess{
+          margin-left: 35px;
+          color: $priColor;
+          font-weight: 500;
+          font-size: 15px;
+        }
+
       .thirdParty {
         display: flex;
         justify-self: center;
         gap: 1em;
+
         span {
           width: 40px;
           height: 40px;
@@ -212,6 +235,7 @@ $priColor: #0f9172;
           }
         }
       }
+
       button {
         background: $priColor;
         color: white;
@@ -221,6 +245,7 @@ $priColor: #0f9172;
         height: 30px;
       }
     }
+
     .signup {
       a {
         color: $priColor;
