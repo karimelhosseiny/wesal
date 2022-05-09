@@ -93,7 +93,7 @@ class AdminController extends Controller
                         'verifiedby' => Auth::id(),
                         'creator_id'=> $id,
                         'created_at' =>$date->format('Y-m-d H:i:s'),
-                        'updated_at'=>$date->format('Y-m-d H:i:s'),
+                        'updated_at'=>0,
                      ]);
             }
            }

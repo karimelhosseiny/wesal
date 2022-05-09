@@ -224,6 +224,41 @@ class OrganizationController extends Controller
     }
 
 
+    public function orgUpdateProfile(Request $request)
+    {
+        $request->validate(
+            [
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+              'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+            ]
+        );
+        if (Gate::allows('isOrganization'))
+        {
+            if ($request->file()){
+                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('orgimages'), $newimage);
+                $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
+                $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
+            }
+            $organization = Organization::find($request->input('organization_id'));
+            $organization->title = $request->input('title');
+            $organization->phonenumber = $request->input('phonenumber');
+            $organization->image = $newimage;
+            $organization->description = $request->input('description');
+            $organization->verificationdocuments = $verificationdocuments;
+            $organization->save();
+            $date = new DateTime();
+            DB::table('organizations')->where('id', $request->input('org_id'))->update([
+                'updated_at'=>$date->format('Y-m-d H:i:s'),
+             ]); 
+        }
+        else
+        {
+            dd('you are not an organization');
+        }
+    }
+
+
 
 
 
@@ -238,5 +273,9 @@ class OrganizationController extends Controller
     public function orgdeleteanycase()
     {
     return view('layouts.orgdeletecase');
+    }
+    public function orgupdateitsprofile()
+    {
+    return view('layouts.orgupdateprofile');
     }
 }

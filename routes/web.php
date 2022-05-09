@@ -75,6 +75,11 @@ Route::post('/newcaseupdated',[OrganizationController::class, 'orgUpdateCase']);
 Route::get('/orgeletecase', [OrganizationController::class ,'orgdeleteanycase']); //(just test from) to add delete case by organization
 Route::post('/anycasedeleted',[OrganizationController::class, 'orgDeleteCase']); //delete case record from the database
 
+
+Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateitsprofile']); //(just test from) to add delete case by organization
+Route::post('/orgprofileupdated',[OrganizationController::class, 'orgUpdateProfile']); //delete case record from the database
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
