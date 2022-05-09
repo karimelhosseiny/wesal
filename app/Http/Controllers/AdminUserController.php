@@ -128,11 +128,16 @@ class AdminUserController extends Controller
             if($user['type'] = 'organization'){
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
                 DB::table('organizations')->where('creator_id', $request->input('user_id'))->delete();
+                DB::table('donation_cases')->where('organization_id', $request->input('user_id'))->delete();
+
             }
             elseif($user['type'] ='admin') {
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
                 DB::table('admins')->where('id', $request->input('user_id'))->delete();
                 DB::table('organizations')->where('creator_id', $request->input('user_id'))->delete();
+                DB::table('donation_cases')->where('organization_id', $request->input('user_id'))->delete();
+
+                
             }
             else{
                 DB::table('users')->where('id', $request->input('user_id'))->delete();

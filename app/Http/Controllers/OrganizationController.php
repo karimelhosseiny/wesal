@@ -223,7 +223,7 @@ class OrganizationController extends Controller
             }
     }
 
-
+    //organization update its profile
     public function orgUpdateProfile(Request $request)
     {
         $request->validate(
