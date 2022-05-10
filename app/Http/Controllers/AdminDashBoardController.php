@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\DonationCase;
+use App\Models\Reminder;
 use App\Models\DonationOperation;
 use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
@@ -25,6 +26,8 @@ class AdminDashBoardController extends Controller
         $totaldonations = DB::table('donation_operations')->count();
         $users = User::all();
 
+
+       
         return response()->json([
             'Total Users' => $totalusers,
             'Total Donations' => $totaldonations,
@@ -78,4 +81,42 @@ class AdminDashBoardController extends Controller
         dd('you are not admin');
         }
         }
+    //reminders dashboard
+    public function remindersDashBoard(){
+        $totalreminders = Reminder::all();
+        $allreminders = DB::table('reminders')->count();
+        $users  = User::withCount(['reminders'])->get();
+        $reminders = [];
+            
+        foreach ($users as $user){
+          $items = ['id'=>$user->id,'name'=>$user->name,'email'=>$user->email,'totalreminders'=>$user->reminders_count];
+            array_push($reminders, $items);
+        }
+
+        return response()->json([
+            'totalreminders' => $totalreminders,
+            'allreminders' => $allreminders,
+            'reminders' => $reminders
+                             ]);
+
+    }
+
+    //donations dashboard
+    public function donationsDashBoard(){
+        $totaldonations = DonationOperation::all();
+        // $users = User::withCount(['donationOperations','usersDonated'])->get();
+        // $donations = [];
+
+        // foreach ($users as $user){
+        //     $items = ['totaldonations'=>$user->donationOperations_count];
+        //     array_push($donations, $items);
+        // }
+
+        
+        return response()->json([
+            'totaldonations' => $totaldonations,
+            // 'donations' => $donations
+                             ]);
+    }
+
 }
