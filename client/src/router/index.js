@@ -4,7 +4,7 @@ import LoginPage from "../components/local/LoginPage.vue";
 import HomePage from "../components/local/HomePage.vue";
 import CasePage from "../components/local/CasePage.vue";
 import UserProfile from "../components/local/UserProfile.vue";
-import { useUser } from "../store/UserStore";
+import { useUserStore } from "../store/UserStore";
 
 const routes = [
     {
@@ -47,7 +47,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const store = useUser()
+    const store = useUserStore()
     if (to.meta.requiresAuth && !store.$state.token) {
         next({ name: "LoginPage" })
     } else if(store.$state.token && to.meta.isGuest) {

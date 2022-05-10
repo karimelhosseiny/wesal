@@ -3,8 +3,6 @@ import axios from "axios";
 import Navbar from "../global/Navbar.vue";
 import HeroSection from "./HeroSection.vue";
 import UserCaseCard from "./UserCaseCard.vue";
-import { mapStores, mapWritableState, mapActions, mapState } from 'pinia';
-import { useUser } from "../../store/UserStore";
 
 export default {
     data() {
@@ -22,8 +20,6 @@ export default {
     },
     components: { Navbar, HeroSection, UserCaseCard },
     computed: {
-        ...mapStores(useUser),
-        ...mapState(useUser,['user']),
         filteredCards() {
             return this.cases.filter((Case) =>
                 Case.title.toLowerCase().includes(this.search.toLowerCase())
@@ -33,6 +29,7 @@ export default {
             return this.cases.filter((Case) => Case.cat === parseInt(this.referance));
         },
     },
+
     methods: {
         toggleFavoriteStatus(cardId) {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
@@ -79,7 +76,8 @@ export default {
         },
         calcZakah() {
             this.amount !== null ? this.calculatedZakah = this.amount * (2.5 / 100) : 0
-        }
+        },
+       
     },
     created() {
         this.getCases();

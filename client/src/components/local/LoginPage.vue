@@ -1,7 +1,8 @@
 <script>
 import axios from "axios";
-import { useUser } from "../../store/UserStore";
-import { mapActions,mapWritableState } from "pinia";
+import { useUserStore } from "../../store/UserStore";
+import { mapActions, mapWritableState, mapStores } from "pinia";
+
 export default {
   data() {
     return {
@@ -9,32 +10,45 @@ export default {
       form: {
         email: '',
         password: '',
-        mailValid:null,
-        passValid:null,
       },
+      mailValid: null,
+      passValid: null,
     };
-  },  
+  },
+  computed: {
+    ...mapStores(useUserStore),
+    ...mapWritableState(useUserStore, {
+      User: 'user',
+      storeToken: 'token',
+    }),
+  },
   methods: {
     togglePassword() {
       this.passwordShown = !this.passwordShown;
     },
-    checkMailValidity(){
-    this.mailValid = this.$refs.mail.checkValidity()
+    checkMailValidity() {
+      this.mailValid = this.$refs.mail.checkValidity()
     },
-    checkPassValidity(){
-    this.passValid = this.$refs.pass.checkValidity()
+    checkPassValidity() {
+      this.passValid = this.$refs.pass.checkValidity()
     },
-  loginUser() {
-    // this.validity = this.$refs.form.checkValidity()
-    // this.validity?console.log('valid'): console.log('invalid')
-    // axios.post('http://localhost:8000/api/login', this.form).then((res) => {
-    //   console.log(res)
-    //   res.status >= 200 ? '' : ''
-    // }, (err) => {
-    //   console.log(err)
-    // })
-  }
- 
+    ...mapActions(useUserStore, ['login']),
+    loginUser() {
+      console.log('sign in')
+      const store = useUserStore()
+      const router = this.$router
+      if (this.mailValid && this.passValid) {
+        this.login(this.form).then(() => {
+        }, (e) => console.log('login error: ', e))
+          .then(function () {
+            if (store.currentUser && store.token) {
+              router.push('/home')
+            }
+          })
+
+      }
+    }
+
   }
 }
 </script>
@@ -56,18 +70,19 @@ export default {
       <h1 class="text-center fw-bold mb-4">Login</h1>
       <form ref="form" :class="['mb-4']" method="POST">
         <div class="form-floating">
-          <input class="rounded-pill form-control" id="floatingInput" type="email"
-            placeholder="email"  @keydown="checkMailValidity" v-model="form.email"  required ref="mail" />
+          <input class="rounded-pill form-control" id="floatingInput" type="email" placeholder="email"
+            @keydown="checkMailValidity" v-model="form.email" required ref="mail" />
           <label for="floatingInput">email</label>
-          <span v-if="mailValid==false&&form.email!=''" class="valdFail">please enter a valid email</span>
-          <span v-else-if="mailValid&&form.email!=''" class="valdSuccess">all good</span>
+          <span v-if="mailValid == false && form.email != ''" class="valdFail">please enter a valid email</span>
+          <span v-else-if="mailValid && form.email != ''" class="valdSuccess">all good</span>
         </div>
         <div class="form-floating passwordContainer">
           <input class="rounded-pill form-control" :type="passwordShown ? 'text' : 'password'" placeholder="Password"
-            v-model="form.password" @keydown="checkPassValidity" id="floatingInputPass" required ref="pass" minlength="7" />
+            v-model="form.password" @keydown="checkPassValidity" id="floatingInputPass" required ref="pass"
+            minlength="7" />
           <label for="floatingInputPass">password</label>
-          <span v-if="passValid==false&&form.password!=''" class="valdFail">must be at least 8 letters</span>
-          <span v-else-if="passValid&&form.password!=''" class="valdSuccess">all good</span>
+          <span v-if="passValid == false && form.password != ''" class="valdFail">must be at least 8 letters</span>
+          <span v-else-if="passValid && form.password != ''" class="valdSuccess">all good</span>
           <i @click="togglePassword" :class="[
             'bi',
             passwordShown ? 'bi-eye-slash' : 'bi-eye',
@@ -198,18 +213,20 @@ $priColor: #0f9172;
         margin-top: -5px;
         font-weight: 500;
       }
-        .valdFail{
-          margin-left: 35px;
-          color: crimson;
-          font-weight: 500;
-          font-size: 15px;
-        }
-        .valdSuccess{
-          margin-left: 35px;
-          color: $priColor;
-          font-weight: 500;
-          font-size: 15px;
-        }
+
+      .valdFail {
+        margin-left: 35px;
+        color: crimson;
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      .valdSuccess {
+        margin-left: 35px;
+        color: $priColor;
+        font-weight: 500;
+        font-size: 15px;
+      }
 
       .thirdParty {
         display: flex;

@@ -1,8 +1,23 @@
 <script>
+import { mapStores, mapActions, mapState } from 'pinia';
+import { useUserStore } from "../../store/UserStore";
 export default {
     data() {
         return {};
     },
+    methods: {
+         ...mapActions(useUserStore, ['logout']),
+         logoutUser(){
+             this.logout()
+             if(this.userStore.token===null){
+                 this.$router.push('/login')
+             }
+        },
+    },
+    computed:{
+          ...mapStores(useUserStore),
+        ...mapState(useUserStore,['user']),
+    }
 };
 </script>
 
@@ -22,7 +37,7 @@ export default {
         <div class="controls">
             <i class="bi bi-calendar"></i>
             <i class="bi bi-bell-fill"></i>
-            <button class="btn btn-warning border-0 rounded-pill">sign out</button>
+            <button @click="logoutUser" class="btn btn-warning border-0 rounded-pill">sign out</button>
             <router-link to="/profile">
                 <img src="../../assets/7maya.png" class="bg-light" alt="..." />
             </router-link>

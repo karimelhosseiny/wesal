@@ -1,38 +1,67 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 
-export const useUser = defineStore("user", {
+export const useUserStore = defineStore("user", {
     state: () => ({
-        user: {},
+        currentUser: {},
         token: localStorage.getItem("TOKEN"),
-        // token: 'localStorage.getItem("TOKEN")',
     }),
     actions: {
-        register: async (User) => {
-            axios
-                .post("http://localhost:8000/api/register", User, {
+        async register(enterdUser) {
+            var Token = {};
+            var CurrentUser = null;
+            await axios
+                .post("http://localhost:8000/api/register", enterdUser, {
                     mode: "no-cors",
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
                     },
                 })
-                .then(function(res){
-                    this.user = res.data.user;
-                    this.token = res.data.token;
-                    localStorage.setItem("TOKEN", res.data.token);
-                },(e)=>console.log(e));
+                .then(function (res) {
+                    console.log(res);
+                    if (res.data.status) {
+                        console.log("errors: ", res.data.errors);
+                    } else {
+                        console.log(res.data.token);
+                        Token = res.data.token;
+                        CurrentUser = res.data.user;
+                    }
+                })
+                .catch((e) => console.log("in action error:", e));
+            this.token = Token;
+            this.currentUser = CurrentUser;
+            localStorage.setItem("TOKEN", Token);
         },
-        login: async (user) => {
-            axios.post("http://localhost:8000/api/login", user).then((res) => {
-                this.state.user = res.data.user;
-                this.state.token = res.data.token;
-                localStorage.setItem("TOKEN", res.data.token);
-            });
+        async login(enterdUser) {
+            var Token = {};
+            var CurrentUser = null;
+            await axios
+                .post("http://localhost:8000/api/login", enterdUser, {
+                    mode: "no-cors",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(function (res) {
+                    console.log(res);
+                    if (res.data.status) {
+                        console.log("errors: ", res.data.errors);
+                    } else {
+                        console.log(res.data.token);
+                        Token = res.data.token;
+                        CurrentUser = res.data.user;
+                    }
+                })
+                .catch((e) => console.log("in action error:", e));
+            this.token = Token;
+            this.currentUser = CurrentUser;
+            localStorage.setItem("TOKEN", Token);
         },
-        logout: () => {
-            this.state.token = null;
-            this.state.user = {};
+        logout() {
+            this.currentUser = {};
+            this.token = null;
             localStorage.removeItem("TOKEN");
         },
     },
