@@ -40,11 +40,18 @@ class CaseController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r(Auth::User());
-        Auth::User()->donationOperations()->attach($request->input('caseid'), [
+       //
+    }
+    public function userdonation(Request $request)
+    {
+        Auth::User()->donationOperations()->attach($request->input('case_id'), [
             "amount" => $request->input('amount'),
             "currency" => $request->input('currency')
         ]);
+    }
+    public function userdonate()
+    {
+        return view('layouts.UserDonationTest');
     }
     //ana hyegy mn front 
     //case id we ana 3amel access 3ala user id mn auth 
