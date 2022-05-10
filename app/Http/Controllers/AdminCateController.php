@@ -18,7 +18,6 @@ use DateTime;
 class AdminCateController extends Controller
 {
     //admin add category
-    
     public function adminaddcategory(Request $request){
         if (Gate::allows('isAdmin')){
             $date = new DateTime();
@@ -33,8 +32,6 @@ class AdminCateController extends Controller
             dd('you are not admin');
             }
     }
-    
-
     //admin update cateogry
     public function adminupdatecategory(Request $request){
         if (Gate::allows('isAdmin'))
@@ -53,7 +50,6 @@ class AdminCateController extends Controller
             dd('you are not admin');
         }
     }
-
     //admin delete category
     public function admindeletecategory(Request $request){
         if (Gate::allows('isAdmin')){
@@ -63,6 +59,4 @@ class AdminCateController extends Controller
             dd('you are not admin');
             }
     }
-
-
 }

@@ -85,6 +85,9 @@ Route::post('/orgprofileupdated',[OrganizationController::class, 'orgUpdateProfi
 
 //Case Controller
 Route::get('api/cases', [CaseController::class, 'cases']); // show all cases from database
+//UserDoantion Test
+Route::get('/userdonation', [CaseController::class, 'userdonate']); //just test from
+Route::post('/donationdone',[CaseController::class,'userdonation']); //store user donation in database
 //-----------------------------------------------------------------------------------------
 
 
@@ -165,11 +168,11 @@ Route::get('/orgdashboard', [AdminDashBoardController::class , 'orgDashBoard']);
 Auth::routes();
 //authentication for all users to login and signup
 Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('api/login', [LoginController::class, 'login']); //youssef
-// Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
+//Route::post('api/login', [LoginController::class, 'login']); //youssef
+//Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
 // Registration Routes...
 Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('api/register', [RegisterController::class, 'register']); //youssef
+//Route::post('api/register', [RegisterController::class, 'register']); //youssef
 // Password Reset Routes...
 Route::get('api/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm']);
 Route::post('api/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
