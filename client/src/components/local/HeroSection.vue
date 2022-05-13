@@ -1,12 +1,34 @@
 <script>
 import { useUserStore } from "../../store/UserStore";
 import { mapStores, mapWritableState } from "pinia";
+import axios from "axios";
 export default {
     data() {
         return {
+            lastDonation: "",
+            lastAmount: 0,
+            lastCaseId:0
         };
     },
+    created() {
+        this.getUserDonations()
+    },
     methods: {
+        async getUserDonations() {
+            await axios(`http://localhost:8000/api/userhomepage/1`, {
+                mode: "no-cors",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(({ data }) =>{
+                    this.lastDonation = data.lastdonation.title
+                    this.lastAmount = data.lastdonation.pivot.amount
+                    this.lastCaseId = data.lastdonation.pivot.case_id
+                })
+                .catch((e) => alert(e));
+        },
     },
     computed: {
         ...mapStores(useUserStore),
@@ -22,14 +44,16 @@ export default {
     <div class="hero">
         <div class="img-fluid">
             <div class="text">
-                <h1>Hello, {{ this.user.name.split(' ')[0] }}</h1>
+                <h1>
+                    Hello, {{ this.user.name.split(" ")[0] }}
+                </h1>
                 <h4>
                     total donations: 400
                     <sub>egp</sub>
                 </h4>
                 <h4>
                     last donation:
-                    <a href="#">case</a> - 72
+                    <router-link :to=" '/casepage/' + lastCaseId">{{this.lastDonation}}</router-link> - {{this.lastAmount}}
                     <sub>egp</sub>
                 </h4>
             </div>

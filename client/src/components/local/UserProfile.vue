@@ -1,10 +1,10 @@
 <script>
 import Navbar from '../global/Navbar.vue'
 import UserCaseCard from '../local/UserCaseCard.vue'
-import UserCaseCard1 from './UserCaseCard.vue'
 import PaymentDetails from './PaymentDetails.vue'
 import { mapState, mapStores, mapWritableState } from 'pinia'
 import { useUserStore } from '../../store/UserStore'
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -41,7 +41,7 @@ export default {
     },
     computed: {
         ...mapStores(useUserStore),
-        ...mapState(useUserStore, {
+        ...mapWritableState(useUserStore, {
             user: "currentUser",
             storeToken: "token",
         }),
@@ -55,8 +55,22 @@ export default {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
             selectedCard.reminder = !selectedCard.reminder;
         },
+        async getUserCases(){
+            const res = await axios('http://localhost:8000/api/userhomepage/1',{
+                    mode: "no-cors",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                })
+            return res
+        },
+        display(){
+            console.log(this.getUserCases())
+            alert(this.getUserCases())
+        }
     },
-    components: { Navbar, UserCaseCard, UserCaseCard1, PaymentDetails }
+    components: { Navbar, UserCaseCard, PaymentDetails }
 }
 
 </script>
@@ -80,10 +94,13 @@ export default {
                         {{this.user.email}}
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
-                    <h4>
-                        +201065292537
+                    <h4 v-if="this.user.phonenumber!=null">
+                        +{{this.user.phonenumber}}
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
+                    <h5 v-else class="opacity-50">
+                        please add your number
+                    </h5>
                     <button
                         class="btn btn-block showPayment rounded-pill"
                         data-bs-toggle="modal"
@@ -114,7 +131,7 @@ export default {
             <div class="bottomGrid">
                 <div class="donationHistory">
                     <div class="title d-flex justify-content-between">
-                        <h1>Donation History</h1>
+                        <h1 style="cursor:pointer" @click="display">Donation History</h1>
                         <a href="#" class="me-5 mt-3">more</a>
                     </div>
                     <div class="caseGrid d-flex">
