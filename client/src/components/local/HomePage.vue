@@ -4,6 +4,7 @@ import Navbar from "../global/Navbar.vue";
 import HeroSection from "./HeroSection.vue";
 import UserCaseCard from "./UserCaseCard.vue";
 
+
 export default {
     data() {
         return {
@@ -31,6 +32,7 @@ export default {
     },
 
     methods: {
+    
         toggleFavoriteStatus(cardId) {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
             selectedCard.isFavorite = !selectedCard.isFavorite;
