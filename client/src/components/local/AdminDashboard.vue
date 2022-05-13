@@ -1,10 +1,45 @@
 <script>
+import axios from "axios";
 import Navbar from "../global/Navbar.vue";
+import FieldComponent from "./FieldComponent.vue";
 export default {
     data() {
-        return {};
+        return {
+            users: [],
+        };
     },
-    components: { Navbar },
+    methods: {
+        fetchData() {
+            axios
+                .get("http://localhost:8000/api/users", {
+                    mode: "no-cors",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(
+                    ({ data }) => {
+                        console.log(data.usersnotadmins)
+                        var users = [];
+                        for (let index in data.usersnotadmins) {
+                            users.push({
+                                id: data.usersnotadmins[index].id,
+                                name: data.usersnotadmins[index].name,
+                                email: data.usersnotadmins[index].email,
+                                phone: data.usersnotadmins[index].phonenumber,
+                            });
+                        }
+                        this.users = users;
+                    },
+                    (e) => console.log(e)
+                );
+        },
+    },
+    mounted() {
+        this.fetchData();
+    },
+    components: { Navbar, FieldComponent },
 };
 </script>
 
@@ -26,17 +61,39 @@ export default {
             </div>
         </div>
         <div class="shadow-lg card container dashboard">
-            <div class="row justify-content-between">
+            <div class="row justify-content-center">
                 <h2 class="col-2">Users Data</h2>
-                <div class="col-2 searchContainer">
-                    <input
-                        class="rounded-pill"
-                        type="text"
-                        placeholder="search"
-                        v-model="search"
-                    />
-                    <i class="bi bi-search searchIcon"></i>
+
+            </div>
+            <div class="titles row">
+                <div class=" px-4 col-2">
+                    <h4>ID</h4>
                 </div>
+                <div class="col-2">
+                    <h4>Name</h4>
+                </div>
+                <div class="col-2">
+                    <h4>Email</h4>
+                </div>
+                <div class="col-2">
+                    <h4>Phone number</h4>
+                </div>
+                <div class="col-2">
+                    <h4>Donations</h4>
+                </div>
+                <div class="col-2">
+                    <h4>Donated</h4>
+                </div>
+            </div>
+            <div class="row mx-2 info">
+                <FieldComponent
+                    v-for="user in users"
+                    :key="user.id"
+                    :id="user.id"
+                    :name="user.name"
+                    :email="user.email"
+                    :phone="user.phone"
+                />
             </div>
         </div>
     </div>
@@ -78,8 +135,12 @@ export default {
     }
 }
 .dashboard {
-    h2{
-        color:$priColor
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    h2 {
+        color: $priColor;
+        margin-bottom: 20px;
     }
     .searchContainer {
         margin-top: 0.2em;
@@ -96,7 +157,6 @@ export default {
             border: 1px solid transparent;
             outline: none;
             font-weight: 300;
-
         }
 
         input:hover {
@@ -114,6 +174,10 @@ export default {
             outline: none;
         }
     }
+    .titles {
+        h4 {
+            color: $priColor;
+        }
+    }
 }
-
 </style>
