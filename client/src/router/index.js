@@ -45,6 +45,7 @@ const routes = [
         path: "/admindashboard",
         name: "AdminDashboard",
         component:AdminDashboard,
+        
     },
 ];
 const router = createRouter({
