@@ -3,6 +3,8 @@ import Navbar from '../global/Navbar.vue'
 import UserCaseCard from '../local/UserCaseCard.vue'
 import UserCaseCard1 from './UserCaseCard.vue'
 import PaymentDetails from './PaymentDetails.vue'
+import { mapState, mapStores, mapWritableState } from 'pinia'
+import { useUserStore } from '../../store/UserStore'
 export default {
     data() {
         return {
@@ -37,6 +39,13 @@ export default {
             ]
         }
     },
+    computed: {
+        ...mapStores(useUserStore),
+        ...mapState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        }),
+    },
     methods: {
         toggleFavoriteStatus(cardId) {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
@@ -65,10 +74,10 @@ export default {
         </div>
         <div class="dataContainer py-5 px-4">
             <div class="personalInfo">
-                <h1>Youssef Abdulaziz</h1>
+                <h1>{{this.user.name}}</h1>
                 <div class="px-3">
                     <h4>
-                        Youssefabdulaziz@gmail.com
+                        {{this.user.email}}
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
                     <h4>

@@ -33,6 +33,7 @@ export default {
             <router-link to="/home" class>Home</router-link>
             <router-link to="/login">Organizations</router-link>
             <router-link to="/login">Cases</router-link>
+            <router-link to="/admindashboard">Dashboard</router-link>
         </ul>
         <div class="controls">
             <i class="bi bi-calendar"></i>
