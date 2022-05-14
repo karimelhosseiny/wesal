@@ -159,7 +159,7 @@ Route::post('/categoryupdated', [AdminCateController::class, 'adminupdatecategor
 
 
 // Admin Dashboard
-Route::get('/userdashboard', [AdminDashBoardController::class , 'userDashBoard']);
+Route::get('api/userdashboard', [AdminDashBoardController::class , 'userDashBoard']);
 Route::get('/catedashboard', [AdminDashBoardController::class , 'cateDashBoard']);
 Route::get('/orgdashboard', [AdminDashBoardController::class , 'orgDashBoard']);
 Route::get('/remindersdashboard', [AdminDashBoardController::class , 'remindersDashBoard']);

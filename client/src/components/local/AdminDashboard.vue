@@ -3,7 +3,6 @@ import axios from "axios";
 import Navbar from "../global/Navbar.vue";
 import FieldComponent from "./FieldComponent.vue";
 export default {
-    
     data() {
         return {
             users: [],
@@ -12,7 +11,7 @@ export default {
     methods: {
         fetchData() {
             axios
-                .get("http://localhost:8000/api/users", {
+                .get("http://localhost:8000/api/userdashboard", {
                     mode: "no-cors",
                     headers: {
                         "Access-Control-Allow-Origin": "*",
@@ -21,16 +20,16 @@ export default {
                 })
                 .then(
                     ({ data }) => {
-                        console.log(data.usersnotadmins)
+                        console.log(data.Users);
                         var users = [];
-                        for (let index in data.usersnotadmins) {
+                        data.Users.forEach((user) => {
                             users.push({
-                                id: data.usersnotadmins[index].id,
-                                name: data.usersnotadmins[index].name,
-                                email: data.usersnotadmins[index].email,
-                                phone: data.usersnotadmins[index].phonenumber,
+                                id: user.id,
+                                name: user.name,
+                                email: user.email,
+                                phone: user.phonenumber,
                             });
-                        }
+                        });
                         this.users = users;
                     },
                     (e) => console.log(e)
@@ -64,10 +63,9 @@ export default {
         <div class="shadow-lg card container dashboard">
             <div class="row justify-content-center">
                 <h2 class="col-2">Users Data</h2>
-
             </div>
             <div class="titles row">
-                <div class=" px-4 col-2">
+                <div class="px-4 col-2">
                     <h4>ID</h4>
                 </div>
                 <div class="col-2">

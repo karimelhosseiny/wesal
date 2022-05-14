@@ -22,7 +22,7 @@ class AdminDashBoardController extends Controller
 
     //user dashboard
     public function userDashBoard(){
-        if (Gate::allows('isAdmin')){
+        // if (Gate::allows('isAdmin')){
         $totalusers = DB::table('users')->count();
         $totaldonations = DB::table('donation_operations')->count();
         $users = User::all();
@@ -34,10 +34,10 @@ class AdminDashBoardController extends Controller
             'Total Donations' => $totaldonations,
             'Users' => $users
         ]);
-        }
-        else{
-            dd('you are not admin');
-            }
+        // }
+        // else{
+        //     dd('you are not admin');
+        //     }
             }
     //category dashboard
     public function cateDashBoard(){
