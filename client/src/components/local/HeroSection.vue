@@ -8,6 +8,7 @@ export default {
             lastDonation: "",
             lastAmount: 0,
             lastCaseId: 0,
+            totalDonations:0
         };
     },
     created() {
@@ -15,7 +16,7 @@ export default {
     },
     methods: {
         async getUserDonations() {
-            await axios(`http://localhost:8000/api/userhomepage/1`, {
+            await axios(`http://localhost:8000/api/userhomepage/${this.user.id}`, {
                 mode: "no-cors",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -23,15 +24,17 @@ export default {
                 },
             })
                 .then(({ data }) => {
-                    if (data.lastDonation) {
+                    if (!data.message) {
                         this.lastDonation = data.lastdonation.title;
                         this.lastAmount = data.lastdonation.pivot.amount;
                         this.lastCaseId = data.lastdonation.pivot.case_id;
-                    }
-                    else{
-                        this.lastDonation = 'no donations yet'
-                        this.lastAmount = 0
-                        this.lastCaseId = null
+                        data.users.donation_operations.forEach(donation => {
+                            this.totalDonations+=donation.pivot.amount
+                        });
+                    } else {
+                        this.lastDonation = "no donations yet";
+                        this.lastAmount = 0;
+                        this.lastCaseId = null;
                     }
                 })
                 .catch((e) => alert(e));
@@ -52,12 +55,17 @@ export default {
         <div class="img-fluid">
             <div class="text">
                 <h1>Hello, {{ this.user.name.split(" ")[0] }}</h1>
-                <h4>
-                    total donations: 400
+                <h4 v-if="this.lastDonation == 'no donations yet'">
+                    total donations: 0
+                    <sub>egp</sub>
+                    (no donations)
+                </h4>
+                <h4 v-else>
+                    total donations: {{this.totalDonations}}
                     <sub>egp</sub>
                 </h4>
-                <h4 v-if="this.lastDonation=='no donations yet'">
-                Start donating to view last case
+                <h4 v-if="this.lastDonation == 'no donations yet'">
+                    last donation: <h5 class="opacity-50">Start donating to view last case</h5>
                 </h4>
                 <h4 v-else>
                     last donation:

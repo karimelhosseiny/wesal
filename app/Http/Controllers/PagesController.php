@@ -39,7 +39,9 @@ class PagesController extends Controller
             ]);
         }
         else{
-            dd('no donation operations');
+            return response()->json([
+                'message'=>'no donation operations'
+            ]);
         }
      /*   $n = count($users->donationOperations) - 1; //returns Undefined array key -1 after id = 3
         $lastdonation = $users->donationOperations[$n];
