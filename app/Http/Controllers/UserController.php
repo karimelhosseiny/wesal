@@ -182,9 +182,6 @@ class UserController extends Controller
        }
     }
 
-
-
-
     public function deletefavcase(Request $request)
     {
         Auth::User()->favoriteCases()->detach($request->input('case_id'));

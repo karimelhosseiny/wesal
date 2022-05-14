@@ -10,6 +10,7 @@ use App\Models\DonationCase;
 use App\Models\Reminder;
 use App\Models\DonationOperation;
 use App\Models\Category;
+use App\Models\FavouriteCase;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -83,6 +84,7 @@ class AdminDashBoardController extends Controller
         }
     //reminders dashboard
     public function remindersDashBoard(){
+        if (Gate::allows('isAdmin')){
         $totalreminders = Reminder::all();
         $allreminders = DB::table('reminders')->count();
         $users  = User::withCount(['reminders'])->get();
@@ -98,11 +100,28 @@ class AdminDashBoardController extends Controller
             'allreminders' => $allreminders,
             'reminders' => $reminders
                              ]);
-
+        }
+        else{
+        dd('you are not admin');
+            }
     }
-
+    //favcase dashboard
+    public function favCaseDashBoard(){
+        if (Gate::allows('isAdmin')){
+        $favcases = FavouriteCase:: all();
+        $totalfavcases = DB::table('favourite_cases')->count();
+        return response()->json([
+            'favcases' => $favcases,
+            'totalfavcases' => $totalfavcases
+            ]);
+        }
+        else{
+        dd('you are not admin');
+            }
+    }
     //donations dashboard
     public function donationsDashBoard(){
+        if (Gate::allows('isAdmin')){
         $totaldonations = DonationOperation::all();
         // $users = User::withCount(['donationOperations','usersDonated'])->get();
         // $donations = [];
@@ -118,5 +137,9 @@ class AdminDashBoardController extends Controller
             // 'donations' => $donations
                              ]);
     }
+        else{
+        dd('you are not admin');
+            }
+        }
 
 }
