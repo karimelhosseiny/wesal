@@ -24,6 +24,7 @@ class AdminDashBoardController extends Controller
     public function userDashBoard(){
         // if (Gate::allows('isAdmin')){
         $totalusers = DB::table('users')->count();
+        $totalcases = DB::table('donation_cases')->count();
         $totaldonations = DB::table('donation_operations')->count();
         $users = User::all();
 
@@ -32,6 +33,7 @@ class AdminDashBoardController extends Controller
         return response()->json([
             'Total_Users' => $totalusers,
             'Total_Donations' => $totaldonations,
+            'Total_Cases' => $totalcases,
             'Users' => $users
         ]);
         // }
