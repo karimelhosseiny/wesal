@@ -10,6 +10,7 @@ use App\Models\DonationCase;
 use App\Models\Reminder;
 use App\Models\DonationOperation;
 use App\Models\Category;
+use App\Models\FavouriteCase;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -107,7 +108,12 @@ class AdminDashBoardController extends Controller
     //favcase dashboard
     public function favCaseDashBoard(){
         if (Gate::allows('isAdmin')){
-        $favcases = DB::table('fav_cases')->count();
+        $favcases = FavouriteCase:: all();
+        $totalfavcases = DB::table('favourite_cases')->count();
+        return response()->json([
+            'favcases' => $favcases,
+            'totalfavcases' => $totalfavcases
+            ]);
         }
         else{
         dd('you are not admin');
