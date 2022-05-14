@@ -21,7 +21,27 @@ class PagesController extends Controller
     public function userhomepage($id)
     {
         $users = User::find($id);
-        $n = count($users->donationOperations) - 1; //returns Undefined array key -1 after id = 3
+        if(count($users->donationOperations)>0)
+        {
+            $n = count($users->donationOperations) - 1; 
+            $lastdonation = $users->donationOperations[$n];
+            $reminders = $users->reminders;
+            $users['donation_operations'] = $lastdonation;
+    
+            
+            $cases = DonationCase::with(['organization' => function ($query) {
+                $query->select(['id', 'title']);
+            }])->get();    
+            return response()->json([
+                'users' => $users,
+                'cases' => $cases,
+                'lastdonation' => $lastdonation
+            ]);
+        }
+        else{
+            dd('no donation operations');
+        }
+     /*   $n = count($users->donationOperations) - 1; //returns Undefined array key -1 after id = 3
         $lastdonation = $users->donationOperations[$n];
         $reminders = $users->reminders;
         $users['donation_operations'] = $lastdonation;
@@ -29,7 +49,7 @@ class PagesController extends Controller
         
         $cases = DonationCase::with(['organization' => function ($query) {
             $query->select(['id', 'title']);
-        }])->get();
+        }])->get();*/
         // $cases = DonationCase::all();
         // $rg3ytitle = DB::table('organization')->where()->get('title') ;
 
@@ -39,14 +59,6 @@ class PagesController extends Controller
         //     $cases[]= [[$case , $case->organization['title']]] ;
         //     // $cases[]= $case;
         // }
-
-
-
-        return response()->json([
-            'users' => $users,
-            'cases' => $cases,
-            'lastdonation' => $lastdonation
-        ]);
     }
 
     //data shown in organization homepage
