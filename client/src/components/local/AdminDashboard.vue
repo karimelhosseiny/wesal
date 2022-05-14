@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../global/Navbar.vue";
 import FieldComponent from "./FieldComponent.vue";
 export default {
+    
     data() {
         return {
             users: [],
