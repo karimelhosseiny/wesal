@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             users: [],
+            totalUsers:"",
         };
     },
     methods: {
@@ -22,6 +23,7 @@ export default {
                     ({ data }) => {
                         console.log(data.Users);
                         var users = [];
+                        this.totalUsers = data.Total_Users
                         data.Users.forEach((user) => {
                             users.push({
                                 id: user.id,
@@ -48,7 +50,7 @@ export default {
         <Navbar />
         <div class="my-5 cards">
             <div class="mx-3 first-card card" style="width: 18rem">
-                <h1>2000</h1>
+                <h1>{{totalUsers}}</h1>
                 <h2>user</h2>
             </div>
             <div class="mx-3 second-card card" style="width: 18rem">

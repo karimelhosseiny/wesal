@@ -28,10 +28,10 @@ class AdminDashBoardController extends Controller
         $users = User::all();
 
 
-       
+
         return response()->json([
-            'Total Users' => $totalusers,
-            'Total Donations' => $totaldonations,
+            'Total_Users' => $totalusers,
+            'Total_Donations' => $totaldonations,
             'Users' => $users
         ]);
         // }
@@ -45,7 +45,7 @@ class AdminDashBoardController extends Controller
         $totalcategories = DB::table('categories')->count();
         $cases  = Category::withCount(['cases'])->get();
         $totalcases = [];
-        
+
             foreach ($cases as $case){
               $items = ['id'=>$case->id,'title'=>$case->title,'description'=>$case->description,'totalcases'=>$case->cases_count];
                 array_push($totalcases, $items);
@@ -62,9 +62,9 @@ class AdminDashBoardController extends Controller
     //organization dashboard
     public function orgDashboard(){
         if (Gate::allows('isAdmin')){
-        $totalorganizations = DB::table('organizations')->count(); 
+        $totalorganizations = DB::table('organizations')->count();
         $cases = DB::table('donation_cases')->count();
-        $totaldonations = DB::table('donation_operations')->count(); 
+        $totaldonations = DB::table('donation_operations')->count();
         $orgs  = Organization::withCount(['orgcases'])->get();
         $totalcases = [];
             foreach ($orgs as $org){
@@ -89,7 +89,7 @@ class AdminDashBoardController extends Controller
         $allreminders = DB::table('reminders')->count();
         $users  = User::withCount(['reminders'])->get();
         $reminders = [];
-            
+
         foreach ($users as $user){
           $items = ['id'=>$user->id,'name'=>$user->name,'email'=>$user->email,'totalreminders'=>$user->reminders_count];
             array_push($reminders, $items);
@@ -131,7 +131,7 @@ class AdminDashBoardController extends Controller
         //     array_push($donations, $items);
         // }
 
-        
+
         return response()->json([
             'totaldonations' => $totaldonations,
             // 'donations' => $donations
