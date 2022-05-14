@@ -8,6 +8,7 @@ export default {
             users: [],
             totalUsers: "",
             totalCases: "",
+            totalDonations: "",
         };
     },
     methods: {
@@ -26,6 +27,7 @@ export default {
                         var users = [];
                         this.totalUsers = data.Total_Users;
                         this.totalCases = data.Total_Cases;
+                        this.totalDonations = data.Total_Donations;
                         data.Users.forEach((user) => {
                             users.push({
                                 id: user.id,
@@ -53,15 +55,15 @@ export default {
         <div class="my-5 cards">
             <div class="mx-3 first-card card" style="width: 18rem">
                 <h1>{{totalUsers}}</h1>
-                <h2>user</h2>
+                <h2>Total users</h2>
             </div>
             <div class="mx-3 second-card card" style="width: 18rem">
                 <h1>{{totalCases}}</h1>
-                <h2>ben. case</h2>
+                <h2>Total cases</h2>
             </div>
             <div class="mx-3 third-card card" style="width: 18rem">
-                <h1>40000</h1>
-                <h1>raised</h1>
+                <h1>{{totalDonations}}</h1>
+                <h2>Donations</h2>
             </div>
         </div>
         <div class="shadow-lg card container dashboard">

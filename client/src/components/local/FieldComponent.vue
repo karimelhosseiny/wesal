@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default {
-    
+
     props: ["id", "name", "email", "phone",],
     data() {
         return {
@@ -39,7 +39,7 @@ export default {
         <p>50</p>
     </div>
     <div class="col-2 px-5 donated">
-        <p contenteditable="true">1500eg</p>
+        <p>1500eg</p>
     </div>
 </template>
 
