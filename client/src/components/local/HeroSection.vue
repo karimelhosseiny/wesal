@@ -7,11 +7,11 @@ export default {
         return {
             lastDonation: "",
             lastAmount: 0,
-            lastCaseId:0
+            lastCaseId: 0,
         };
     },
     created() {
-        this.getUserDonations()
+        this.getUserDonations();
     },
     methods: {
         async getUserDonations() {
@@ -22,10 +22,17 @@ export default {
                     "Content-Type": "application/json",
                 },
             })
-                .then(({ data }) =>{
-                    this.lastDonation = data.lastdonation.title
-                    this.lastAmount = data.lastdonation.pivot.amount
-                    this.lastCaseId = data.lastdonation.pivot.case_id
+                .then(({ data }) => {
+                    if (data.lastDonation) {
+                        this.lastDonation = data.lastdonation.title;
+                        this.lastAmount = data.lastdonation.pivot.amount;
+                        this.lastCaseId = data.lastdonation.pivot.case_id;
+                    }
+                    else{
+                        this.lastDonation = 'no donations yet'
+                        this.lastAmount = 0
+                        this.lastCaseId = null
+                    }
                 })
                 .catch((e) => alert(e));
         },
@@ -44,16 +51,20 @@ export default {
     <div class="hero">
         <div class="img-fluid">
             <div class="text">
-                <h1>
-                    Hello, {{ this.user.name.split(" ")[0] }}
-                </h1>
+                <h1>Hello, {{ this.user.name.split(" ")[0] }}</h1>
                 <h4>
                     total donations: 400
                     <sub>egp</sub>
                 </h4>
-                <h4>
+                <h4 v-if="this.lastDonation=='no donations yet'">
+                Start donating to view last case
+                </h4>
+                <h4 v-else>
                     last donation:
-                    <router-link :to=" '/casepage/' + lastCaseId">{{this.lastDonation}}</router-link> - {{this.lastAmount}}
+                    <router-link :to="'/casepage/' + lastCaseId">{{
+                        this.lastDonation
+                    }}</router-link>
+                    - {{ this.lastAmount }}
                     <sub>egp</sub>
                 </h4>
             </div>
