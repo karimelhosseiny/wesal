@@ -51,12 +51,12 @@ Route::get('/testfavcase', [UserController::class, 'favcasepage']); //(just test
 
 Route::get('/remindertest', [UserController::class, 'remindertest']); //show user's reminders
 Route::post('/setreminder', [UserController::class, 'setreminder']); //store new reminder in database
-Route::get('api/edittest', [UserController::class, 'edittest']);  
+Route::get('api/edittest', [UserController::class, 'edittest']);
 
 Route::post('/deletefavcase', [UserController::class, 'deletefavcase']); //delete favourite case from database
 Route::post('/deletereminder', [UserController::class, 'deletereminder']); //delete reminder from database
-//editprofile lluser test mara tanyia 
-Route::get('/testedit', [UserController::class, 'edittest']); //show user profile to edit it 
+//editprofile lluser test mara tanyia
+Route::get('/testedit', [UserController::class, 'edittest']); //show user profile to edit it
 Route::post('/edituser', [UserController::class, 'editprofile']); //store the new updates of the user's profile
 // Route::resource('/users', UserController::class);
 //--------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Route::post('/edituser', [UserController::class, 'editprofile']); //store the ne
 //Organization controller
 Route::get('api/organizations', [OrganizationController::class, 'organizations']); // show all organizations form database
 Route::resource('/organization', OrganizationController::class); //to use function show() in organization controller type: http://127.0.0.1:8000/organization/{id}
-Route::get('/testorgforms', [OrganizationController::class, 'testorgforms']); // (just test from) to apply to be organization 
+Route::get('/testorgforms', [OrganizationController::class, 'testorgforms']); // (just test from) to apply to be organization
 Route::post('/postorg', [OrganizationController::class, 'store']); //store the  organization requests in database
 
 Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']); //(just test from) to add new case by organization
@@ -100,7 +100,7 @@ Route::resource('/reminders', ReminderController::class);//to use function show(
 Route::get('api/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+'); //show user homepage
 Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+'); //show organization homepage
 Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+'); //show case page
-Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+'); //show user profile 
+Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+'); //show user profile
 
 Route::get('/isadmin', [PagesController::class, 'indexadmin']);  //Gate authorization for admin
 Route::get('/isorganization', [PagesController::class, 'indexorganization']); //Gate authorization for organization
@@ -128,7 +128,7 @@ Route::get('api/accepted/{id}', [AdminUserController::class, 'acceptrequest'])->
 Route::get('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
 Route::post('/userdeleted', [AdminUserController::class, 'adminDeleteUserByType']); //delete user record from database
 Route::post('/adduser', [AdminUserController::class, 'addUserWithType']); //store new user or organization or admin
-Route::post('/updatedone', [AdminUserController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
+Route::post('api/updatedone', [AdminUserController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
 //------------------------------------------------------------------------------------------------------------------------------------
 
 

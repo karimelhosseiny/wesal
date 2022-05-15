@@ -34,6 +34,7 @@ export default {
                                 name: user.name,
                                 email: user.email,
                                 phone: user.phonenumber,
+                                type: user.type
                             });
                         });
                         this.users = users;
@@ -84,10 +85,10 @@ export default {
                     <h4>Phone number</h4>
                 </div>
                 <div class="col-2">
-                    <h4>Donations</h4>
+                    <h4>Type</h4>
                 </div>
                 <div class="col-2">
-                    <h4>Donated</h4>
+                    <h4>Settings</h4>
                 </div>
             </div>
             <div class="row mx-2 info">
@@ -98,6 +99,7 @@ export default {
                     :name="user.name"
                     :email="user.email"
                     :phone="user.phone"
+                    :type="user.type"
                 />
             </div>
         </div>
