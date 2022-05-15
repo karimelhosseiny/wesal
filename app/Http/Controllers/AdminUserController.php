@@ -98,21 +98,22 @@ class AdminUserController extends Controller
     {
         $request->validate(
             [
-              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
         if (Gate::allows('isAdmin'))
         {
-            if ($request->file()){
-                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('user_image')->extension();
-                $request->file('user_image')->move(public_path('userimages'), $newimage);
-            }
+           
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
             $user->phonenumber = $request->input('phone');
             $user->address = $request->input('address');
             $user->password = bcrypt($request->input('password'));
-            $user->image = $newimage;
+            $user->email = $request->input('email');
+            $user->type = $request->input('type');
             $user->save();
         }
         else
