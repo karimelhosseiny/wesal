@@ -99,20 +99,19 @@ class AdminUserController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'email' => 'required|email|:users,email',
+                'password' => 'required|string|min:6|confirmed',
+                //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
         if (Gate::allows('isAdmin'))
         {
-           
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
+            $user->email = $request->input('email');
             $user->phonenumber = $request->input('phone');
             $user->address = $request->input('address');
             $user->password = bcrypt($request->input('password'));
-            $user->email = $request->input('email');
             $user->type = $request->input('type');
             $user->save();
         }

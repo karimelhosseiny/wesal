@@ -2,14 +2,17 @@
 
 @section('content')
 
-<form action="/updatedone" method="POST" enctype="multipart/form-data">
+<form action="api/updatedone" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label>user_id</label>
         <input type="text" name="user_id" value="2" ></input>
         <br> 
-    <label>Name</label>
+        <label>Name</label>
         <input type='text' name= 'name'></input>
+        <br>
+        <label>email </label>
+        <input type='email' name= 'email'></input>
         <br>
         <label>phone</label>
         <input type='text' name= 'phone'></input>
@@ -20,13 +23,14 @@
         <label>password</label>
         <input type='password' name= 'password'></input>
        <br>
-        <div>
-            user_image
-            <input type="file" name="user_image" class="custom-file-input">
-            <label class="custom-file-label" for="chooseFile">Choose image</label>   
-        </div>
+       <label>confirm password</label>
+       <input type='password' name='password_confirmation'></input>
+         <br>
+            <input type='text' name= 'type' value="user"></input>
+            <br>
         <button type="submit" class="btn btn-primary">Submit</button>
         <br>    
+       
       {{--  <input type='text' name= 'user_id' value="10" hidden></input>
         <label>type</label>
         <input type="text" name='type'></input>

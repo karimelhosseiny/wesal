@@ -171,7 +171,7 @@ Route::get('/favcasedashboard', [AdminDashBoardController::class , 'favCaseDashB
 Auth::routes();
 //authentication for all users to login and signup
 Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('api/login', [LoginController::class, 'login']); //youssef
+Route::post('api/login', [LoginController::class, 'login']); //youssef
 // Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
 // Registration Routes...
 Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
