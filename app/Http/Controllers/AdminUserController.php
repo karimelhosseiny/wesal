@@ -101,7 +101,7 @@ class AdminUserController extends Controller
                 'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
         if (Gate::allows('isAdmin'))

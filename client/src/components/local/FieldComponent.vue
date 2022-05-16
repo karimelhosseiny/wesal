@@ -11,36 +11,37 @@ export default {
                 email: this.email,
                 phone: this.phone,
                 password: "",
+                confPass: "",
             },
-            confPass: "",
-            passMatch:false,
+            passMatch: false,
             showModal: false,
         };
     },
     methods: {
         editUserData() {
-            if (this.form.password === this.confPass) {
-                axios.put(`http://localhost:8000/api/updatedone`, this.form, {
-                    mode: "no-cors",
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then(function (res) {
-                    console.log(res);
-                })
-                .catch((e) => console.log("in action error:", e));
+            if (this.form.password === this.form.confPass) {
+                axios
+                    .post(`http://localhost:8000/api/updatedone`, this.form, {
+                        mode: "no-cors",
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then(function (res) {
+                        console.log(res);
+                    })
+                    .catch((e) => console.log("in action error:", e));
                 this.showModal = false;
             } else {
-               console.log(
+                console.log(
                     "password doesn't match" +
                         "\n" +
                         "password: " +
                         this.form.password +
                         "\n" +
                         "Confirm password: " +
-                        this.confPass
+                        this.form.confPass
                 );
             }
         },
@@ -83,21 +84,38 @@ export default {
                 <br />
                 <div class="mx-4 row">
                     <label for="name" class="col-4">Name: </label>
-                    <input type="text" name="name" class="col-8" v-model="form.name" />
+                    <input
+                        type="text"
+                        name="name"
+                        class="col-8"
+                        v-model="form.name"
+                    />
                 </div>
                 <br />
                 <div class="mx-4 row">
                     <label for="name" class="col-4">Email: </label>
-                    <input type="text" name="email" class="col-8" v-model="form.email" />
+                    <input
+                        type="text"
+                        name="email"
+                        class="col-8"
+                        v-model="form.email"
+                    />
                 </div>
                 <br />
                 <div class="mx-4 row">
                     <label for="name" class="col-4">Phone: </label>
-                    <input type="text" name="phone" class="col-8" v-model="form.phone" />
+                    <input
+                        type="text"
+                        name="phone"
+                        class="col-8"
+                        v-model="form.phone"
+                    />
                 </div>
                 <br />
                 <div class="mx-4 row">
-                    <label for="name" name="password" class="col-4">Password: </label>
+                    <label for="name" name="password" class="col-4"
+                        >Password:
+                    </label>
                     <input
                         type="password"
                         class="col-8"
@@ -107,8 +125,22 @@ export default {
                 <br />
                 <div class="mx-4 row">
                     <label for="name" class="col-4">Confirm Password: </label>
-                    <input @keydown="form.password==confPass?passMatch=true : passMatch=false" type="password" class="col-8" v-model="confPass" />
-                    <span v-if="form.password !== confPass && confPass != ''" class="text-danger"> passwords do not match</span>
+                    <input
+                        @keydown="
+                            form.password == form.confPass
+                                ? (passMatch = true)
+                                : (passMatch = false)
+                        "
+                        type="password"
+                        class="col-8"
+                        v-model="form.confPass"
+                    />
+                    <span
+                        v-if="form.password !== form.confPass && form.confPass != ''"
+                        class="text-danger"
+                    >
+                        passwords do not match</span
+                    >
                 </div>
                 <div class="m-4 row justify-content-around">
                     <button
@@ -117,7 +149,10 @@ export default {
                     >
                         Close
                     </button>
-                    <button @click="editUserData" class="btn btn-success col-3">
+                    <button
+                        @click.prevent="editUserData"
+                        class="btn btn-success col-3"
+                    >
                         Save
                     </button>
                 </div>
