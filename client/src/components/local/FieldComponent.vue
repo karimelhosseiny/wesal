@@ -13,13 +13,14 @@ export default {
                 password: "",
             },
             confPass: "",
+            passMatch:false,
             showModal: false,
         };
     },
     methods: {
         editUserData() {
-            if (this.form.password == this.confPass) {
-                axios.post("http://localhost:8000/api/updatedone", this.form, {
+            if (this.form.password === this.confPass) {
+                axios.put(`http://localhost:8000/api/updatedone`, this.form, {
                     mode: "no-cors",
                     headers: {
                         "Access-Control-Allow-Origin": "*",
@@ -32,7 +33,7 @@ export default {
                 .catch((e) => console.log("in action error:", e));
                 this.showModal = false;
             } else {
-                alert(
+               console.log(
                     "password doesn't match" +
                         "\n" +
                         "password: " +
@@ -106,7 +107,8 @@ export default {
                 <br />
                 <div class="mx-4 row">
                     <label for="name" class="col-4">Confirm Password: </label>
-                    <input type="password" class="col-8" v-model="confPass" />
+                    <input @keydown="form.password==confPass?passMatch=true : passMatch=false" type="password" class="col-8" v-model="confPass" />
+                    <span v-if="form.password !== confPass && confPass != ''" class="text-danger"> passwords do not match</span>
                 </div>
                 <div class="m-4 row justify-content-around">
                     <button

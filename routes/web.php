@@ -128,7 +128,7 @@ Route::get('api/accepted/{id}', [AdminUserController::class, 'acceptrequest'])->
 Route::get('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
 Route::post('/userdeleted', [AdminUserController::class, 'adminDeleteUserByType']); //delete user record from database
 Route::post('/adduser', [AdminUserController::class, 'addUserWithType']); //store new user or organization or admin
-Route::post('api/updatedone', [AdminUserController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
+Route::put('api/updatedone', [AdminUserController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
 //------------------------------------------------------------------------------------------------------------------------------------
 
 
