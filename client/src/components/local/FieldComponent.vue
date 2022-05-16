@@ -6,12 +6,12 @@ export default {
     data() {
         return {
             form: {
-                id: this.id,
+                user_id: this.id,
                 name: this.name,
                 email: this.email,
                 phone: this.phone,
                 password: "",
-                confPass: "",
+                confPasspassword_confirmation: "",
             },
             passMatch: false,
             showModal: false,
@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         editUserData() {
-            if (this.form.password === this.form.confPass) {
+            if (this.form.password === this.form.password_confirmation) {
                 axios
                     .post(`http://localhost:8000/api/updatedone`, this.form, {
                         mode: "no-cors",
@@ -31,7 +31,7 @@ export default {
                     .then(function (res) {
                         console.log(res);
                     })
-                    .catch((e) => console.log("in action error:", e));
+                    .catch((e) => console.log("request error:", e));
                 this.showModal = false;
             } else {
                 console.log(
@@ -41,7 +41,7 @@ export default {
                         this.form.password +
                         "\n" +
                         "Confirm password: " +
-                        this.form.confPass
+                        this.form.password_confirmation
                 );
             }
         },
@@ -77,7 +77,7 @@ export default {
                     <input
                         type="text"
                         class="col-8"
-                        v-model="form.id"
+                        v-model="form.user_id"
                         disabled
                     />
                 </div>
@@ -127,16 +127,16 @@ export default {
                     <label for="name" class="col-4">Confirm Password: </label>
                     <input
                         @keydown="
-                            form.password == form.confPass
+                            form.password == form.password_confirmation
                                 ? (passMatch = true)
                                 : (passMatch = false)
                         "
                         type="password"
                         class="col-8"
-                        v-model="form.confPass"
+                        v-model="form.password_confirmation"
                     />
                     <span
-                        v-if="form.password !== form.confPass && form.confPass != ''"
+                        v-if="form.password !== form.password_confirmation && form.password_confirmation != ''"
                         class="text-danger"
                     >
                         passwords do not match</span

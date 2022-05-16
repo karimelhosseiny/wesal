@@ -117,7 +117,10 @@ class AdminUserController extends Controller
         }
         else
         {
-            dd('you are not admin');
+           
+           return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
 
