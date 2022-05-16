@@ -13,6 +13,7 @@ export default {
                 password: "",
             },
             confPass: "",
+            showModal: false,
         };
     },
     methods: {
@@ -24,7 +25,12 @@ export default {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
                     },
-                });
+                })
+                .then(function (res) {
+                    console.log(res);
+                })
+                .catch((e) => console.log("in action error:", e));
+                this.showModal = false;
             } else {
                 alert(
                     "password doesn't match" +
@@ -57,138 +63,64 @@ export default {
     <div class="col-2 px-5">
         <p>{{ type }}</p>
     </div>
-    <div class="col-2 px-5 donated">
-        <!-- Button trigger modal -->
-        <i
-            type="button"
-            class="edit mx-2 bi bi-pen"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-        >
-        </i>
-
-        <!-- Modal -->
-        <div
-            class="modal fade"
-            id="staticBackdrop"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">
-                            Edit Mode
-                        </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="container">
-                                <div class="row">
-                                    <label class="col-6" for="user_id"
-                                        >ID</label
-                                    >
-                                    <input
-                                        class="col-6"
-                                        type="text"
-                                        name="user_id"
-                                        v-model="this.form.id"
-                                        readonly
-                                    />
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <label for="name" class="col-6"
-                                        >Name:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="col-6"
-                                        name="name"
-                                        v-model="form.name"
-                                    />
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <label for="email" class="col-6"
-                                        >Email:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="col-6"
-                                        name="email"
-                                        v-model="form.email"
-                                    />
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <label for="phone" class="col-6"
-                                        >Phone number:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="col-6"
-                                        name="phone"
-                                        v-model="form.phone"
-                                    />
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <label for="pass" class="col-6"
-                                        >Password:</label
-                                    >
-                                    <input
-                                        type="password"
-                                        class="col-6"
-                                        name="pass"
-                                        v-model="form.password"
-                                    />
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <label for="password" class="col-6"
-                                        >Confirm password:</label
-                                    >
-                                    <input
-                                        type="password"
-                                        class="col-6"
-                                        name="password"
-                                        v-model="confPass"
-                                    />
-                                </div>
-                                <br />
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-danger"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Close
-                                </button>
-                                <button
-                                    @click.prevent="editUserData"
-                                    type="submit"
-                                    class="btn btn-success"
-                                >
-                                    Save
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-2 px-5">
+        <i class="edit mx-2 bi bi-pen" @click="showModal = true"></i>
         <i class="delete bi bi-trash3"></i>
+    </div>
+    <div v-if="showModal" class="modalOpen">
+        <div class="container editModal shadow-lg p-3 mb-5 bg-body">
+            <form>
+                <div class="mt-4 mx-4 row">
+                    <label for="name" name="user_id" class="col-4">ID: </label>
+                    <input
+                        type="text"
+                        class="col-8"
+                        v-model="form.id"
+                        disabled
+                    />
+                </div>
+                <br />
+                <div class="mx-4 row">
+                    <label for="name" class="col-4">Name: </label>
+                    <input type="text" name="name" class="col-8" v-model="form.name" />
+                </div>
+                <br />
+                <div class="mx-4 row">
+                    <label for="name" class="col-4">Email: </label>
+                    <input type="text" name="email" class="col-8" v-model="form.email" />
+                </div>
+                <br />
+                <div class="mx-4 row">
+                    <label for="name" class="col-4">Phone: </label>
+                    <input type="text" name="phone" class="col-8" v-model="form.phone" />
+                </div>
+                <br />
+                <div class="mx-4 row">
+                    <label for="name" name="password" class="col-4">Password: </label>
+                    <input
+                        type="password"
+                        class="col-8"
+                        v-model="form.password"
+                    />
+                </div>
+                <br />
+                <div class="mx-4 row">
+                    <label for="name" class="col-4">Confirm Password: </label>
+                    <input type="password" class="col-8" v-model="confPass" />
+                </div>
+                <div class="m-4 row justify-content-around">
+                    <button
+                        @click="showModal = false"
+                        class="btn btn-danger col-3"
+                    >
+                        Close
+                    </button>
+                    <button @click="editUserData" class="btn btn-success col-3">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -214,5 +146,24 @@ export default {
     .delete:hover {
         color: orange;
     }
+}
+.modalOpen {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.editModal {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 25px;
 }
 </style>

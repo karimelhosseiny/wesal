@@ -23,7 +23,6 @@ export default {
                 })
                 .then(
                     ({ data }) => {
-                        console.log(data.Users);
                         var users = [];
                         this.totalUsers = data.Total_Users;
                         this.totalCases = data.Total_Cases;
@@ -142,6 +141,8 @@ export default {
     }
 }
 .dashboard {
+    overflow: scroll;
+    height: 600px;
     border-radius: 10px;
     margin-bottom: 20px;
     padding-bottom: 10px;
