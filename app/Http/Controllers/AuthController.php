@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -58,7 +59,8 @@ class AuthController extends Controller
                     $token = $user->createToken('main')->plainTextToken;
                     return response([
                         'user' => $user,
-                        'token' => $token
+                        'token' => $token,
+                        
                     ]);
                 }
                 else{

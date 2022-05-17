@@ -18,6 +18,13 @@ export default {
         };
     },
     methods: {
+
+        /*
+        name
+        phone
+        address
+        image
+        */
         editUserData() {
             if (this.form.password === this.form.password_confirmation) {
                 axios
@@ -32,6 +39,7 @@ export default {
                         console.log(res);
                     })
                     .catch((e) => console.log("request error:", e));
+
                 this.showModal = false;
             } else {
                 console.log(
@@ -99,6 +107,7 @@ export default {
                         name="email"
                         class="col-8"
                         v-model="form.email"
+                        disabled
                     />
                 </div>
                 <br />

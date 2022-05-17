@@ -104,8 +104,8 @@ class AdminUserController extends Controller
                 //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
-        if (Gate::allows('isAdmin'))
-        {
+        //  if (Gate::allows('isUser'))
+        // {
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
             $user->email = $request->input('email');
@@ -114,14 +114,13 @@ class AdminUserController extends Controller
             $user->password = bcrypt($request->input('password'));
             $user->type = $request->input('type');
             $user->save();
-        }
-        else
-        {
-           
-           return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+        // }
+        // else
+        // {
+        //    return  response()->json([
+        //         'message' => 'You are not an admin',
+        //     ], 401);
+        // }
     }
 
     //admin delete user
