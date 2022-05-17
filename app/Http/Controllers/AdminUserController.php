@@ -40,6 +40,10 @@ class AdminUserController extends Controller
                 ]);
             }
          }
+         else
+         {
+             dd('you are not admin');
+         }
     }
 
     // admin update user to organization

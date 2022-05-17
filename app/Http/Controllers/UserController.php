@@ -239,6 +239,7 @@ class UserController extends Controller
     
     public function usersadmins()
     {
+        // dd(Auth::user());
         $admins = User::all()->where('type', '=', 'admin');
         return response()->json([
             'admins' => $admins,
