@@ -9,6 +9,7 @@ export default {
             totalUsers: "",
             totalCases: "",
             totalDonations: "",
+            isLoading: true,
         };
     },
     methods: {
@@ -33,14 +34,16 @@ export default {
                                 name: user.name,
                                 email: user.email,
                                 phone: user.phonenumber,
-                                type: user.type
+                                type: user.type,
                             });
                         });
                         this.users = users;
+                        this.isLoading = false;
                     },
                     (e) => console.log(e)
                 );
         },
+        
     },
     mounted() {
         this.fetchData();
@@ -54,52 +57,63 @@ export default {
         <Navbar />
         <div class="my-5 cards">
             <div class="mx-3 first-card card" style="width: 18rem">
-                <h1>{{totalUsers}}</h1>
+                <h1>{{ totalUsers }}</h1>
                 <h2>Total users</h2>
             </div>
             <div class="mx-3 second-card card" style="width: 18rem">
-                <h1>{{totalCases}}</h1>
+                <h1>{{ totalCases }}</h1>
                 <h2>Total cases</h2>
             </div>
             <div class="mx-3 third-card card" style="width: 18rem">
-                <h1>{{totalDonations}}</h1>
+                <h1>{{ totalDonations }}</h1>
                 <h2>Donations</h2>
             </div>
         </div>
         <div class="shadow-lg card container dashboard">
-            <div class="row justify-content-center">
-                <h2 class="col-2">Users Data</h2>
-            </div>
-            <div class="titles row">
-                <div class="px-4 col-2">
-                    <h4>ID</h4>
-                </div>
-                <div class="col-2">
-                    <h4>Name</h4>
-                </div>
-                <div class="col-2">
-                    <h4>Email</h4>
-                </div>
-                <div class="col-2">
-                    <h4>Phone number</h4>
-                </div>
-                <div class="col-2">
-                    <h4>Type</h4>
-                </div>
-                <div class="col-2">
-                    <h4>Settings</h4>
+            <div v-if="isLoading" class="text-center my-5">
+                <div
+                    class="spinner-grow mx-5 text-success"
+                    style="width: 10rem; height: 10rem"
+                    role="status"
+                >
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div class="row mx-2 info">
-                <FieldComponent
-                    v-for="user in users"
-                    :key="user.id"
-                    :id="user.id"
-                    :name="user.name"
-                    :email="user.email"
-                    :phone="user.phone"
-                    :type="user.type"
-                />
+            <div v-else>
+                <div class="row justify-content-center">
+                    <h2 class="col-2">Users Data</h2>
+                </div>
+                <div class="titles row">
+                    <div class="px-4 col-2">
+                        <h4>ID</h4>
+                    </div>
+                    <div class="col-2">
+                        <h4>Name</h4>
+                    </div>
+                    <div class="col-2">
+                        <h4>Email</h4>
+                    </div>
+                    <div class="col-2">
+                        <h4>Phone number</h4>
+                    </div>
+                    <div class="col-2">
+                        <h4>Type</h4>
+                    </div>
+                    <div class="col-2">
+                        <h4>Settings</h4>
+                    </div>
+                </div>
+                <div class="row mx-2 info">
+                    <FieldComponent
+                        v-for="user in users"
+                        :key="user.id"
+                        :id="user.id"
+                        :name="user.name"
+                        :email="user.email"
+                        :phone="user.phone"
+                        :type="user.type"
+                    />
+                </div>
             </div>
         </div>
     </div>

@@ -72,7 +72,7 @@ Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']); //(
 Route::post('/newcaseadded', [OrganizationController::class, 'orgAddCase']); //store new case in database
 Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateanycase']); //(just test from) to update new case by organization
 Route::post('/newcaseupdated',[OrganizationController::class, 'orgUpdateCase']); //store new updatesfor the case in database
-Route::get('/orgeletecase', [OrganizationController::class ,'orgdeleteanycase']); //(just test from) to add delete case by organization
+Route::get('/orgdeletecase', [OrganizationController::class ,'orgdeleteanycase']); //(just test from) to add delete case by organization
 Route::post('/anycasedeleted',[OrganizationController::class, 'orgDeleteCase']); //delete case record from the database
 
 
@@ -126,9 +126,12 @@ Route::get('/admindeleteuserwithtype', [AdminController::class, 'admindeleteanyu
 // AdminUserController
 Route::get('api/accepted/{id}', [AdminUserController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
 Route::get('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
-Route::post('/userdeleted', [AdminUserController::class, 'adminDeleteUserByType']); //delete user record from database
+Route::post('api/userdeleted', [AdminUserController::class, 'adminDeleteUserByType']); //delete user record from database
 Route::post('/adduser', [AdminUserController::class, 'addUserWithType']); //store new user or organization or admin
 Route::post('api/updatedone', [AdminUserController::class, 'adminupdateuserprofile']); //store the new updates for the user profile
+Route::post('api/updateusertoadmin', [AdminUserController::class, 'adminupdateusertoadmin']); //store new updates for the user type (admin)
+Route::post('api/updateusertoorg', [AdminUserController::class, 'adminupdateusertoorg']);  //store new updates for the user type (org)
+
 //------------------------------------------------------------------------------------------------------------------------------------
 
 

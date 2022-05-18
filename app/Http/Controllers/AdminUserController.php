@@ -19,17 +19,17 @@ class AdminUserController extends Controller
     //admin update user to admin
     public function adminupdateusertoadmin(Request $request)
     {
-        if (Gate::allows('isAdmin')){
-            if ($request->file()){
-                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('user_image')->extension();
-                $request->file('user_image')->move(public_path('userimages'), $newimage);
-            }
+        if ($request->input('adminType')=='admin'){
+            // if ($request->file()){
+            //     $newimage = time() . '-' . $request->input('name') . '.' . $request->file('user_image')->extension();
+            //     $request->file('user_image')->move(public_path('userimages'), $newimage);
+            // }
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
             $user->phonenumber = $request->input('phone');
             $user->address = $request->input('address');
-            $user->image = $newimage;
-            $user->type = $request->input('type');
+            // $user->image = $newimage;
+            $user->type = $request->input('userType');
             if($user->type == 'admin'){
                 $date = new DateTime();
                  DB::table('admins')->insert([
@@ -54,7 +54,7 @@ class AdminUserController extends Controller
               'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
-        if (Gate::allows('isAdmin'))
+        if ($request->input('adminType')=='admin')
         {
             $user = User::find($request->input('user_id'));
             $user->type = $request->input('type');
@@ -62,7 +62,7 @@ class AdminUserController extends Controller
             {
                 $request->validate(
                     [
-                      'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                       'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
                     ]
                 );
@@ -78,11 +78,11 @@ class AdminUserController extends Controller
                     'title' =>$request->input('title'),
                     'verificationdocuments' =>$verificationdocuments,
                     'phonenumber' =>$request->input('phonenumber'),
-                    'image' =>$neworgimage,
+                    // 'image' =>$neworgimage,
                     'description' =>$request->input('description'),
                     'verified' => true,
                     'verifiedat' =>$date->format('Y-m-d H:i:s'),
-                    'verifiedby' => Auth::id(),
+                    'verifiedby' => $request->input('adminID'),
                     'creator_id'=> $user->id,
                     'created_at' =>$date->format('Y-m-d H:i:s'),
                     'updated_at'=>$date->format('Y-m-d H:i:s'),
@@ -108,28 +108,28 @@ class AdminUserController extends Controller
                 //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
-        //  if (Gate::allows('isUser'))
-        // {
+         if ($request->input('adminType')=='admin')
+        {
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->phonenumber = $request->input('phone');
             $user->address = $request->input('address');
             $user->password = bcrypt($request->input('password'));
-            $user->type = $request->input('type');
+            $user->type = $request->input('userType');
             $user->save();
-        // }
-        // else
-        // {
-        //    return  response()->json([
-        //         'message' => 'You are not an admin',
-        //     ], 401);
-        // }
+        }
+        else
+        {
+           return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
+        }
     }
 
     //admin delete user
     public function adminDeleteUserByType(Request $request ){
-        if (Gate::allows('isAdmin')){
+        if ($request->input('adminType')=='admin'){
             $user = User::find($request->input('user_id'));
             if($user['type'] = 'organization'){
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
@@ -150,7 +150,9 @@ class AdminUserController extends Controller
             }
             }
         else{
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }     
     }
 

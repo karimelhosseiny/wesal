@@ -19,7 +19,7 @@ export default {
     computed: {
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
-            User: 'user',
+            User: 'currentUser',
             storeToken: 'token',
         }),
     },

@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
-
+import { useUserStore } from "../../store/UserStore";
+import { mapWritableState, mapStores } from "pinia";
 export default {
     props: ["id", "name", "email", "phone", "type"],
     data() {
@@ -12,6 +13,8 @@ export default {
                 phone: this.phone,
                 password: "",
                 password_confirmation: "",
+                userType : this.type,
+                adminType: '',
             },
             passMatch: false,
             showModal: false,
@@ -25,9 +28,9 @@ export default {
         address
         image
         */
-        editUserData() {
-            if (this.form.password === this.form.password_confirmation) {
-                axios
+        async editUserData() {
+            if (this.form.password === this.form.password_confirmation&&this.form.password.length>=8) {
+                await axios
                     .post(`http://localhost:8000/api/updatedone`, this.form, {
                         mode: "no-cors",
                         headers: {
@@ -40,6 +43,39 @@ export default {
                     })
                     .catch((e) => console.log("request error:", e));
 
+                    //update to admin
+                    if(this.form.userType === 'admin'){
+                        console.log('Updating admin...')
+                       await axios
+                        .post(`http://localhost:8000/api/updateusertoadmin`, this.form, {
+                            mode: "no-cors",
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                            },
+                        })
+                        .then( (res)=> {
+                            console.log("user updated to admin",res);
+                        })
+                        .catch((e) => console.log("request error:", e));
+                    }
+
+                    //update user to org --> to be tested , still needs dropdown and verDocs
+                    if(this.form.userType === 'admin'){
+                        console.log('Updating admin...')
+                       await axios
+                        .post(`http://localhost:8000/api/updateusertoorg`, this.form, {
+                            mode: "no-cors",
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                            },
+                        })
+                        .then( (res)=> {
+                            console.log("user updated to admin",res);
+                        })
+                        .catch((e) => console.log("request error:", e));
+                    }
                 this.showModal = false;
             } else {
                 console.log(
@@ -53,7 +89,32 @@ export default {
                 );
             }
         },
+        deleteUser() {
+            axios
+                .post(`http://localhost:8000/api/userdeleted`,{user_id: this.id,adminType:this.User.type}, {
+                    mode: "no-cors",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(({ data }) => {
+                    console.log('user deleted');
+                    console.log(data);
+                })
+                .catch((e) => console.log(e));
+        },
     },
+    computed:{
+          ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            User: 'currentUser',
+            storeToken: 'token',
+        }),
+    },
+    created(){
+        this.form.adminType = this.User.type
+    }
 };
 </script>
 
@@ -75,7 +136,7 @@ export default {
     </div>
     <div class="col-2 px-5">
         <i class="edit mx-2 bi bi-pen" @click="showModal = true"></i>
-        <i class="delete bi bi-trash3"></i>
+        <i class="delete bi bi-trash3" @click=" deleteUser"></i>
     </div>
     <div v-if="showModal" class="modalOpen">
         <div class="container editModal shadow-lg p-3 mb-5 bg-body">
@@ -118,6 +179,17 @@ export default {
                         name="phone"
                         class="col-8"
                         v-model="form.phone"
+                    />
+                </div>
+                <br />
+                <div class="mx-4 row">
+                    <label for="name" class="col-4">Type: </label>
+                    <input
+                        type="text"
+                        name="userType"
+                        class="col-8"
+                        v-model="form.userType"
+                        
                     />
                 </div>
                 <br />
