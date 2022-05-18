@@ -87,7 +87,7 @@ Route::post('/orgprofileupdated',[OrganizationController::class, 'orgUpdateProfi
 Route::get('api/cases', [CaseController::class, 'cases']); // show all cases from database
 //UserDoantion Test
 Route::get('/userdonation', [CaseController::class, 'userdonate']); //just test from
-Route::post('/donationdone',[CaseController::class,'userdonation']); //store user donation in database
+Route::post('api/donationdone',[CaseController::class,'userdonation']); //store user donation in database
 //-----------------------------------------------------------------------------------------
 
 

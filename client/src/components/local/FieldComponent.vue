@@ -11,7 +11,7 @@ export default {
                 email: this.email,
                 phone: this.phone,
                 password: "",
-                confPasspassword_confirmation: "",
+                password_confirmation: "",
             },
             passMatch: false,
             showModal: false,
