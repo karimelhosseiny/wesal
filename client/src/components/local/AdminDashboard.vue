@@ -10,7 +10,23 @@ export default {
             totalCases: "",
             totalDonations: "",
             isLoading: true,
+            referance:'All users',
+            filteredUsers: "",
+            search: "",
+            filteredByPhone: "",
+            
         };
+    },
+    computed:{
+        filteredByPhone() {
+            return this.users.filter((User) =>
+                User.phone.includes(this.search)
+            );
+        },
+
+        filteredUsers() {
+            return this.users.filter((User) => User.type == this.referance);
+        },
     },
     methods: {
         fetchData() {
@@ -43,7 +59,7 @@ export default {
                     (e) => console.log(e)
                 );
         },
-        
+
     },
     mounted() {
         this.fetchData();
@@ -80,8 +96,25 @@ export default {
                 </div>
             </div>
             <div v-else>
-                <div class="row justify-content-center">
-                    <h2 class="col-2">Users Data</h2>
+                <div class="headdings row my-3 justify-content-around">
+                    <div class="col-3 ms-5 me-5 my-2 filter btn-group pt-2">
+                        <button class="btn btn-success btn-sm" type="button">
+                            <i class="h1 bi bi-filter"></i>
+                        </button>
+                        <select class="btn btn-sm btn-success dropdown-toggle" aria-expanded="false"
+                            v-model="referance">
+                            <option value="All users">All users</option>
+                            <option value="admin">Admins</option>
+                            <option value="organization">Organizations</option>
+                            <option value="user">Users</option>
+                        </select>
+                    </div>
+                    <h2 class="col-3 my-3 ms-5 pt-1">{{referance}} Data</h2>
+                    <i class="add col-3 my-3 fs-2 bi bi-plus-square-fill"></i>
+                    <div class="col-3 my-3 me-5 searchContainer">
+                    <input class="rounded-pill" type="text" placeholder="search users" v-model="search" />
+                    <i class="bi bi-search searchIcon"></i>
+                </div>
                 </div>
                 <div class="titles row">
                     <div class="px-4 col-2">
@@ -105,7 +138,18 @@ export default {
                 </div>
                 <div class="row mx-2 info">
                     <FieldComponent
-                        v-for="user in users"
+                        v-if="referance ==  'All users' "
+                        v-for="(user, index) in filteredByPhone"
+                        :key="index"
+                        :id="user.id"
+                        :name="user.name"
+                        :email="user.email"
+                        :phone="user.phone"
+                        :type="user.type"
+                    />
+                    <FieldComponent
+                        v-else
+                        v-for="(user, index) in filteredUsers"
                         :key="user.id"
                         :id="user.id"
                         :name="user.name"
@@ -164,38 +208,51 @@ export default {
         color: $priColor;
         margin-bottom: 20px;
     }
-    .searchContainer {
-        margin-top: 0.2em;
-        position: relative;
-        width: 280px;
-        height: 44.83px;
-
-        input {
-            margin-left: 40px;
-            margin-top: 10px;
-            border: none;
-            filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
-            padding-left: 1.5em;
-            border: 1px solid transparent;
-            outline: none;
-            font-weight: 300;
-        }
-
-        input:hover {
-            border: 1px solid $secColor;
-        }
-
-        .searchIcon {
-            position: absolute;
-            color: #57ce8d;
-            font-size: 16px;
-            left: 235px;
-            top: 13px;
-            cursor: pointer;
-            border: none;
-            outline: none;
-        }
+    .headdings{
+        border-bottom: 2px solid $priColor;
     }
+    .filter{
+        width: fit-content;
+    }
+    .add{
+        width: fit-content;
+        color: $specialColor;
+        cursor: pointer;
+    }
+    .searchContainer {
+            // background: red;
+            margin-top: 0.2em;
+            position: relative;
+            width: 280px;
+            height: 44.83px;
+
+            input {
+                width: 200px;
+                margin-left: 40px;
+                margin-top: 16px;
+                border: none;
+                filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
+                padding-left: 1.5em;
+                border: 1px solid transparent;
+                outline: none;
+                font-weight: 300;
+            }
+
+            input:hover {
+                border: 1px solid $secColor;
+            }
+
+            .searchIcon {
+                position: absolute;
+                color: #57ce8d;
+                font-size: 16px;
+                left: 210px;
+                top: 19px;
+                cursor: pointer;
+                border: none;
+                outline: none;
+            }
+        }
     .titles {
         h4 {
             color: $priColor;
