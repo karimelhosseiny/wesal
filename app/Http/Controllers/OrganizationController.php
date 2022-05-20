@@ -75,8 +75,9 @@ class OrganizationController extends Controller
             $organization->save();
         } else {
 
-            dd('You are not User');
-        }
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);        }
     }
 
     /**
@@ -175,8 +176,9 @@ class OrganizationController extends Controller
             }
         }
         else{
-            dd('you are not an Organization');
-            }
+            return  response()->json([
+                'message' => 'You are not an organization',
+            ], 401);            }
     }
 
      //organization update case
@@ -209,8 +211,9 @@ class OrganizationController extends Controller
         }
         else
         {
-            dd('you are not an organization');
-        }
+            return  response()->json([
+                'message' => 'You are not an organization',
+            ], 401);        }
     }
 
          //organization delete case
@@ -219,7 +222,9 @@ class OrganizationController extends Controller
             DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
             }
         else{
-            dd('you are not an organization');
+            return  response()->json([
+                'message' => 'You are not an organization',
+            ], 401);
             }
     }
 
@@ -254,8 +259,9 @@ class OrganizationController extends Controller
         }
         else
         {
-            dd('you are not an organization');
-        }
+            return  response()->json([
+                'message' => 'You are not an organzation',
+            ], 401);        }
     }
 
 

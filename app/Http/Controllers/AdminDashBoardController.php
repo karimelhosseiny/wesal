@@ -38,7 +38,9 @@ class AdminDashBoardController extends Controller
         ]);
         // }
         // else{
-        //     dd('you are not admin');
+        //   return  response()->json([
+        //     'message' => 'You are not an admin',
+        // ], 401);
         //     }
             }
     //category dashboard
@@ -58,7 +60,9 @@ class AdminDashBoardController extends Controller
                                     ]);
          }
         else{
-        dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }
     }
     //organization dashboard
@@ -81,7 +85,9 @@ class AdminDashBoardController extends Controller
         ]);
         }
         else{
-        dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
         }
     //reminders dashboard
@@ -104,7 +110,9 @@ class AdminDashBoardController extends Controller
                              ]);
         }
         else{
-        dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }
     }
     //favcase dashboard
@@ -118,8 +126,9 @@ class AdminDashBoardController extends Controller
             ]);
         }
         else{
-        dd('you are not admin');
-            }
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);            }
     }
     //donations dashboard
     public function donationsDashBoard(){
@@ -140,8 +149,9 @@ class AdminDashBoardController extends Controller
                              ]);
     }
         else{
-        dd('you are not admin');
-            }
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);            }
         }
 
 }

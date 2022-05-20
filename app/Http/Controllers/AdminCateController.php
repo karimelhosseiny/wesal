@@ -29,7 +29,9 @@ class AdminCateController extends Controller
              ]);
             }
         else{
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }
     }
     //admin update cateogry
@@ -47,7 +49,9 @@ class AdminCateController extends Controller
         }  
         else
         {
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
     //admin delete category
@@ -56,7 +60,9 @@ class AdminCateController extends Controller
             DB::table('categories')->where('id', $request->input('category_id'))->delete();
             }
         else{
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }
     }
 }

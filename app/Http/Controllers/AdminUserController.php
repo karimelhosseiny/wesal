@@ -42,7 +42,9 @@ class AdminUserController extends Controller
          }
          else
          {
-             dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
          }
     }
 
@@ -168,7 +170,9 @@ class AdminUserController extends Controller
             ]);
             // return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
         } else {
-            dd('You are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
     //accept the organization requests 
@@ -177,7 +181,9 @@ class AdminUserController extends Controller
         if (Gate::allows('isAdmin')) {
             $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1, 'verifiedby' =>  Auth::user()->id]);
         } else {
-            dd('You are not Admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
     //reject the organizations requests
@@ -186,7 +192,9 @@ class AdminUserController extends Controller
         if (Gate::allows('isAdmin')) {
             $reject = DB::table('Organizations')->where('id', $id)->delete();
         } else {
-            dd('You are not Admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
 

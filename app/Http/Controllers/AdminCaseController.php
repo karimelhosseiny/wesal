@@ -40,7 +40,9 @@ class AdminCaseController extends Controller
             }
         }
         else{
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }
     }
     //admin update case
@@ -69,7 +71,9 @@ class AdminCaseController extends Controller
         }
         else
         {
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
 
@@ -79,7 +83,9 @@ class AdminCaseController extends Controller
             DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
             }
         else{
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
             }
     }
 
