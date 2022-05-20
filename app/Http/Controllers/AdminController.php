@@ -50,8 +50,8 @@ class AdminController extends Controller
     public function addUserWithType(Request $request)
     {
         // dd($request->input('type')=='organization');
-        if (Gate::allows('isAdmin')){
-            Auth::user()->create([
+        if ($request->input('type') =='admin'){
+            DB::table('users')->insert([
                 'name'=> $request->input('name'),
                 'email'=> $request->input('email'),
                 'password'=> bcrypt($request->input('password')),
@@ -61,12 +61,12 @@ class AdminController extends Controller
                 $id= DB::table('users')->where('email',$request->input('email'))->value('id');
                 $request->validate(
                         [
-                          'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                           'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
                         ]
                     );
-                    $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
-                    $request->file('image')->move(public_path('orgimages'), $newimage);
+                    // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                    // $request->file('image')->move(public_path('orgimages'), $newimage);
                     
                     $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
                     $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
@@ -86,11 +86,11 @@ class AdminController extends Controller
                         'title' =>$request->input('title'),
                         'verificationdocuments' =>$verificationdocuments,
                         'phonenumber' =>$request->input('phonenumber'),
-                        'image' =>$newimage,
+                        // 'image' =>$newimage,
                         'description' =>$request->input('description'),
                         'verified' => true,
                         'verifiedat' =>$date->format('Y-m-d H:i:s'),
-                        'verifiedby' => Auth::id(),
+                        'verifiedby' => $request->input('admin_id'),
                         'creator_id'=> $id,
                         'created_at' =>$date->format('Y-m-d H:i:s'),
                         'updated_at'=>0,
