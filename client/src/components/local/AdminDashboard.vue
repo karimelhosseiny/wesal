@@ -13,13 +13,25 @@ export default {
             referance: "All users",
             filteredUsers: "",
             search: "",
-            filteredByPhone: "",
+            filteredByEmail: "",
+            showModal: false,
+            form: {
+                name: "",
+                email: "",
+                phone: "",
+                address: "",
+                password: "",
+                userType: "",
+                adminType: "",
+            },
+            password_confirmation: "",
+            passMatch: false,
         };
     },
     computed: {
-        filteredByPhone() {
+        filteredByEmail() {
             return this.users.filter((User) =>
-                User.phone !== null ? User.phone.includes(this.search) : false
+                User.email.includes(this.search)
             );
         },
 
@@ -57,6 +69,38 @@ export default {
                     },
                     (e) => console.log(e)
                 );
+        },
+        async addUser() {
+            if (
+                this.form.password === this.password_confirmation &&
+                this.form.password.length >= 8
+            ) {
+                await axios
+                    .post(`http://localhost:8000/api/adduser`, this.form, {
+                        mode: "no-cors",
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then(function (res) {
+                        console.log(res);
+                        this.$router.go("/admindashboard");
+                    })
+                    .catch((e) => console.log("request error:", e));
+
+                this.showModal = false;
+            } else {
+                alert(
+                    "password doesn't match" +
+                        "\n" +
+                        "password: " +
+                        this.form.password +
+                        "\n" +
+                        "Confirm password: " +
+                        this.password_confirmation
+                );
+            }
         },
     },
     mounted() {
@@ -111,12 +155,147 @@ export default {
                         </select>
                     </div>
                     <h2 class="col-3 my-3 ms-5 pt-1">{{ referance }} Data</h2>
-                    <i class="add col-3 my-3 fs-2 bi bi-plus-square-fill"></i>
+                    <i
+                        class="add col-3 my-3 fs-2 bi bi-plus-square-fill"
+                        @click="showModal = true"
+                    ></i>
+                    <div v-if="showModal" class="modalOpen">
+                        <div
+                            class="container editModal shadow-lg p-3 mb-5 bg-body"
+                        >
+                            <form>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label for="name" class="col-4"
+                                        >Name:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        class="col-8"
+                                        v-model="this.form.name"
+                                    />
+                                </div>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label for="email" class="col-4"
+                                        >Email:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        class="col-8"
+                                        v-model="this.form.email"
+                                    />
+                                </div>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label for="phone" class="col-4"
+                                        >Phone:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="phone"
+                                        class="col-8"
+                                        v-model="this.form.phone"
+                                    />
+                                </div>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label for="phone" class="col-4"
+                                        >Address:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        class="col-8"
+                                        v-model="this.form.address"
+                                    />
+                                </div>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label for="type" class="col-4"
+                                        >Type:
+                                    </label>
+                                    <select
+                                        name="type"
+                                        class="col-8"
+                                        v-model="this.form.userType"
+                                    >
+                                        <option disabled selected value="">
+                                            select type
+                                        </option>
+                                        <option value="user">user</option>
+                                        <option value="admin">admin</option>
+                                        <option value="organization">
+                                            organization
+                                        </option>
+                                    </select>
+                                </div>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label
+                                        for="name"
+                                        name="password"
+                                        class="col-4"
+                                        >Password:
+                                    </label>
+                                    <input
+                                        type="password"
+                                        class="col-8"
+                                        v-model="this.form.password"
+                                    />
+                                </div>
+                                <br />
+                                <div class="mx-4 row">
+                                    <label for="name" class="col-4"
+                                        >Confirm Password:
+                                    </label>
+                                    <input
+                                        @keydown="
+                                            form.password ==
+                                            password_confirmation
+                                                ? (passMatch = true)
+                                                : (passMatch = false)
+                                        "
+                                        type="password"
+                                        class="col-8"
+                                        v-model="password_confirmation"
+                                    />
+                                    <span
+                                        v-if="
+                                            form.password !==
+                                                password_confirmation &&
+                                            password_confirmation != ''
+                                        "
+                                        class="text-danger"
+                                    >
+                                        passwords do not match</span
+                                    >
+                                </div>
+                                <div class="m-4 row justify-content-around">
+                                    <button
+                                        @click="showModal = false"
+                                        class="btn btn-danger col-3"
+                                    >
+                                        Close
+                                    </button>
+                                    <button
+                                        class="btn btn-success col-3"
+                                        @click.prevent="addUser"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="col-3 my-3 me-5 searchContainer">
                         <input
                             class="rounded-pill"
                             type="text"
-                            placeholder="search users"
+                            placeholder="search by email"
                             v-model="search"
                         />
                         <i class="bi bi-search searchIcon"></i>
@@ -145,7 +324,7 @@ export default {
                 <div class="row mx-2 info">
                     <FieldComponent
                         v-if="referance == 'All users'"
-                        v-for="(user, index) in filteredByPhone"
+                        v-for="(user, index) in filteredByEmail"
                         :key="index"
                         :id="user.id"
                         :name="user.name"
@@ -210,6 +389,25 @@ export default {
     border-radius: 10px;
     margin-bottom: 20px;
     padding-bottom: 10px;
+    .modalOpen {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .editModal {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        border-radius: 25px;
+    }
     h2 {
         color: $priColor;
         margin-bottom: 20px;
@@ -225,10 +423,10 @@ export default {
         color: $priColor;
         cursor: pointer;
     }
-    .filterLogo{
+    .filterLogo {
         background-color: $priColor;
     }
-    .dropdown-toggle{
+    .dropdown-toggle {
         background-color: $priColor;
     }
     .searchContainer {

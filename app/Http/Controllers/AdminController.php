@@ -50,7 +50,7 @@ class AdminController extends Controller
     public function addUserWithType(Request $request)
     {
         // dd($request->input('type')=='organization');
-        if ($request->input('type') =='admin'){
+        if ($request->input('adminType') =='admin'){
             DB::table('users')->insert([
                 'name'=> $request->input('name'),
                 'email'=> $request->input('email'),
@@ -67,10 +67,10 @@ class AdminController extends Controller
                     );
                     // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                     // $request->file('image')->move(public_path('orgimages'), $newimage);
-                    
+
                     $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
                     $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
-            
+
             if($request->input('type') =='admin'){
                 $date = new DateTime();
                  DB::table('admins')->insert([
@@ -105,9 +105,9 @@ class AdminController extends Controller
         }
     }
 
-  
+
     //layouts
-   
+
     public function admindeleteanyuser()
     {
     return view('layouts.admindeleteuserwithtype');
@@ -197,5 +197,5 @@ class AdminController extends Controller
         //
     }
 
-    
+
 }
