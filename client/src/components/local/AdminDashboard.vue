@@ -2,6 +2,8 @@
 import axios from "axios";
 import Navbar from "../global/Navbar.vue";
 import FieldComponent from "./FieldComponent.vue";
+import { useUserStore } from "../../store/UserStore";
+import { mapWritableState, mapStores } from "pinia";
 export default {
     data() {
         return {
@@ -29,6 +31,11 @@ export default {
         };
     },
     computed: {
+        ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        }),
         filteredByEmail() {
             return this.users.filter((User) =>
                 User.email.includes(this.search)
@@ -105,6 +112,9 @@ export default {
     },
     mounted() {
         this.fetchData();
+    },
+    created() {
+        this.form.adminType = this.user.type;
     },
     components: { Navbar, FieldComponent },
 };

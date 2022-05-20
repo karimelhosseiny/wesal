@@ -77,14 +77,14 @@ class AdminUserController extends Controller
                 }
                 $date = new DateTime();
                 DB::table('organizations')->insert([
-                    'title' =>$request->input('title'),
+                    'title' =>$request->input('name'),
                     'verificationdocuments' =>$verificationdocuments,
-                    'phonenumber' =>$request->input('phonenumber'),
+                    'phonenumber' =>$request->input('phone'),
                     // 'image' =>$neworgimage,
                     'description' =>$request->input('description'),
                     'verified' => true,
                     'verifiedat' =>$date->format('Y-m-d H:i:s'),
-                    'verifiedby' => $request->input('adminID'),
+                    'verifiedby' => $request->input('adminId'),
                     'creator_id'=> $user->id,
                     'created_at' =>$date->format('Y-m-d H:i:s'),
                     'updated_at'=>$date->format('Y-m-d H:i:s'),

@@ -16,6 +16,7 @@ export default {
                 password_confirmation: "",
                 userType: this.type,
                 adminType: "",
+                adminId: "",
             },
             passMatch: false,
             showModal: false,
@@ -143,6 +144,7 @@ export default {
     },
     created() {
         this.form.adminType = this.User.type;
+        this.form.adminId = this.User.id;
     },
 };
 </script>
