@@ -56,7 +56,7 @@ export default {
             selectedCard.reminder = !selectedCard.reminder;
         },
         async getUserCases(){
-            const res = await axios('http://localhost:8000/api/userhomepage/1',{
+            const res = await axios(`http://localhost:8000/api/userhomepage/${this.user.id}`,{
                     mode: "no-cors",
                     headers: {
                         "Access-Control-Allow-Origin": "*",

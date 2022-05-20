@@ -37,7 +37,11 @@ export default {
                         this.lastCaseId = null;
                     }
                 })
-                .catch((e) => alert(e));
+                .catch((e) => {
+                    console.log(e)
+                    localStorage.removeItem("TOKEN");
+                    localStorage.removeItem("USER");
+                });
         },
     },
     computed: {

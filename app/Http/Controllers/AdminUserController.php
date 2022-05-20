@@ -49,15 +49,15 @@ class AdminUserController extends Controller
     // admin update user to organization
     public function adminupdateusertoorg(Request $request)
     {
-        $request->validate(
-            [
-              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]
-        );
+        // $request->validate(
+        //     [
+        //       'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     ]
+        // );
         if ($request->input('adminType')=='admin')
         {
             $user = User::find($request->input('user_id'));
-            $user->type = $request->input('type');
+            $user->type = $request->input('userType');
             if($user->type == 'organization')
             {
                 $request->validate(
@@ -67,8 +67,8 @@ class AdminUserController extends Controller
                     ]
                 );
                 if($request->file()){
-                    $neworgimage = time() . '-' . $request->input('title') . '.' . $request->file('org_image')->extension();
-                    $request->file('org_image')->move(public_path('orgimages'), $neworgimage);
+                    // $neworgimage = time() . '-' . $request->input('title') . '.' . $request->file('org_image')->extension();
+                    // $request->file('org_image')->move(public_path('orgimages'), $neworgimage);
                     
                     $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
                     $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
@@ -93,7 +93,9 @@ class AdminUserController extends Controller
         }
         else
         {
-            dd('you are not admin');
+            return  response()->json([
+                'message' => 'You are not an admin',
+            ], 401);
         }
     }
 
@@ -159,7 +161,7 @@ class AdminUserController extends Controller
     //retrieve the organization requests
     public function retrieverequests()
     {
-        if (Gate::allows('isAdmin')) {
+        if ($request->input('adminType')=='admin') {
             $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
             return response()->json([
                 'organization' => $organization
