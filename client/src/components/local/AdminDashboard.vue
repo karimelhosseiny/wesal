@@ -90,7 +90,7 @@ export default {
                             "Content-Type": "application/json",
                         },
                     })
-                    .then(function (res) {
+                    .then((res)=> {
                         console.log(res);
                         this.$router.go("/admindashboard");
                     })
