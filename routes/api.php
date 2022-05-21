@@ -9,7 +9,7 @@ use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('updatedone', [AdminUserController::class, 'adminupdateuserprofile'])->middleware(['auth:sanctum', 'is_admin']);
 
 // Route::resource('/users', UserController::class);
 // Route::resource('/organizations', OrganizationController::class);
