@@ -112,8 +112,11 @@ class AdminUserController extends Controller
                 //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
-         if ($request->input('adminType')=='admin')
+        //  if ($request->input('adminType')=='admin')
+        $token = $request->bearerToken();
+        if(Gate::allows('isAdmin'))
         {
+
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
             $user->email = $request->input('email');

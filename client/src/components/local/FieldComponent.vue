@@ -15,6 +15,7 @@ export default {
                 password: "",
                 password_confirmation: "",
                 userType: this.type,
+                // token:this.token,
                 adminType: "",
                 adminId: "",
             },
@@ -41,6 +42,7 @@ export default {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
+                        //    'Authorization': 'Bearer'
                         },
                     })
                     .then(function (res) {

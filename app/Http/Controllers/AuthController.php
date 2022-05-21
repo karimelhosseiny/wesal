@@ -103,7 +103,7 @@ public function login(Request $request)
             'email' => ['The provided credentials are incorrect.'],
         ]);
     }
-    $user->createToken($request->device_name)->plainTextToken;
+    $token = $user->createToken($request->device_name)->plainTextToken;
     return response([
         'user' => $user,
         'token' => $token
