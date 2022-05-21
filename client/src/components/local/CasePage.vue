@@ -1,31 +1,42 @@
 <script>
 import SlideShow from "./SlideShow.vue";
-import Navbar from "../global/Navbar.vue"
+import Navbar from "../global/Navbar.vue";
 import CaseDonation from "./CaseDonation.vue";
 import axios from "axios";
+import { useUserStore } from "../../store/UserStore";
+import { mapWritableState, mapStores } from "pinia";
 export default {
     components: { SlideShow, Navbar, CaseDonation },
     data() {
         return {
-            caseName: '',
-            organization: '',
-            category: '',
-            desc: '',
+            caseName: "",
+            organization: "",
+            category: "",
+            desc: "",
             goal: 0,
             raised: 0,
             totalDonors: 0,
             imgUrl: 'https://api.unsplash.com/search/photos/?query="charity donations"&count=1&per_page=3&w=1440&h=400&dpr=2&orientation=landscape&client_id=ThnOH88dogJ-2LqnyjhKV79EAde8r-tna--nKq9mKAA',
             caseImgs: [],
             //case id acquired from page route, used to call api with
-            caseId: this.$route.params.id
+            caseId: this.$route.params.id,
         };
     },
     created() {
-        this.fetchData()
-
+        this.fetchData();
+    },
+    mounted() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
+    },
+    computed: {
+        ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        }),
     },
     methods: {
-
         fetchData() {
             //fetching case data
             axios(`http://localhost:8000/api/casepage/${this.caseId}`, {
@@ -36,35 +47,34 @@ export default {
                 },
             })
                 .then((res) => {
-                    const caseData = res.data
-                    this.caseName = caseData.case.title
-                    this.organization = caseData.organizationtitle
-                    this.category = caseData.categorytitle
-                    this.desc = caseData.case.description
-                    this.goal = caseData.case.goal_amount
-                    this.raised = caseData.case.raised_amount
-                    this.totalDonors = caseData.totaldonors
+                    const caseData = res.data;
+                    this.caseName = caseData.case.title;
+                    this.organization = caseData.organizationtitle;
+                    this.category = caseData.categorytitle;
+                    this.desc = caseData.case.description;
+                    this.goal = caseData.case.goal_amount;
+                    this.raised = caseData.case.raised_amount;
+                    this.totalDonors = caseData.totaldonors;
                 })
-                .catch(err => console.log(err))
+                .catch((err) => console.log(err));
 
             //fetching case imgs
             axios(this.imgUrl, {
-                mode: 'no-cors',
+                mode: "no-cors",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "content-type": "application/json",
-                }
+                },
             })
                 .then((res) => {
-                    const results = res.data.results
-                    results.forEach(result => {
-                        this.caseImgs.push(result.urls.regular)
+                    const results = res.data.results;
+                    results.forEach((result) => {
+                        this.caseImgs.push(result.urls.regular);
                     });
                 })
-                .catch((e) => console.log(e))
-        }
+                .catch((e) => console.log(e));
+        },
     },
-
 };
 </script>
 
@@ -85,9 +95,14 @@ export default {
             </div>
             <div class="row">
                 <div class="col-6">
-                    <img src="../../assets/SVG/GirlsClothesVector.svg" alt="Charity" />
+                    <img
+                        src="../../assets/SVG/GirlsClothesVector.svg"
+                        alt="Charity"
+                    />
                     <div class="progressBar">
-                        <div class="ammount mt-3 px-2 d-flex justify-content-between">
+                        <div
+                            class="ammount mt-3 px-2 d-flex justify-content-between"
+                        >
                             <span>
                                 {{ raised }}
                                 <sub>egp</sub>
@@ -97,45 +112,69 @@ export default {
                                 <sub>egp</sub>
                             </span>
                         </div>
-                        <progress class="bar bg-transparent" :value="raised" :max="goal"></progress>
+                        <progress
+                            class="bar bg-transparent"
+                            :value="raised"
+                            :max="goal"
+                        ></progress>
                     </div>
                 </div>
-                <div class="caseDesc col-6 ">
+                <div class="caseDesc col-6">
                     <div class="container h-100">
                         <div class="row align-self-end h-75">
                             <div class="scrollable w-100">
                                 <p class="col">
-                                {{ desc }}
-                            </p>
-                            </div>
-                        </div>
-                        <div class="endSec row align-items-center ">
-                            <div class="col-4 ">
-                                <p>
-                                    Total donors:
-                                    <span class="border border-2 rounded rounded-pill border-success px-3">{{totalDonors}}</span>
+                                    {{ desc }}
                                 </p>
                             </div>
-                            <div class="col-8 donate d-flex justify-content-end">
-                                <button class="btn btn-success m-1" data-bs-toggle="modal"
-                                    data-bs-target="#caseDonation">Donate
-                                    now</button>
+                        </div>
+                        <div class="endSec row align-items-center">
+                            <div class="col-4">
+                                <p>
+                                    Total donors:
+                                    <span
+                                        class="border border-2 rounded rounded-pill border-success px-3"
+                                        >{{ totalDonors }}</span
+                                    >
+                                </p>
+                            </div>
+                            <div
+                                class="col-8 donate d-flex justify-content-end"
+                            >
+                                <button
+                                    class="btn btn-success m-1"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#caseDonation"
+                                >
+                                    Donate now
+                                </button>
                                 <div class="modal" id="caseDonation">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div
+                                        class="modal-dialog modal-dialog-centered"
+                                    >
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <div class="d-flex flex-column w-content">
-                                                    <h1 class="modal-title">Case name</h1>
+                                                <div
+                                                    class="d-flex flex-column w-content"
+                                                >
+                                                    <h1 class="modal-title">
+                                                        Case name
+                                                    </h1>
                                                     <h4>Resala . Feeding</h4>
                                                 </div>
-                                                <button class="btn-close mb-5" data-bs-dismiss="modal"></button>
+                                                <button
+                                                    class="btn-close mb-5"
+                                                    data-bs-dismiss="modal"
+                                                ></button>
                                             </div>
                                             <div class="modal-body">
                                                 <CaseDonation />
                                             </div>
-                                            
+
                                             <div class="modal-footer">
-                                                <button class="btn confirm">confirm</button>
+                                                <button class="btn confirm">
+                                                    confirm
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +189,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@use "../../sass/colors"as *;
+@use "../../sass/colors" as *;
 
 .upper {
     width: fit-content;
@@ -186,10 +225,9 @@ export default {
         border-radius: 5px;
         scrollbar-width: thin;
         transition: 0.3s;
-        p{
+        p {
             max-width: 50ch;
         }
-
     }
     .scrollable:hover {
         overflow: scroll;
@@ -241,7 +279,7 @@ export default {
 
             .confirm:focus {
                 background-color: #064234;
-                box-shadow: none
+                box-shadow: none;
             }
 
             .modal-content {

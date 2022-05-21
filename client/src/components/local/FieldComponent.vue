@@ -135,16 +135,20 @@ export default {
             this.form.verificationdocuments.push(e.target.files[0]);
         },
     },
+    mounted() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
+    },
     computed: {
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
-            User: "currentUser",
+            user: "currentUser",
             storeToken: "token",
         }),
     },
     created() {
-        this.form.adminType = this.User.type;
-        this.form.adminId = this.User.id;
+        this.form.adminType = this.user.type;
+        this.form.adminId = this.user.id;
     },
 };
 </script>

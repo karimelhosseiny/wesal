@@ -9,10 +9,15 @@ export default {
       form: {
         email: '',
         password: '',
+        device_name:'browser'
       },
       mailValid: null,
       passValid: null,
     };
+  },
+  mounted() {
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + this.storeToken;
   },
   computed: {
     ...mapStores(useUserStore),

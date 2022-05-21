@@ -3,7 +3,8 @@ import axios from "axios";
 import Navbar from "../global/Navbar.vue";
 import HeroSection from "./HeroSection.vue";
 import UserCaseCard from "./UserCaseCard.vue";
-
+import { useUserStore } from "../../store/UserStore";
+import { mapWritableState, mapStores } from "pinia";
 
 export default {
     data() {
@@ -29,6 +30,11 @@ export default {
         filteredCategory() {
             return this.cases.filter((Case) => Case.cat === parseInt(this.referance));
         },
+        ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        }),
     },
 
     methods: {
@@ -84,6 +90,10 @@ export default {
     created() {
         this.getCases();
     },
+    mounted() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
+    }
 };
 </script>
 

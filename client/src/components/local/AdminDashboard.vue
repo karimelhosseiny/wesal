@@ -111,6 +111,8 @@ export default {
         },
     },
     mounted() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
         this.fetchData();
     },
     created() {

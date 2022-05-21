@@ -16,6 +16,9 @@ export default {
             passValid: null,
         };
     },
+    mounted(){
+        axios.defaults.headers.common["Authorization"] = "Bearer " + this.storeToken;
+    },
     computed: {
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
