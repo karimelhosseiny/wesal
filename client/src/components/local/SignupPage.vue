@@ -9,6 +9,7 @@ export default {
                 email: "",
                 password: "",
                 password_confirmation: "",
+                device_name: "browser",
             },
             passwordShown: false,
             passwordConfShown: false,

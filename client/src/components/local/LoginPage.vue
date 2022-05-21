@@ -1,7 +1,7 @@
 <script>
 import { useUserStore } from "../../store/UserStore";
 import { mapActions, mapWritableState, mapStores } from "pinia";
-
+import { axios } from 'axios';
 export default {
   data() {
     return {

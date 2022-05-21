@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminCaseController;
 use App\Http\Controllers\AdminCateController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminDashBoardController;
+use App\Http\Controllers\AuthController;
 
 
 /*
@@ -176,6 +177,7 @@ Auth::routes();
 Route::get('api/login', [LoginController::class, 'showLoginForm'])->name('login');
 //Route::post('api/login', [LoginController::class, 'login']); //youssef
 // Route::post('api/logout', [LoginController::class,'logout'])->name('logout');
+Route::post('api/login',[AuthController::class,'login']);
 // Registration Routes...
 Route::get('api/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 // Route::post('api/register', [RegisterController::class, 'register']); //youssef
