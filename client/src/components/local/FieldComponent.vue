@@ -42,13 +42,13 @@ export default {
                             "Content-Type": "application/json",
                         },
                     })
-                    .then(function (res) {
+                    .then((res) => {
                         console.log(res);
                         this.$router.go("/admindashboard");
                     })
                     .catch((e) => console.log("request error:", e));
 
-              
+
                 this.showModal = false;
             } else {
                 console.log(
@@ -76,11 +76,11 @@ export default {
                     }
                 )
                 .then(({ data }) => {
-                    
+
                     console.log("user deleted");
                     console.log(data);
                     this.$router.go("/admindashboard");
-                    
+
                 })
                 .catch((e) => console.log(e));
         },
@@ -192,7 +192,7 @@ export default {
                         class="col-8"
                         @change="onFileChange"
                     />
-                   
+
                 </div>
                 <br />
                 <div class="mx-4 row">
