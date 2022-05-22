@@ -33,8 +33,8 @@ Route::post('/logout', [AuthController::class ,'logout']);
 
 
 // AdminUserController
-Route::post('api/adduser', [AdminUserController::class, 'addUserWithType'])->middleware(['auth:sanctum', 'is_admin']);  //store new user or organization or admin
-Route::post('updatedone', [AdminUserController::class, 'adminupdateuser'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
+Route::post('adduser', [AdminUserController::class, 'adminAddUserWithType'])->middleware(['auth:sanctum', 'is_admin']);  //store new user or organization or admin
+Route::post('updatedone', [AdminUserController::class, 'adminUpdateUserWithType'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
 Route::post('userdeleted', [AdminUserController::class, 'adminDeleteUserByType'])->middleware(['auth:sanctum', 'is_admin']);   //delete user record from database
 
 Route::get('retrieverequests', [AdminUserController::class, 'retrieverequests'])->middleware(['auth:sanctum', 'is_admin']); //admin retrieves requests

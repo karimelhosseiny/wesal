@@ -17,7 +17,7 @@ use DateTime;
 class AdminUserController extends Controller
 {
     //admin add user whith any type
-    public function addUserWithType(Request $request)
+    public function adminAddUserWithType(Request $request)
     {
         $request->validate(
             [
@@ -72,7 +72,7 @@ class AdminUserController extends Controller
     }
 
     //admin update user profile (even the type)
-    public function adminupdateuser(Request $request)
+    public function adminUpdateUserWithType(Request $request)
     {
         $request->validate(
             [
@@ -195,7 +195,7 @@ class AdminUserController extends Controller
         
     }
 
-    
+
     //reject the organizations requests
     public function rejectrequest($id)
     {

@@ -49,17 +49,7 @@ class AdminOrgController extends Controller
         }
     }
 
-    // //admin delete organization
-    // public function adminDeleteOrg(Request $request){
-    //     if (Gate::allows('isAdmin')){
-    //         DB::table('organizations')->where('id', $request->input('org_id'))->delete();  
-    //         DB::table('donation_cases')->where('organization_id', $request->input('case_id'))->delete();
-
-    //     }
-    //     else{
-    //         dd('you are not admin');
-    //         }
-    // }
+    
 
 
 }
