@@ -8,26 +8,25 @@ import { mapWritableState, mapStores } from "pinia";
 export default {
     data() {
         return {
-            users: [],
+            cases: [],
             totalUsers: "",
             totalCases: "",
             totalDonations: "",
-            isLoading: true,
+            isLoading: false,
             referance: "0",
-            filteredUsers: "",
+            filteredCategories: "",
             search: "",
-            filteredByEmail: "",
+            filteredByTitle: "",
             showModal: false,
             form: {
-                name: "",
-                email: "",
-                phone: "",
-                address: "",
-                password: "",
-                userType: "",
-                adminType: "",
+                title: "",
+                goal: "",
+                deadline: "",
+                description: "",
+                category: "",
+                org: "",
             },
-            caseCategory: "All categories",
+            caseCategory: "",
         };
     },
     computed: {
@@ -49,87 +48,28 @@ export default {
             user: "currentUser",
             storeToken: "token",
         }),
-        filteredByEmail() {
-            return this.users.filter((User) =>
-                User.email.includes(this.search)
+        filteredByTitle() {
+            return this.cases.filter((Case) =>
+                Case.title.includes(this.search)
             );
         },
 
-        filteredUsers() {
-            return this.users.filter((User) => User.type == this.referance);
+        filteredCategories() {
+            return this.cases.filter((Case) => Case.category_id == this.referance);
         },
     },
     methods: {
         fetchData() {
-            axios
-                .get("http://localhost:8000/api/userdashboard", {
-                    mode: "no-cors",
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then(
-                    ({ data }) => {
-                        var users = [];
-                        this.totalUsers = data.Total_Users;
-                        this.totalCases = data.Total_Cases;
-                        this.totalDonations = data.Total_Donations;
-                        data.Users.forEach((user) => {
-                            users.push({
-                                id: user.id,
-                                name: user.name,
-                                email: user.email,
-                                phone: user.phonenumber,
-                                type: user.type,
-                            });
-                        });
-                        this.users = users;
-                        this.isLoading = false;
-                    },
-                    (e) => console.log(e)
-                );
-        },
-        async addUser() {
-            if (
-                this.form.password === this.password_confirmation &&
-                this.form.password.length >= 8
-            ) {
-                await axios
-                    .post(`http://localhost:8000/api/adduser`, this.form, {
-                        mode: "no-cors",
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then((res) => {
-                        console.log(res);
-                        this.$router.go("/admindashboard");
-                    })
-                    .catch((e) => console.log("request error:", e));
 
-                this.showModal = false;
-            } else {
-                alert(
-                    "password doesn't match" +
-                        "\n" +
-                        "password: " +
-                        this.form.password +
-                        "\n" +
-                        "Confirm password: " +
-                        this.password_confirmation
-                );
-            }
+        },
+        async addCase() {
+
         },
     },
     mounted() {
-        axios.defaults.headers.common["Authorization"] =
-            "Bearer " + this.storeToken;
         this.fetchData();
     },
     created() {
-        this.form.adminType = this.user.type;
     },
     components: { Navbar, CaseField },
 };
@@ -206,7 +146,7 @@ export default {
                                         type="text"
                                         name="name"
                                         class="col-8"
-                                        v-model="this.form.name"
+                                        v-model="this.form.title"
                                     />
                                 </div>
                                 <br />
@@ -218,7 +158,7 @@ export default {
                                         type="number"
                                         name="email"
                                         class="col-8"
-                                        v-model="this.form.email"
+                                        v-model="this.form.goal"
                                     />
                                 </div>
                                 <br />
@@ -230,7 +170,7 @@ export default {
                                         type="date"
                                         name="phone"
                                         class="col-8"
-                                        v-model="this.form.phone"
+                                        v-model="this.form.deadLine"
                                     />
                                 </div>
                                 <br />
@@ -244,7 +184,7 @@ export default {
                                         type="textarea"
                                         name="address"
                                         class="col-8"
-                                        v-model="this.form.address"
+                                        v-model="this.form.description"
                                     />
                                 </div>
                                 <br />
@@ -255,7 +195,7 @@ export default {
                                     <select
                                         name="type"
                                         class="col-8"
-                                        v-model="this.form.userType"
+                                        v-model="this.form.category"
                                     >
                                         <option disabled selected value="">
                                             select Category
@@ -277,7 +217,7 @@ export default {
                                     <input
                                         type="text"
                                         class="col-8"
-                                        v-model="this.form.password"
+                                        v-model="this.form.org"
                                     />
                                 </div>
                                 <br />
@@ -290,7 +230,7 @@ export default {
                                     </button>
                                     <button
                                         class="btn btn-success col-3"
-                                        @click.prevent="addUser"
+                                        @click.prevent="addCase"
                                     >
                                         Add
                                     </button>
@@ -336,8 +276,12 @@ export default {
                     </div>
                 </div>
                 <div class="row mx-2 info">
-                    <CaseField />
-                    <CaseField />
+                    <CaseField
+                        v-if="referance == '0' "
+                        />
+                    <CaseField
+                        v-else
+                        v-for="Case in filteredCategories"/>
                 </div>
             </div>
         </div>
