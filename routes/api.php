@@ -1,15 +1,24 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminOrgController;
+use App\Http\Controllers\AdminCaseController;
+use App\Http\Controllers\AdminCateController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminDashBoardController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
