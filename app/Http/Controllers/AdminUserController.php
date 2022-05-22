@@ -104,6 +104,7 @@ class AdminUserController extends Controller
     // admin update user profile
     public function adminupdateuserprofile(Request $request)
     {
+
         $request->validate(
             [
                 'name' => 'required|string|max:255',
@@ -112,26 +113,19 @@ class AdminUserController extends Controller
                 //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
-        //  if ($request->input('adminType')=='admin')
-        $token = $request->bearerToken();
-        if(Gate::allows('isAdmin'))
-        {
 
-            $user = User::find($request->input('user_id'));
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->phonenumber = $request->input('phone');
-            $user->address = $request->input('address');
-            $user->password = bcrypt($request->input('password'));
-            $user->type = $request->input('userType');
-            $user->save();
-        }
-        else
-        {
-           return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+        $user = User::find($request->input('user_id'));
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phonenumber = $request->input('phone');
+        $user->address = $request->input('address');
+        $user->password = bcrypt($request->input('password'));
+        $user->type = $request->input('userType');
+        $user->save();
+
+        return response()->json([
+            'message' => 'User updated successfully',
+        ], 200);
     }
 
     //admin delete user

@@ -33,8 +33,9 @@ export default {
         */
         async editUserData() {
             if (
-                this.form.password === this.form.password_confirmation &&
-                this.form.password.length >= 8
+                // this.form.password === this.form.password_confirmation &&
+                // this.form.password.length >= 8
+                true
             ) {
                 await axios
                     .post(`http://localhost:8000/api/updatedone`, this.form, {
@@ -47,56 +48,56 @@ export default {
                     })
                     .then(function (res) {
                         console.log(res);
-                        this.$router.go("/admindashboard");
+                        // this.$router.go("/admindashboard");
                     })
                     .catch((e) => console.log("request error:", e));
 
                 //update to admin
-                if (this.form.userType === "admin") {
-                    console.log("Updating admin...");
-                    await axios
-                        .post(
-                            `http://localhost:8000/api/updateusertoadmin`,
-                            this.form,
-                            {
-                                mode: "no-cors",
-                                headers: {
-                                    "Access-Control-Allow-Origin": "*",
-                                    "Content-Type": "application/json",
-                                },
-                            }
-                        )
-                        .then((res) => {
-                            console.log("user updated to admin", res);
-                            this.$router.go("/admindashboard");
-                        })
-                        .catch((e) => console.log("request error:", e));
-                }
+                // if (this.form.userType === "admin") {
+                //     console.log("Updating admin...");
+                //     await axios
+                //         .post(
+                //             `http://localhost:8000/api/updateusertoadmin`,
+                //             this.form,
+                //             {
+                //                 mode: "no-cors",
+                //                 headers: {
+                //                     "Access-Control-Allow-Origin": "*",
+                //                     "Content-Type": "application/json",
+                //                 },
+                //             }
+                //         )
+                //         .then((res) => {
+                //             console.log("user updated to admin", res);
+                //             this.$router.go("/admindashboard");
+                //         })
+                //         .catch((e) => console.log("request error:", e));
+                // }
 
                 //update user to org --> to be tested , still needs dropdown and verDocs
-                if (this.form.userType === "organization") {
-                    console.log("Updating to org...");
-                    await axios
-                        .post(
-                            `http://localhost:8000/api/updateusertoorg`,
-                            {
-                                adminType:this.form.adminType,
-                                user_id:this.form.user_id,
-                                verificationdocuments:this.form.verificationdocuments,
-                            },
-                            {
-                                mode: "no-cors",
-                                headers: {
-                                    "Access-Control-Allow-Origin": "*",
-                                },
-                            }
-                        )
-                        .then((res) => {
-                            console.log("user updated to org", res);
-                            this.$router.go("/admindashboard");
-                        })
-                        .catch((e) => console.log("request error:", e));
-                }
+                // if (this.form.userType === "organization") {
+                //     console.log("Updating to org...");
+                //     await axios
+                //         .post(
+                //             `http://localhost:8000/api/updateusertoorg`,
+                //             {
+                //                 adminType:this.form.adminType,
+                //                 user_id:this.form.user_id,
+                //                 verificationdocuments:this.form.verificationdocuments,
+                //             },
+                //             {
+                //                 mode: "no-cors",
+                //                 headers: {
+                //                     "Access-Control-Allow-Origin": "*",
+                //                 },
+                //             }
+                //         )
+                //         .then((res) => {
+                //             console.log("user updated to org", res);
+                //             this.$router.go("/admindashboard");
+                //         })
+                //         .catch((e) => console.log("request error:", e));
+                // }
                 this.showModal = false;
             } else {
                 console.log(
