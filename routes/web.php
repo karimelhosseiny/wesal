@@ -124,9 +124,6 @@ Route::get('/admindeleteuserwithtype', [AdminController::class, 'admindeleteanyu
 
 
 // AdminUserController
-Route::post('api/updateusertoadmin', [AdminUserController::class, 'adminupdateusertoadmin']); //store new updates for the user type (admin)
-Route::post('api/updateusertoorg', [AdminUserController::class, 'adminupdateusertoorg']);  //store new updates for the user type (org)
-
 //------------------------------------------------------------------------------------------------------------------------------------
 
 

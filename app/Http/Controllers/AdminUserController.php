@@ -71,51 +71,41 @@ class AdminUserController extends Controller
             ], 200);
     }
 
-    //admin update user to admin
-    public function adminupdateusertoadmin(Request $request)
+    //admin update user profile (even the type)
+    public function adminupdateuser(Request $request)
     {
-        if ($request->input('adminType')=='admin'){
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|:users,email',
+                'password' => 'required|string|min:6|confirmed',
+                //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]
+        );
             // if ($request->file()){
             //     $newimage = time() . '-' . $request->input('name') . '.' . $request->file('user_image')->extension();
             //     $request->file('user_image')->move(public_path('userimages'), $newimage);
             // }
+
             $user = User::find($request->input('user_id'));
             $user->name = $request->input('name');
+            $user->email = $request->input('email');
             $user->phonenumber = $request->input('phone');
             $user->address = $request->input('address');
-            // $user->image = $newimage;
+            $user->password = bcrypt($request->input('password'));
             $user->type = $request->input('userType');
+             // $user->image = $newimage;
+
             if($user->type == 'admin'){
                 $date = new DateTime();
                  DB::table('admins')->insert([
                     'id'=> $user->id,
                     'access_level' =>$user->name,
                     'created_at' =>$date->format('Y-m-d H:i:s'),
-                    'updated_at'=>$date->format('Y-m-d H:i:s'),
-                ]);
+                    'updated_at'=>$date->format('Y-m-d H:i:s'), ]);
             }
-         }
-         else
-         {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-         }
-    }
 
-    // admin update user to organization
-    public function adminupdateusertoorg(Request $request)
-    {
-        // $request->validate(
-        //     [
-        //       'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     ]
-        // );
-        if ($request->input('adminType')=='admin')
-        {
-            $user = User::find($request->input('user_id'));
-            $user->type = $request->input('userType');
-            if($user->type == 'organization')
+            elseif($user->type == 'organization')
             {
                 $request->validate(
                     [
@@ -144,43 +134,11 @@ class AdminUserController extends Controller
                     'created_at' =>$date->format('Y-m-d H:i:s'),
                     'updated_at'=>$date->format('Y-m-d H:i:s'),
                  ]);
-
             }
             $user->save();
-        }
-        else
-        {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
-    }
-
-    // admin update user profile
-    public function adminupdateuserprofile(Request $request)
-    {
-
-        $request->validate(
-            [
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|:users,email',
-                'password' => 'required|string|min:6|confirmed',
-                //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            ]
-        );
-
-        $user = User::find($request->input('user_id'));
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->phonenumber = $request->input('phone');
-        $user->address = $request->input('address');
-        $user->password = bcrypt($request->input('password'));
-        $user->type = $request->input('userType');
-        $user->save();
-
-        return response()->json([
-            'message' => 'User updated successfully',
-        ], 200);
+            return response()->json([
+                'message' => 'User type updated successfully',
+            ], 200);
     }
 
     //admin delete user
@@ -211,6 +169,7 @@ class AdminUserController extends Controller
             ], 200);
     }
 
+
     //retrieve the organization requests
     public function retrieverequests(Request $request)
     {
@@ -224,6 +183,8 @@ class AdminUserController extends Controller
             ], 200);
         
     }
+
+
     //accept the organization requests 
     public function acceptrequest(Request $request, $id)
     {
@@ -233,6 +194,8 @@ class AdminUserController extends Controller
             ], 200);
         
     }
+
+    
     //reject the organizations requests
     public function rejectrequest($id)
     {

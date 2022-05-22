@@ -26,10 +26,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Auth Controller
+Route::post('/register', [AuthController::class ,'registeruser']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/logout', [AuthController::class ,'logout']);
+
 
 // AdminUserController
 Route::post('api/adduser', [AdminUserController::class, 'addUserWithType'])->middleware(['auth:sanctum', 'is_admin']);  //store new user or organization or admin
-Route::post('updatedone', [AdminUserController::class, 'adminupdateuserprofile'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
+Route::post('updatedone', [AdminUserController::class, 'adminupdateuser'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
 Route::post('userdeleted', [AdminUserController::class, 'adminDeleteUserByType'])->middleware(['auth:sanctum', 'is_admin']);   //delete user record from database
 
 Route::get('retrieverequests', [AdminUserController::class, 'retrieverequests'])->middleware(['auth:sanctum', 'is_admin']); //admin retrieves requests
@@ -61,9 +66,7 @@ Route::post('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])-
 // Route::get('/isuser', [PagesController::class, 'indexuser']);
 
 
-Route::post('/register', [AuthController::class ,'registeruser']);
-Route::post('/login',[AuthController::class,'login']);
-Route::post('/logout', [AuthController::class ,'logout']);
+
 
 //Route::post('/register','AuthController@register');
 //Route::post('/login', [AuthController::class ,'loginuser']);
