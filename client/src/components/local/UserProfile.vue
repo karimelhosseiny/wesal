@@ -91,14 +91,14 @@ export default {
         </div>
         <div class="dataContainer py-5 px-4">
             <div class="personalInfo">
-                <h1>{{this.user.name}}</h1>
+                <h1>{{this.User.name}}</h1>
                 <div class="px-3">
                     <h4>
-                        {{this.user.email}}
+                        {{this.User.email}}
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
-                    <h4 v-if="this.user.phonenumber!=null">
-                        +{{this.user.phonenumber}}
+                    <h4 v-if="this.User.phonenumber!=null">
+                        +{{this.User.phonenumber}}
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
                     <h5 v-else class="opacity-50">
