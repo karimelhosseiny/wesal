@@ -4,6 +4,7 @@ import Navbar from "../global/Navbar.vue";
 import CaseField from "./CaseField.vue"
 import { useUserStore } from "../../store/UserStore";
 import { mapWritableState, mapStores } from "pinia";
+
 export default {
     data() {
         return {

@@ -8,6 +8,7 @@ import AdminDashboard from "../components/local/AdminDashboard.vue"
 import { useUserStore } from "../store/UserStore";
 import CasesDashboard from "../components/local/CasesDashboard.vue"
 
+
 const routes = [
     {
         path: "/",
