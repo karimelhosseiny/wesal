@@ -19,18 +19,7 @@ class AdminUserController extends Controller
     //admin add user whith any type
     public function adminAddUserWithType(Request $request)
     {
-        $request->validate(
-            [
-            //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-              'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
-            ]
-        );
-        // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
-        // $request->file('image')->move(public_path('orgimages'), $newimage);
-
-        $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
-        $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
-
+       
             DB::table('users')->insert([
                 'name'=> $request->input('name'),
                 'email'=> $request->input('email'),
@@ -50,6 +39,18 @@ class AdminUserController extends Controller
                 ]);
             }
             elseif($request->input('userType') =='organization'){
+                $request->validate(
+                    [
+                    //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                      'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+                    ]
+                );
+                // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                // $request->file('image')->move(public_path('orgimages'), $newimage);
+        
+                $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
+                $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
+        
                 $date = new DateTime();
                 DB::table('organizations')->insert([
                         'title' =>$request->input('title'),
