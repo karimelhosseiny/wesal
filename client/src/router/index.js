@@ -6,6 +6,7 @@ import CasePage from "../components/local/CasePage.vue";
 import UserProfile from "../components/local/UserProfile.vue";
 import AdminDashboard from "../components/local/AdminDashboard.vue"
 import { useUserStore } from "../store/UserStore";
+import CasesDashboard from "../components/local/CasesDashboard.vue"
 
 const routes = [
     {
@@ -45,7 +46,12 @@ const routes = [
         path: "/admindashboard",
         name: "AdminDashboard",
         component:AdminDashboard,
-        
+
+    },
+    {
+        path: "/casesdashboard",
+        name: "CasesDashboard",
+        component: CasesDashboard
     },
 ];
 const router = createRouter({

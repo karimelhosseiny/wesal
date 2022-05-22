@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import Navbar from "../global/Navbar.vue";
-import FieldComponent from "./FieldComponent.vue";
+import CaseField from "./CaseField.vue"
 import { useUserStore } from "../../store/UserStore";
 import { mapWritableState, mapStores } from "pinia";
 export default {
@@ -12,7 +12,7 @@ export default {
             totalCases: "",
             totalDonations: "",
             isLoading: true,
-            referance: "All users",
+            referance: "0",
             filteredUsers: "",
             search: "",
             filteredByEmail: "",
@@ -26,11 +26,23 @@ export default {
                 userType: "",
                 adminType: "",
             },
-            password_confirmation: "",
-            passMatch: false,
+            caseCategory: "All categories",
         };
     },
     computed: {
+        caseCategory() {
+            if (this.referance == "0") {
+                return "All categories";
+            } else if (this.referance == "1") {
+                return "Food";
+            } else if (this.referance == "2") {
+                return "Clothes";
+            } else if (this.referance == "3") {
+                return "Sick";
+            } else if (this.referance == "4") {
+                return "Sadaka";
+            }
+        },
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
             user: "currentUser",
@@ -118,7 +130,7 @@ export default {
     created() {
         this.form.adminType = this.user.type;
     },
-    components: { Navbar, FieldComponent },
+    components: { Navbar, CaseField },
 };
 </script>
 
@@ -126,14 +138,18 @@ export default {
     <div>
         <Navbar />
         <div class="my-5 cards">
-            <div class="mx-3 first-card card" style="width: 18rem">
+            <div
+                class="mx-3 first-card card"
+                style="width: 18rem"
+                @click="this.$router.push('/admindashboard')"
+            >
                 <h1>{{ totalUsers }}</h1>
                 <h2>Total users</h2>
+                <i class="fs-1 casesIcon bi bi-circle-fill"></i>
             </div>
-            <div class="mx-3 second-card card" style="width: 18rem" @click="this.$router.push('/casesdashboard')">
+            <div class="mx-3 second-card card" style="width: 18rem">
                 <h1>{{ totalCases }}</h1>
                 <h2>Total cases</h2>
-                <i class="fs-1 casesIcon bi bi-circle-fill"></i>
             </div>
             <div class="mx-3 third-card card" style="width: 18rem">
                 <h1>{{ totalDonations }}</h1>
@@ -161,13 +177,16 @@ export default {
                             aria-expanded="false"
                             v-model="referance"
                         >
-                            <option value="All users">All users</option>
-                            <option value="admin">Admins</option>
-                            <option value="organization">Organizations</option>
-                            <option value="user">Users</option>
+                            <option value="0">All categories</option>
+                            <option value="1">Food</option>
+                            <option value="2">Clothes</option>
+                            <option value="3">Sick</option>
+                            <option value="4">Sadaka</option>
                         </select>
                     </div>
-                    <h2 class="col-3 my-3 ms-5 pt-1">{{ referance.charAt(0).toUpperCase() + referance.slice(1) }} Data</h2>
+                    <h2 style="width: fit-content;" class="col-3 my-3 ms-5 pt-1">
+                        {{ caseCategory }} Data
+                    </h2>
                     <i
                         class="add col-3 my-3 fs-2 bi bi-plus-square-fill"
                         @click="showModal = true"
@@ -180,7 +199,7 @@ export default {
                                 <br />
                                 <div class="mx-4 row">
                                     <label for="name" class="col-4"
-                                        >Name:
+                                        >Title:
                                     </label>
                                     <input
                                         type="text"
@@ -192,10 +211,10 @@ export default {
                                 <br />
                                 <div class="mx-4 row">
                                     <label for="email" class="col-4"
-                                        >Email:
+                                        >Goal:
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="email"
                                         class="col-8"
                                         v-model="this.form.email"
@@ -204,10 +223,10 @@ export default {
                                 <br />
                                 <div class="mx-4 row">
                                     <label for="phone" class="col-4"
-                                        >Phone:
+                                        >Deadline:
                                     </label>
                                     <input
-                                        type="text"
+                                        type="date"
                                         name="phone"
                                         class="col-8"
                                         v-model="this.form.phone"
@@ -216,10 +235,12 @@ export default {
                                 <br />
                                 <div class="mx-4 row">
                                     <label for="phone" class="col-4"
-                                        >Address:
+                                        >Description:
                                     </label>
-                                    <input
-                                        type="text"
+                                    <textarea
+                                        style="resize: none"
+                                        rows="6"
+                                        type="textarea"
                                         name="address"
                                         class="col-8"
                                         v-model="this.form.address"
@@ -228,7 +249,7 @@ export default {
                                 <br />
                                 <div class="mx-4 row">
                                     <label for="type" class="col-4"
-                                        >Type:
+                                        >Category:
                                     </label>
                                     <select
                                         name="type"
@@ -236,13 +257,12 @@ export default {
                                         v-model="this.form.userType"
                                     >
                                         <option disabled selected value="">
-                                            select type
+                                            select Category
                                         </option>
-                                        <option value="user">user</option>
-                                        <option value="admin">admin</option>
-                                        <option value="organization">
-                                            organization
-                                        </option>
+                                        <option value="1">Food</option>
+                                        <option value="2">Clothes</option>
+                                        <option value="3">Sick</option>
+                                        <option value="4">Sadaka</option>
                                     </select>
                                 </div>
                                 <br />
@@ -251,41 +271,15 @@ export default {
                                         for="name"
                                         name="password"
                                         class="col-4"
-                                        >Password:
+                                        >Organization:
                                     </label>
                                     <input
-                                        type="password"
+                                        type="text"
                                         class="col-8"
                                         v-model="this.form.password"
                                     />
                                 </div>
                                 <br />
-                                <div class="mx-4 row">
-                                    <label for="name" class="col-4"
-                                        >Confirm Password:
-                                    </label>
-                                    <input
-                                        @keydown="
-                                            form.password ==
-                                            password_confirmation
-                                                ? (passMatch = true)
-                                                : (passMatch = false)
-                                        "
-                                        type="password"
-                                        class="col-8"
-                                        v-model="password_confirmation"
-                                    />
-                                    <span
-                                        v-if="
-                                            form.password !==
-                                                password_confirmation &&
-                                            password_confirmation != ''
-                                        "
-                                        class="text-danger"
-                                    >
-                                        passwords do not match</span
-                                    >
-                                </div>
                                 <div class="m-4 row justify-content-around">
                                     <button
                                         @click="showModal = false"
@@ -308,53 +302,41 @@ export default {
                         <input
                             class="rounded-pill"
                             type="text"
-                            placeholder="search by email"
+                            placeholder="search by title"
                             v-model="search"
                         />
                         <i class="bi bi-search searchIcon"></i>
                     </div>
                 </div>
                 <div class="titles row">
-                    <div class="px-4 col-2">
+                    <div class="px-4 col-1">
                         <h4>ID</h4>
                     </div>
-                    <div class="col-2">
-                        <h4>Name</h4>
+                    <div class="px-4 col-1">
+                        <h4>Title</h4>
                     </div>
-                    <div class="col-2">
-                        <h4>Email</h4>
+                    <div class="px-4 col-2">
+                        <h4>Organization</h4>
                     </div>
-                    <div class="col-2">
-                        <h4>Phone number</h4>
+                    <div class="px-5 col-2">
+                        <h4>Category</h4>
                     </div>
-                    <div class="col-2">
-                        <h4>Type</h4>
+                    <div class="px-4 col-1">
+                        <h4 style="width: fit-content;">Goal</h4>
+                    </div>
+                    <div class="px-3 col-1">
+                        <h4 style="width: fit-content;">raised</h4>
+                    </div>
+                    <div class="px-4 col-2">
+                        <h4>Created at</h4>
                     </div>
                     <div class="col-2">
                         <h4>Settings</h4>
                     </div>
                 </div>
                 <div class="row mx-2 info">
-                    <FieldComponent
-                        v-if="referance == 'All users'"
-                        v-for="(user, index) in filteredByEmail"
-                        :key="index"
-                        :id="user.id"
-                        :name="user.name"
-                        :email="user.email"
-                        :phone="user.phone"
-                        :type="user.type"
-                    />
-                    <FieldComponent
-                        v-else
-                        v-for="(user, index) in filteredUsers"
-                        :key="user.id"
-                        :id="user.id"
-                        :name="user.name"
-                        :email="user.email"
-                        :phone="user.phone"
-                        :type="user.type"
-                    />
+                    <CaseField />
+                    <CaseField />
                 </div>
             </div>
         </div>
@@ -378,43 +360,47 @@ export default {
         }
     }
     .first-card {
+        box-shadow: 5px 10px $specialColor;
+        cursor: pointer;
         background-color: $priColor;
         color: white;
+        border: 2px solid $specialColor;
         padding: 15px;
-    }
-    .second-card {
-        box-shadow: 5px 10px $priColor;
-        cursor: pointer;
-        padding: 15px;
-        border: 2px solid $priColor;
         position: relative;
         transition: 0.5s;
         h1,
         h2 {
-
-            color: $priColor;
             transition: 1s;
         }
-        .casesIcon{
+        .casesIcon {
             width: fit-content;
             height: fit-content;
-            color: $priColor;
+            color: $specialColor;
             position: absolute;
             top: -20%;
             right: -8%;
             transition: 3s;
         }
     }
-    .second-card:hover{
-        box-shadow: 5px 10px $specialColor;
-        border: 2px solid $specialColor;
-        .casesIcon{
-            color: $specialColor;
+    .first-card:hover {
+        background-color: white;
+        box-shadow: 5px 10px $priColor;
+        border: 2px solid $priColor;
+        .casesIcon {
+            color: $priColor;
         }
-        h1,h2{
-            color: $specialColor;
+        h1,
+        h2 {
+            color: $priColor;
         }
-
+    }
+    .second-card {
+        padding: 15px;
+        border: 2px solid $priColor;
+        h1,
+        h2 {
+            color: $priColor;
+        }
     }
     .third-card {
         background-color: $specialColor;
