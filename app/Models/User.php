@@ -52,6 +52,16 @@ class User extends Authenticatable
         return $this->type === 'admin'; 
     }
 
+    public function isOrganization()
+    {
+        return $this->type === 'organization'; 
+    }
+
+    public function isUser()
+    {
+        return $this->type === 'user'; 
+    }
+
 
     public function organization()
     {

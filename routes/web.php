@@ -64,23 +64,11 @@ Route::post('/edituser', [UserController::class, 'editprofile']); //store the ne
 
 
 //Organization controller
-Route::get('api/organizations', [OrganizationController::class, 'organizations']); // show all organizations form database
-Route::resource('/organization', OrganizationController::class); //to use function show() in organization controller type: http://127.0.0.1:8000/organization/{id}
 Route::get('/testorgforms', [OrganizationController::class, 'testorgforms']); // (just test from) to apply to be organization
-Route::post('/postorg', [OrganizationController::class, 'store']); //store the  organization requests in database
-
 Route::get('/orgaddcase', [OrganizationController::class, 'orgaddanycase']); //(just test from) to add new case by organization
-Route::post('/newcaseadded', [OrganizationController::class, 'orgAddCase']); //store new case in database
 Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateanycase']); //(just test from) to update new case by organization
-Route::post('/newcaseupdated',[OrganizationController::class, 'orgUpdateCase']); //store new updatesfor the case in database
 Route::get('/orgdeletecase', [OrganizationController::class ,'orgdeleteanycase']); //(just test from) to add delete case by organization
-Route::post('/anycasedeleted',[OrganizationController::class, 'orgDeleteCase']); //delete case record from the database
-
-
-Route::get('/orgupdatecase', [OrganizationController::class ,'orgupdateitsprofile']); //(just test from) to add delete case by organization
-Route::post('/orgprofileupdated',[OrganizationController::class, 'orgUpdateProfile']); //delete case record from the database
-
-
+Route::get('orgupdatecase', [OrganizationController::class ,'orgupdateitsprofile']); //(just test from) to add delete case by organization
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -166,4 +154,3 @@ Route::post('api/password/reset', [ResetPasswordController::class, 'reset']);
 
 
 
-//TODO: 1)handle the exceptions of the retrieved request in All Applications

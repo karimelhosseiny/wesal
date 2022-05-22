@@ -23,13 +23,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        // $users = User::find(3);
-        // dd($users->organization);
-        // $organizations = Organization::all()->toJson();
-
-        // $organizations = json_decode($organizations);
-
-        // return ($organizations);
+       //
     }
 
     /**
@@ -50,13 +44,7 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::allows('isUser')) {
             $request->validate(['document' => 'required|mimes:txt,xlx,xls,pdf|max:2048']);
-
-            $organization = new Organization;
-
-            $organization->title = $request->input('title');
-
             if ($request->file()) {
 
                 $fileName = time() . '.' . $request->document->extension();
@@ -66,18 +54,19 @@ class OrganizationController extends Controller
 
                 $organization->verificationdocuments = '/wesalorganizationdocuments/' . $fileName;
             }
+
+            $organization = new Organization;
+            $organization->title = $request->input('title');
             $organization->phonenumber =  $request->input('number');
             $organization->image = $request->input('image');
             $organization->description = $request->input('description');
             $organization->creator_id = Auth::user()->id;
-
-
             $organization->save();
-        } else {
 
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);        }
+            return response()->json([
+                'message' => 'Request sent to admin successfully',
+            ], 200);
+        
     }
 
     /**
@@ -146,15 +135,14 @@ class OrganizationController extends Controller
 
     public function organizations()
     {
-
         $organizations = Organization::all();
         return response()->json([
             'organizations' => $organizations,
         ]);
     }
+
     // organization add case
     public function orgAddCase(Request $request){
-        if (Gate::allows('isOrganization')){
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('caseimages'), $newimage);
@@ -174,11 +162,10 @@ class OrganizationController extends Controller
                     'updated_at'=>0,
                  ]);
             }
-        }
-        else{
-            return  response()->json([
-                'message' => 'You are not an organization',
-            ], 401);            }
+            return response()->json([
+                'message' => 'Case added successfully',
+            ], 200);
+       
     }
 
      //organization update case
@@ -188,8 +175,6 @@ class OrganizationController extends Controller
               'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
-        if (Gate::allows('isOrganization'))
-        {
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('caseimages'), $newimage);
@@ -208,24 +193,17 @@ class OrganizationController extends Controller
             DB::table('donation_cases')->where('id', $request->input('cases_id'))->update([
                 'updated_at'=>$date->format('Y-m-d H:i:s'),
              ]);  
-        }
-        else
-        {
-            return  response()->json([
-                'message' => 'You are not an organization',
-            ], 401);        }
+         return response()->json([
+                'message' => 'Case updated successfully',
+            ], 200);
     }
 
          //organization delete case
     public function orgDeleteCase(Request $request){
-        if (Gate::allows('isOrganization')){
             DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
-            }
-        else{
-            return  response()->json([
-                'message' => 'You are not an organization',
-            ], 401);
-            }
+            return response()->json([
+                'message' => 'Case deleted successfully',
+            ], 200);
     }
 
     //organization update its profile
@@ -237,8 +215,6 @@ class OrganizationController extends Controller
               'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
             ]
         );
-        if (Gate::allows('isOrganization'))
-        {
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('orgimages'), $newimage);
@@ -256,12 +232,9 @@ class OrganizationController extends Controller
             DB::table('organizations')->where('id', $request->input('org_id'))->update([
                 'updated_at'=>$date->format('Y-m-d H:i:s'),
              ]); 
-        }
-        else
-        {
-            return  response()->json([
-                'message' => 'You are not an organzation',
-            ], 401);        }
+             return response()->json([
+                'message' => 'Organization profile updated  successfully',
+            ], 200);
     }
 
 
@@ -284,4 +257,5 @@ class OrganizationController extends Controller
     {
     return view('layouts.orgupdateprofile');
     }
+    
 }

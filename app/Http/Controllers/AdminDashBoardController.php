@@ -72,6 +72,7 @@ class AdminDashBoardController extends Controller
             ];
                 array_push($organizationWithCases, $items);
             }
+            
         return response()->json([
             'All Organizations' => $allOrganizations,
             'All Cases' => $allCases,
