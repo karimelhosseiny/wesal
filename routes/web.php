@@ -146,12 +146,6 @@ Route::get('/adminupdatecategory', [AdminController::class, 'adminupdateanycateg
 
 
 // Admin Dashboard
-Route::get('api/userdashboard', [AdminDashBoardController::class , 'userDashBoard']);
-Route::get('/catedashboard', [AdminDashBoardController::class , 'cateDashBoard']);
-Route::get('/orgdashboard', [AdminDashBoardController::class , 'orgDashBoard']);
-Route::get('/remindersdashboard', [AdminDashBoardController::class , 'remindersDashBoard']);
-Route::get('/donationsdashboard', [AdminDashBoardController::class , 'donationsDashBoard']);
-Route::get('/favcasedashboard', [AdminDashBoardController::class , 'favCaseDashBoard']);
 //----------------------------------------------------------------------------------------------------------------------------------------------
 
 

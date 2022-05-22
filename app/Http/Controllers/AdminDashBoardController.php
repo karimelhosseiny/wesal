@@ -22,13 +22,10 @@ class AdminDashBoardController extends Controller
 
     //user dashboard
     public function userDashBoard(){
-        // if (Gate::allows('isAdmin')){
         $totalusers = DB::table('users')->count();
         $totalcases = DB::table('donation_cases')->count();
         $totaldonations = DB::table('donation_operations')->count();
         $users = User::all();
-
-
 
         return response()->json([
             'Total_Users' => $totalusers,
@@ -36,16 +33,10 @@ class AdminDashBoardController extends Controller
             'Total_Cases' => $totalcases,
             'Users' => $users
         ]);
-        // }
-        // else{
-        //   return  response()->json([
-        //     'message' => 'You are not an admin',
-        // ], 401);
-        //     }
-            }
+    }
+
     //category dashboard
     public function cateDashBoard(){
-        if (Gate::allows('isAdmin')){
         $totalcategories = DB::table('categories')->count();
         $cases  = Category::withCount(['cases'])->get();
         $totalcases = [];
@@ -56,18 +47,11 @@ class AdminDashBoardController extends Controller
             }
 
             return response()->json([
-                   'Total Categories'=> $totalcases
-                                    ]);
-         }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
+                   'Total Categories'=> $totalcases ]);
             }
-    }
+
     //organization dashboard
     public function orgDashboard(){
-        // if (Gate::allows('isAdmin')){
         $allOrganizations = DB::table('organizations')->count();
         $allCases = DB::table('donation_cases')->count();
         $allDonations = DB::table('donation_operations')->count();
@@ -95,16 +79,11 @@ class AdminDashBoardController extends Controller
 
             'Organization With Cases'=> $organizationWithCases,
         ]);
-        // }
-        // else{
-        //     return  response()->json([
-        //         'message' => 'You are not an admin',
-        //     ], 401);
-        // }
-        }
+        
+    }
+
     //reminders dashboard
     public function remindersDashBoard(){
-        if (Gate::allows('isAdmin')){
         $totalreminders = Reminder::all();
         $allreminders = DB::table('reminders')->count();
         $users  = User::withCount(['reminders'])->get();
@@ -120,50 +99,24 @@ class AdminDashBoardController extends Controller
             'allreminders' => $allreminders,
             'reminders' => $reminders
                              ]);
-        }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-            }
     }
+
     //favcase dashboard
     public function favCaseDashBoard(){
-        if (Gate::allows('isAdmin')){
         $favcases = FavouriteCase:: all();
         $totalfavcases = DB::table('favourite_cases')->count();
         return response()->json([
             'favcases' => $favcases,
             'totalfavcases' => $totalfavcases
             ]);
-        }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);            }
     }
+                 
     //donations dashboard
     public function donationsDashBoard(){
-        if (Gate::allows('isAdmin')){
         $totaldonations = DonationOperation::all();
-        // $users = User::withCount(['donationOperations','usersDonated'])->get();
-        // $donations = [];
-
-        // foreach ($users as $user){
-        //     $items = ['totaldonations'=>$user->donationOperations_count];
-        //     array_push($donations, $items);
-        // }
-
-
         return response()->json([
             'totaldonations' => $totaldonations,
-            // 'donations' => $donations
                              ]);
     }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);            }
-        }
 
 }

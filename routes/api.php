@@ -53,6 +53,14 @@ Route::post('categoryadded',[AdminCateController::class, 'adminaddcategory'])->m
 Route::post('categoryupdated', [AdminCateController::class, 'adminupdatecategory'])->middleware(['auth:sanctum', 'is_admin']); //store the new updates for the category
 Route::post('categorydeleted', [AdminCateController::class, 'admindeletecategory'])->middleware(['auth:sanctum', 'is_admin']); //delete category record from database
 
+//AdminDashBoardController
+Route::get('api/userdashboard', [AdminDashBoardController::class , 'userDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+Route::get('/catedashboard', [AdminDashBoardController::class , 'cateDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+Route::get('/orgdashboard', [AdminDashBoardController::class , 'orgDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+Route::get('/remindersdashboard', [AdminDashBoardController::class , 'remindersDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+Route::get('/donationsdashboard', [AdminDashBoardController::class , 'donationsDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+Route::get('/favcasedashboard', [AdminDashBoardController::class , 'favCaseDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+
 
 
 
