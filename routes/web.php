@@ -133,21 +133,15 @@ Route::get('/admindeleteuserwithtype', [AdminController::class, 'admindeleteanyu
 
 // AdminCaseController
 Route::get('/adminaddcase' ,[AdminController::class, 'adminaddnewcase']); //(just test from) to add new case by admin
-Route::post('/caseadded',[AdminCaseController::class, 'adminaddcase']); //store new case in database
 Route::get('/admindeletecase', [AdminController::class, 'admindeleteanycase']); //(just test form) to delete case by admin
-Route::post('/casedeleted', [AdminCaseController::class, 'admindeletecase']); //delete case record from database
 Route::get('/adminupdatecase', [AdminController::class, 'adminupdateanycase']); //(just test from) to update case by admin
-Route::post('/caseupdated', [AdminCaseController::class, 'adminupdatecase']); //store the new updates for the case
 //------------------------------------------------------------------------------------------------------------------------------------
 
 
 // AdminCateController
 Route::get('/adminaddcategory' ,[AdminController::class, 'adminaddnewcategory']); //(just test from) to add new category by admin
-Route::post('/categoryadded',[AdminCateController::class, 'adminaddcategory']); //store new category in database
 Route::get('/admindeletecategory', [AdminController::class, 'admindeleteanycategory']); //(just test form) to delete category by admin
-Route::post('/categorydeleted', [AdminCateController::class, 'admindeletecategory']); //delete category record from database
 Route::get('/adminupdatecategory', [AdminController::class, 'adminupdateanycategory']); //(just test from) to update category by admin
-Route::post('/categoryupdated', [AdminCateController::class, 'adminupdatecategory']); //store the new updates for the category
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 
 

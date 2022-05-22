@@ -18,7 +18,6 @@ class AdminCaseController extends Controller
 {
     //admin add case
     public function adminaddcase(Request $request){
-        if (Gate::allows('isAdmin')){
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('caseimages'), $newimage);
@@ -38,12 +37,10 @@ class AdminCaseController extends Controller
                     'updated_at'=>$date->format('Y-m-d H:i:s'),
                  ]);
             }
-        }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-            }
+        
+            return response()->json([
+                'message' => 'Case added successfully',
+            ], 200);
     }
     //admin update case
     public function adminupdatecase(Request $request){
@@ -52,8 +49,6 @@ class AdminCaseController extends Controller
               'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
-        if (Gate::allows('isAdmin'))
-        {
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('caseimages'), $newimage);
@@ -68,25 +63,18 @@ class AdminCaseController extends Controller
             $case->organization_id = $request->input('organizationid');
             $case->category_id = $request->input('categoryid');
             $case->save();
-        }
-        else
-        {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+        
+            return response()->json([
+                'message' => 'Case updated successfully',
+            ], 200);
     }
 
     //admin delete case
     public function admindeletecase(Request $request){
-        if (Gate::allows('isAdmin')){
             DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
-            }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-            }
+            return response()->json([
+                'message' => 'Case deleted successfully',
+            ], 200);
     }
 
 }

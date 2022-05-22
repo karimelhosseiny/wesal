@@ -41,7 +41,21 @@ Route::post('accepted/{id}', [AdminUserController::class, 'acceptrequest'])->whe
 Route::post('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_admin']); //admin rejects request
 
 // AdminOrgController
-Route::post('updateorgdone', [AdminOrgController::class, 'adminupdateorganizationprofile']); //store the new updates for the organization profile
+Route::post('updateorgdone', [AdminOrgController::class, 'adminupdateorganizationprofile'])->middleware(['auth:sanctum', 'is_admin']); //store the new updates for the organization profile
+
+//AdminCaseController
+Route::post('caseadded',[AdminCaseController::class, 'adminaddcase'])->middleware(['auth:sanctum', 'is_admin']); //store new case in database
+Route::post('caseupdated', [AdminCaseController::class, 'adminupdatecase'])->middleware(['auth:sanctum', 'is_admin']); //store the new updates for the case
+Route::post('casedeleted', [AdminCaseController::class, 'admindeletecase'])->middleware(['auth:sanctum', 'is_admin']); //delete case record from database
+
+//AdminCateController
+Route::post('categoryadded',[AdminCateController::class, 'adminaddcategory'])->middleware(['auth:sanctum', 'is_admin']); //store new category in database
+Route::post('categoryupdated', [AdminCateController::class, 'adminupdatecategory'])->middleware(['auth:sanctum', 'is_admin']); //store the new updates for the category
+Route::post('categorydeleted', [AdminCateController::class, 'admindeletecategory'])->middleware(['auth:sanctum', 'is_admin']); //delete category record from database
+
+
+
+
 
 
 
