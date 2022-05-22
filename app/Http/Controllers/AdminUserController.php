@@ -130,7 +130,7 @@ class AdminUserController extends Controller
 
     //admin delete user
     public function adminDeleteUserByType(Request $request ){
-        if ($request->input('adminType')=='admin'){
+       
             $user = User::find($request->input('user_id'));
             if($user['type'] = 'organization'){
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
@@ -149,18 +149,17 @@ class AdminUserController extends Controller
             else{
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
             }
-            }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-            }     
+            
+     
+            return response()->json([
+                'message' => 'User deleted successfully',
+            ], 200);
     }
 
     //retrieve the organization requests
-    public function retrieverequests()
+    public function retrieverequests(Request $request)
     {
-        if ($request->input('adminType')=='admin') {
+        if (Gate::allows('isAdmin')) {
             $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
             return response()->json([
                 'organization' => $organization

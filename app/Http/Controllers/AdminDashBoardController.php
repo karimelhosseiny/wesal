@@ -67,28 +67,40 @@ class AdminDashBoardController extends Controller
     }
     //organization dashboard
     public function orgDashboard(){
-        if (Gate::allows('isAdmin')){
-        $totalorganizations = DB::table('organizations')->count();
-        $cases = DB::table('donation_cases')->count();
-        $totaldonations = DB::table('donation_operations')->count();
+        // if (Gate::allows('isAdmin')){
+        $allOrganizations = DB::table('organizations')->count();
+        $allCases = DB::table('donation_cases')->count();
+        $allDonations = DB::table('donation_operations')->count();
+
         $orgs  = Organization::withCount(['orgcases'])->get();
-        $totalcases = [];
+        $organizations = Organization::all();
+        $organizationWithCases = [];
             foreach ($orgs as $org){
-              $items = ['id'=>$org->id,'title'=>$org->title,'description'=>$org->description,'totalcases'=>$org->orgcases_count];
-                array_push($totalcases, $items);
+              $items = [
+              'id'=>$org->id,
+              'title'=>$org->title,
+              'verificationdocuments'=>$org->verificationdocuments,
+              'phonenumber'=>$org->phonenumber,
+              'description'=>$org->description,
+              'verifiedby'=>$org->verifiedby,
+              'creator_id'=>$org->creator_id,
+              'totalcases'=>$org->orgcases_count
+            ];
+                array_push($organizationWithCases, $items);
             }
         return response()->json([
-            'Total Organizations' => $totalorganizations,
-            'Total Cases' => $cases,
-            'Organizations'=> $totalcases,
-            'Total Donations' => $totaldonations
+            'All Organizations' => $allOrganizations,
+            'All Cases' => $allCases,
+            'All Donations' => $allDonations,
+
+            'Organization With Cases'=> $organizationWithCases,
         ]);
-        }
-        else{
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+        // }
+        // else{
+        //     return  response()->json([
+        //         'message' => 'You are not an admin',
+        //     ], 401);
+        // }
         }
     //reminders dashboard
     public function remindersDashBoard(){

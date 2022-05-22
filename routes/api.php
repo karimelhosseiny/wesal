@@ -26,7 +26,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('updatedone', [AdminUserController::class, 'adminupdateuserprofile'])->middleware(['auth:sanctum', 'is_admin']);
+
+// AdminUserController
+Route::post('updatedone', [AdminUserController::class, 'adminupdateuserprofile'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
+Route::post('/userdeleted', [AdminUserController::class, 'adminDeleteUserByType'])->middleware(['auth:sanctum', 'is_admin']);   //delete user record from database
+
 
 // Route::resource('/users', UserController::class);
 // Route::resource('/organizations', OrganizationController::class);
@@ -50,10 +54,11 @@ Route::post('updatedone', [AdminUserController::class, 'adminupdateuserprofile']
 
 
 Route::post('/register', [AuthController::class ,'registeruser']);
-//Route::post('/login', [AuthController::class ,'loginuser']);
-Route::post('/logout', [AuthController::class ,'logoutuser']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/logout', [AuthController::class ,'logout']);
 
 //Route::post('/register','AuthController@register');
+//Route::post('/login', [AuthController::class ,'loginuser']);
 
 
 

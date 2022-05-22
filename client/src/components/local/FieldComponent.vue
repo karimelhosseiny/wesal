@@ -15,8 +15,6 @@ export default {
                 password: "",
                 password_confirmation: "",
                 userType: this.type,
-                // token:this.token,
-                adminType: "",
                 adminId: "",
             },
             passMatch: false,
@@ -33,9 +31,8 @@ export default {
         */
         async editUserData() {
             if (
-                // this.form.password === this.form.password_confirmation &&
-                // this.form.password.length >= 8
-                true
+                this.form.password === this.form.password_confirmation &&
+                this.form.password.length >= 8
             ) {
                 await axios
                     .post(`http://localhost:8000/api/updatedone`, this.form, {
@@ -43,61 +40,15 @@ export default {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
-                        //    'Authorization': 'Bearer'
                         },
                     })
                     .then(function (res) {
                         console.log(res);
-                        // this.$router.go("/admindashboard");
+                        this.$router.go("/admindashboard");
                     })
                     .catch((e) => console.log("request error:", e));
 
-                //update to admin
-                // if (this.form.userType === "admin") {
-                //     console.log("Updating admin...");
-                //     await axios
-                //         .post(
-                //             `http://localhost:8000/api/updateusertoadmin`,
-                //             this.form,
-                //             {
-                //                 mode: "no-cors",
-                //                 headers: {
-                //                     "Access-Control-Allow-Origin": "*",
-                //                     "Content-Type": "application/json",
-                //                 },
-                //             }
-                //         )
-                //         .then((res) => {
-                //             console.log("user updated to admin", res);
-                //             this.$router.go("/admindashboard");
-                //         })
-                //         .catch((e) => console.log("request error:", e));
-                // }
-
-                //update user to org --> to be tested , still needs dropdown and verDocs
-                // if (this.form.userType === "organization") {
-                //     console.log("Updating to org...");
-                //     await axios
-                //         .post(
-                //             `http://localhost:8000/api/updateusertoorg`,
-                //             {
-                //                 adminType:this.form.adminType,
-                //                 user_id:this.form.user_id,
-                //                 verificationdocuments:this.form.verificationdocuments,
-                //             },
-                //             {
-                //                 mode: "no-cors",
-                //                 headers: {
-                //                     "Access-Control-Allow-Origin": "*",
-                //                 },
-                //             }
-                //         )
-                //         .then((res) => {
-                //             console.log("user updated to org", res);
-                //             this.$router.go("/admindashboard");
-                //         })
-                //         .catch((e) => console.log("request error:", e));
-                // }
+              
                 this.showModal = false;
             } else {
                 console.log(
@@ -115,7 +66,7 @@ export default {
             axios
                 .post(
                     `http://localhost:8000/api/userdeleted`,
-                    { user_id: this.id, adminType: this.User.type },
+                    { user_id: this.id },
                     {
                         mode: "no-cors",
                         headers: {
@@ -150,7 +101,6 @@ export default {
         }),
     },
     created() {
-        this.form.adminType = this.user.type;
         this.form.adminId = this.user.id;
     },
 };
