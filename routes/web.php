@@ -42,24 +42,12 @@ use App\Http\Controllers\AuthController;
 
 
 //User Controller
-Route::get('api/allusers', [UserController::class, 'index']); // show all users+admins
-Route::get('api/admins', [UserController::class, 'usersadmins']); // show all users admins
-Route::get('api/users', [UserController::class, 'usersnotadmins']); // show all users  without admins
-
-Route::get('/showfavcase', [UserController::class, 'showfavcase']); //show user's favourite cases
-Route::post('/createfavcase', [UserController::class, 'createfavcase']); //store new favourite case in database
+// Route::resource('/users', UserController::class);
 Route::get('/testfavcase', [UserController::class, 'favcasepage']); //(just test from) to check storing nwe favourite case in database
-
-Route::get('/remindertest', [UserController::class, 'remindertest']); //show user's reminders
-Route::post('/setreminder', [UserController::class, 'setreminder']); //store new reminder in database
-Route::get('api/edittest', [UserController::class, 'edittest']);
-
-Route::post('/deletefavcase', [UserController::class, 'deletefavcase']); //delete favourite case from database
-Route::post('/deletereminder', [UserController::class, 'deletereminder']); //delete reminder from database
 //editprofile lluser test mara tanyia
 Route::get('/testedit', [UserController::class, 'edittest']); //show user profile to edit it
-Route::post('/edituser', [UserController::class, 'editprofile']); //store the new updates of the user's profile
-// Route::resource('/users', UserController::class);
+Route::get('edittest', [UserController::class, 'edittest']);
+Route::get('remindertest', [UserController::class, 'remindertest']); //show user's reminders
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -95,7 +83,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Admin Controller
-Route::resource('/admin', AdminController::class);
+// Route::resource('/admin', AdminController::class);
 Route::get('/testadduser', [AdminController::class, 'testadduser']); //(just test form) to add user
 Route::get('/testaddorg', [AdminController::class, 'testaddorg']); //(just test form) to add organization
 Route::get('/edituserbyadmin', [AdminController::class, 'Adminupdateuser']); //(just test from) to edit user profile by admin

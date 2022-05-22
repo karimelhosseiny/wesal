@@ -89,52 +89,31 @@ Route::resource('reminders', ReminderController::class);//to use function show()
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 // User Controller 
+Route::get('allusers', [UserController::class, 'index']); // show all users+admins
+Route::get('admins', [UserController::class, 'usersadmins']); // show all users admins
+Route::get('users', [UserController::class, 'usersnotadmins']); // show all users  without admins
+
+Route::get('showfavcase', [UserController::class, 'showfavcase']); //show user's favourite cases
+Route::post('createfavcase', [UserController::class, 'createfavcase'])->middleware(['auth:sanctum', 'is_user']); //store new favourite case in database
+
+Route::post('setreminder', [UserController::class, 'setreminder'])->middleware(['auth:sanctum', 'is_user']); //store new reminder in database
+
+Route::post('deletefavcase', [UserController::class, 'deletefavcase'])->middleware(['auth:sanctum', 'is_user']); //delete favourite case from database
+Route::post('deletereminder', [UserController::class, 'deletereminder'])->middleware(['auth:sanctum', 'is_user']); //delete reminder from database
+
+Route::post('edituser', [UserController::class, 'editprofile'])->middleware(['auth:sanctum', 'is_user']); //store the new updates of the user's profile
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Pages Controller
 Route::get('userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+'); //show user homepage
 Route::get('orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+'); //show organization homepage
 Route::get('casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+'); //show case page
 Route::get('userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_user']); //show user profile
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// Route::resource('/users', UserController::class);
-// Route::resource('/organizations', OrganizationController::class);
-// Route::resource('/cases', CaseController::class);
-// Route::resource('/reminders', ReminderController::class);
-
-// Route::get('/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+');
-// Route::get('/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+');
-// Route::get('/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+');
-// Route::get('/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+');
-// Route::get('/cases', [PagesController::class, 'cases']);
-
-
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-// Route::get('/isadmin', [PagesController::class, 'indexadmin']);
-// Route::get('/isorganization', [PagesController::class, 'indexorganization']);
-// Route::get('/isuser', [PagesController::class, 'indexuser']);
-
-
-
-
-//Route::post('/register','AuthController@register');
-//Route::post('/login', [AuthController::class ,'loginuser']);
 
 
 

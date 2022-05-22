@@ -25,49 +25,7 @@ class UserController extends Controller
         return response()->json([
             'allusers' => $users,
         ]);
-        // $users = User::find(1);
-        // dd($users->admin);
-
-        // $orgs= Admin::all();
-        // dd($orgs[0]->verifiedOrganizations);
-
-
-        // $admin = Organization::all();
-        // dd($admin[0]->adminwhoVerified->user);
-
-
-        // $users = User::all();
-        // dd($users[0]->reminders);
-
-        // $users= User::all();
-        // dd($users[0]->admin);
-        // // $cases= DonationCase::all();
-        // dd($cases[0]->categories);
-        // $case = DonationCase::find(1);
-        // dd($case->usersDonated->currency[0]);
-
-        // $case = User::find(3)->donationOperations;
-        //dd($case[0]->pivot);
-
-        // foreach (User::find(3)->donationOperations as $donation) {
-        //     dd($donation->pivot);
-        // }
-
-
-        // foreach (DonationCase::find(1)->usersDonated as $donation) {
-        //     print_r($donation->pivot);
-        // }
-
-
-
-        // $users = User::find(1);
-        // dd($users->favoriteCases);
-
-        // $users = User::all()->toJson();
-
-        // $users = json_decode($users);
-
-        // return ($users);
+        
     }
 
     /**
@@ -127,6 +85,25 @@ class UserController extends Controller
     {
     
     }
+   
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+
+    public function edittest()
+    {
+        return view('layouts.donationtest');
+    }
+    
+    
     public function editprofile(Request $request)
     {
         $request->validate(
@@ -152,6 +129,8 @@ class UserController extends Controller
             ]);
         }
     }
+
+
     public function userprofile($id)
     {
         $donationcase = User::find($id)->donationOperations->groupBy('id');
@@ -163,9 +142,6 @@ class UserController extends Controller
             'donationcase' => $donationcase
         ]);
     }
-
-
-
 
 
     public function createfavcase(Request $request)
@@ -181,6 +157,7 @@ class UserController extends Controller
         Auth::User()->favoriteCases()->attach($request->input('case_id'));
        }
     }
+
 
     public function deletefavcase(Request $request)
     {
@@ -221,20 +198,6 @@ class UserController extends Controller
         return response()->json([
             'favcase' => $Favcases
         ]);
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-    public function edittest()
-    {
-        return view('layouts.donationtest');
     }
     
     public function usersadmins()
