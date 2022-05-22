@@ -88,6 +88,7 @@ export default {
                 <a href="#" class>upload</a>
                 <a href="#">remove</a>
             </div>
+            
         </div>
         <div class="dataContainer py-5 px-4">
             <div class="personalInfo">
