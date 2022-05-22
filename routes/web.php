@@ -114,7 +114,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Admin Controller
-Route::get('api/retrieverequests', [AdminUserController::class, 'retrieverequests']); //admin retrieves requests
 Route::resource('/admin', AdminController::class);
 Route::get('/testadduser', [AdminController::class, 'testadduser']); //(just test form) to add user
 Route::get('/testaddorg', [AdminController::class, 'testaddorg']); //(just test form) to add organization
@@ -125,9 +124,6 @@ Route::get('/admindeleteuserwithtype', [AdminController::class, 'admindeleteanyu
 
 
 // AdminUserController
-Route::get('api/accepted/{id}', [AdminUserController::class, 'acceptrequest'])->where('id', '[0-9]+'); //admin accepts request
-Route::get('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+'); //admin rejects request
-Route::post('api/adduser', [AdminController::class, 'addUserWithType']); //store new user or organization or admin
 Route::post('api/updateusertoadmin', [AdminUserController::class, 'adminupdateusertoadmin']); //store new updates for the user type (admin)
 Route::post('api/updateusertoorg', [AdminUserController::class, 'adminupdateusertoorg']);  //store new updates for the user type (org)
 

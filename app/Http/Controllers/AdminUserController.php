@@ -16,6 +16,61 @@ use DateTime;
 
 class AdminUserController extends Controller
 {
+    //admin add user whith any type
+    public function addUserWithType(Request $request)
+    {
+        $request->validate(
+            [
+            //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+              'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+            ]
+        );
+        // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+        // $request->file('image')->move(public_path('orgimages'), $newimage);
+
+        $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
+        $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
+
+            DB::table('users')->insert([
+                'name'=> $request->input('name'),
+                'email'=> $request->input('email'),
+                'password'=> bcrypt($request->input('password')),
+                'phonenumber'=> $request->input('phone'),
+                'address'=> $request->input('address'),
+                'type'=> $request->input('userType'),]);
+                $id= DB::table('users')->where('email',$request->input('email'))->value('id');
+               
+            if($request->input('userType') =='admin'){
+                $date = new DateTime();
+                 DB::table('admins')->insert([
+                    'id'=> $id,
+                    'access_level' =>$request->input('name'),
+                    'created_at' =>$date->format('Y-m-d H:i:s'),
+                    'updated_at'=>$date->format('Y-m-d H:i:s'),
+                ]);
+            }
+            elseif($request->input('userType') =='organization'){
+                $date = new DateTime();
+                DB::table('organizations')->insert([
+                        'title' =>$request->input('title'),
+                        'verificationdocuments' =>$verificationdocuments,
+                        'phonenumber' =>$request->input('phonenumber'),
+                        // 'image' =>$newimage,
+                        'description' =>$request->input('description'),
+                        'verified' => true,
+                        'verifiedat' =>$date->format('Y-m-d H:i:s'),
+                        'verifiedby' => $request->input('admin_id'),
+                        'creator_id'=> $id,
+                        'created_at' =>$date->format('Y-m-d H:i:s'),
+                        'updated_at'=>0,
+                     ]);
+            }
+           
+            return response()->json([
+                'message' => 'User added successfully',
+            ], 200);
+    }
+
     //admin update user to admin
     public function adminupdateusertoadmin(Request $request)
     {
@@ -159,39 +214,33 @@ class AdminUserController extends Controller
     //retrieve the organization requests
     public function retrieverequests(Request $request)
     {
-        if (Gate::allows('isAdmin')) {
-            $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
+        $organization = DB::table('Organizations')->where('verified', '=', 0)->get();
             return response()->json([
                 'organization' => $organization
             ]);
             // return view('layouts.deciderequest', ['pendingorganizations' => $organization]);
-        } else {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+            return response()->json([
+                'message' => 'Requests retrieved successfully',
+            ], 200);
+        
     }
     //accept the organization requests 
     public function acceptrequest(Request $request, $id)
     {
-        if (Gate::allows('isAdmin')) {
             $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1, 'verifiedby' =>  Auth::user()->id]);
-        } else {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+            return response()->json([
+                'message' => 'Request accepted successfully',
+            ], 200);
+        
     }
     //reject the organizations requests
     public function rejectrequest($id)
     {
-        if (Gate::allows('isAdmin')) {
             $reject = DB::table('Organizations')->where('id', $id)->delete();
-        } else {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+            return response()->json([
+                'message' => 'Request rejected successfully',
+            ], 200);
+        
     }
 
 

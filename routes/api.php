@@ -28,8 +28,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // AdminUserController
+Route::post('api/adduser', [AdminUserController::class, 'addUserWithType'])->middleware(['auth:sanctum', 'is_admin']);  //store new user or organization or admin
 Route::post('updatedone', [AdminUserController::class, 'adminupdateuserprofile'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
-Route::post('/userdeleted', [AdminUserController::class, 'adminDeleteUserByType'])->middleware(['auth:sanctum', 'is_admin']);   //delete user record from database
+Route::post('userdeleted', [AdminUserController::class, 'adminDeleteUserByType'])->middleware(['auth:sanctum', 'is_admin']);   //delete user record from database
+
+Route::get('retrieverequests', [AdminUserController::class, 'retrieverequests'])->middleware(['auth:sanctum', 'is_admin']); //admin retrieves requests
+Route::post('accepted/{id}', [AdminUserController::class, 'acceptrequest'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_admin']); //admin accepts request
+Route::post('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_admin']); //admin rejects request
+
+
+
 
 
 // Route::resource('/users', UserController::class);
