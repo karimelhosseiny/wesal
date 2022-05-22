@@ -77,6 +77,20 @@ Route::post('newcaseupdated',[OrganizationController::class, 'orgUpdateCase'])->
 Route::post('anycasedeleted',[OrganizationController::class, 'orgDeleteCase'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
 
 Route::post('orgprofileupdated',[OrganizationController::class, 'orgUpdateProfile'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Case Controller
+Route::get('cases', [CaseController::class, 'cases']); // show all cases from database
+Route::post('donationdone',[CaseController::class,'userdonation']); //store user donation in database
+//-----------------------------------------------------------------------------------------------------
+
+// Reminder Controller
+Route::resource('reminders', ReminderController::class);//to use function show() in reminder controller type: http://127.0.0.1:8000/reminders/{id}
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+// User Controller 
+
+
 
 
 

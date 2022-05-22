@@ -73,15 +73,12 @@ Route::get('orgupdatecase', [OrganizationController::class ,'orgupdateitsprofile
 
 
 //Case Controller
-Route::get('api/cases', [CaseController::class, 'cases']); // show all cases from database
 //UserDoantion Test
 Route::get('/userdonation', [CaseController::class, 'userdonate']); //just test from
-Route::post('api/donationdone',[CaseController::class,'userdonation']); //store user donation in database
 //-----------------------------------------------------------------------------------------
 
 
 //Reminder Controller
-Route::resource('/reminders', ReminderController::class);//to use function show() in reminder controller type: http://127.0.0.1:8000/reminders/{id}
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 
 
