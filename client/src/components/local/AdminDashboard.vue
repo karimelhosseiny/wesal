@@ -26,6 +26,7 @@ export default {
                 password: "",
                 userType: "",
                 adminType: "",
+                verificationdocuments:[],
             },
             password_confirmation: "",
             passMatch: false,
@@ -131,7 +132,11 @@ export default {
                 <h1>{{ totalUsers }}</h1>
                 <h2>Total users</h2>
             </div>
-            <div class="mx-3 second-card card" style="width: 18rem" @click="this.$router.push('/casesdashboard')">
+            <div
+                class="mx-3 second-card card"
+                style="width: 18rem"
+                @click="this.$router.push('/casesdashboard')"
+            >
                 <h1>{{ totalCases }}</h1>
                 <h2>Total cases</h2>
                 <i class="fs-1 casesIcon bi bi-circle-fill"></i>
@@ -168,7 +173,13 @@ export default {
                             <option value="user">Users</option>
                         </select>
                     </div>
-                    <h2 class="col-3 my-3 ms-5 pt-1">{{ referance.charAt(0).toUpperCase() + referance.slice(1) }} Data</h2>
+                    <h2 class="col-3 my-3 ms-5 pt-1">
+                        {{
+                            referance.charAt(0).toUpperCase() +
+                            referance.slice(1)
+                        }}
+                        Data
+                    </h2>
                     <i
                         class="add col-3 my-3 fs-2 bi bi-plus-square-fill"
                         @click="showModal = true"
@@ -245,6 +256,23 @@ export default {
                                             organization
                                         </option>
                                     </select>
+                                </div>
+                                <br />
+                                <div
+                                    v-show="form.userType == 'organization'"
+                                    class="mx-4 row"
+                                >
+                                    <label
+                                        for="verificationdocuments"
+                                        class="col-4"
+                                        >Verify Docs:
+                                    </label>
+                                    <input
+                                        type="file"
+                                        name="verificationdocuments"
+                                        class="col-8"
+                                        @change="onFileChange"
+                                    />
                                 </div>
                                 <br />
                                 <div class="mx-4 row">
@@ -392,11 +420,10 @@ export default {
         transition: 0.5s;
         h1,
         h2 {
-
             color: $priColor;
             transition: 1s;
         }
-        .casesIcon{
+        .casesIcon {
             width: fit-content;
             height: fit-content;
             color: $priColor;
@@ -406,16 +433,16 @@ export default {
             transition: 3s;
         }
     }
-    .second-card:hover{
+    .second-card:hover {
         box-shadow: 5px 10px $specialColor;
         border: 2px solid $specialColor;
-        .casesIcon{
+        .casesIcon {
             color: $specialColor;
         }
-        h1,h2{
+        h1,
+        h2 {
             color: $specialColor;
         }
-
     }
     .third-card {
         background-color: $specialColor;

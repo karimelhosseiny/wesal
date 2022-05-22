@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DateTime;
+use Illuminate\Support\Facades\Validator;
 
 
 class AdminUserController extends Controller
@@ -19,7 +20,7 @@ class AdminUserController extends Controller
     //admin add user whith any type
     public function adminAddUserWithType(Request $request)
     {
-       
+
             DB::table('users')->insert([
                 'name'=> $request->input('name'),
                 'email'=> $request->input('email'),
@@ -28,7 +29,7 @@ class AdminUserController extends Controller
                 'address'=> $request->input('address'),
                 'type'=> $request->input('userType'),]);
                 $id= DB::table('users')->where('email',$request->input('email'))->value('id');
-               
+
             if($request->input('userType') =='admin'){
                 $date = new DateTime();
                  DB::table('admins')->insert([
@@ -47,17 +48,17 @@ class AdminUserController extends Controller
                 );
                 // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                 // $request->file('image')->move(public_path('orgimages'), $newimage);
-        
-                $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
+
+                $verificationdocuments = time() . '-' . $request->input('name') . '.' . $request->file('verificationdocuments')->extension();
                 $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
-        
+
                 $date = new DateTime();
                 DB::table('organizations')->insert([
-                        'title' =>$request->input('title'),
+                        'title' =>$request->input('name'),
                         'verificationdocuments' =>$verificationdocuments,
                         'phonenumber' =>$request->input('phonenumber'),
                         // 'image' =>$newimage,
-                        'description' =>$request->input('description'),
+                        //'description' =>$request->input('description'),
                         'verified' => true,
                         'verifiedat' =>$date->format('Y-m-d H:i:s'),
                         'verifiedby' => $request->input('admin_id'),
@@ -66,7 +67,7 @@ class AdminUserController extends Controller
                         'updated_at'=>0,
                      ]);
             }
-           
+
             return response()->json([
                 'message' => 'User added successfully',
             ], 200);
@@ -117,7 +118,7 @@ class AdminUserController extends Controller
                 if($request->file()){
                     // $neworgimage = time() . '-' . $request->input('title') . '.' . $request->file('org_image')->extension();
                     // $request->file('org_image')->move(public_path('orgimages'), $neworgimage);
-                    
+
                     $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
                     $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
                 }
@@ -144,7 +145,7 @@ class AdminUserController extends Controller
 
     //admin delete user
     public function adminDeleteUserByType(Request $request ){
-       
+
             $user = User::find($request->input('user_id'));
             if($user['type'] = 'organization'){
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
@@ -158,13 +159,13 @@ class AdminUserController extends Controller
                 DB::table('organizations')->where('creator_id', $request->input('user_id'))->delete();
                 DB::table('donation_cases')->where('organization_id', $request->input('user_id'))->delete();
 
-                
+
             }
             else{
                 DB::table('users')->where('id', $request->input('user_id'))->delete();
             }
-            
-     
+
+
             return response()->json([
                 'message' => 'User deleted successfully',
             ], 200);
@@ -182,18 +183,18 @@ class AdminUserController extends Controller
             return response()->json([
                 'message' => 'Requests retrieved successfully',
             ], 200);
-        
+
     }
 
 
-    //accept the organization requests 
+    //accept the organization requests
     public function acceptrequest(Request $request, $id)
     {
             $accept = DB::table('Organizations')->where('id', $id)->update(['verified' => 1, 'verifiedby' =>  Auth::user()->id]);
             return response()->json([
                 'message' => 'Request accepted successfully',
             ], 200);
-        
+
     }
 
 
@@ -204,7 +205,7 @@ class AdminUserController extends Controller
             return response()->json([
                 'message' => 'Request rejected successfully',
             ], 200);
-        
+
     }
 
 
