@@ -31,7 +31,6 @@ Route::post('/register', [AuthController::class ,'registeruser']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/logout', [AuthController::class ,'logout']);
 
-
 // AdminUserController
 Route::post('adduser', [AdminUserController::class, 'adminAddUserWithType'])->middleware(['auth:sanctum', 'is_admin']);  //store new user or organization or admin
 Route::post('updatedone', [AdminUserController::class, 'adminUpdateUserWithType'])->middleware(['auth:sanctum', 'is_admin']);   //store the new updates for the user profile
@@ -40,6 +39,10 @@ Route::post('userdeleted', [AdminUserController::class, 'adminDeleteUserByType']
 Route::get('retrieverequests', [AdminUserController::class, 'retrieverequests'])->middleware(['auth:sanctum', 'is_admin']); //admin retrieves requests
 Route::post('accepted/{id}', [AdminUserController::class, 'acceptrequest'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_admin']); //admin accepts request
 Route::post('api/rejected/{id}', [AdminUserController::class, 'rejectrequest'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_admin']); //admin rejects request
+
+// AdminOrgController
+Route::post('updateorgdone', [AdminOrgController::class, 'adminupdateorganizationprofile']); //store the new updates for the organization profile
+
 
 
 

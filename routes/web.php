@@ -128,8 +128,6 @@ Route::get('/admindeleteuserwithtype', [AdminController::class, 'admindeleteanyu
 
 
 // AdminOrgController
-Route::post('/orgdeleted', [AdminOrgController::class, 'adminDeleteOrg']); //delete organization record from database
-Route::post('/updateorgdone', [AdminOrgController::class, 'adminupdateorganizationprofile']); //store the new updates for the organization profile
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 
 

@@ -25,8 +25,7 @@ class AdminOrgController extends Controller
               'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
             ]
         );
-        if (Gate::allows('isAdmin'))
-        {
+       
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('orgimages'), $newimage);
@@ -40,16 +39,10 @@ class AdminOrgController extends Controller
             $organization->description = $request->input('description');
             $organization->verificationdocuments = $verificationdocuments;
             $organization->save();
-        }
-        else
-        {
-            return  response()->json([
-                'message' => 'You are not an admin',
-            ], 401);
-        }
+        
+            return response()->json([
+                'message' => 'Organization updated successfully',
+            ], 200);
     }
-
-    
-
 
 }
