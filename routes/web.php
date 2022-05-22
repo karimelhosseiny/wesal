@@ -83,14 +83,10 @@ Route::get('/userdonation', [CaseController::class, 'userdonate']); //just test 
 
 
 //Pages Controller
-Route::get('api/userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+'); //show user homepage
-Route::get('api/orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+'); //show organization homepage
-Route::get('api/casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+'); //show case page
-Route::get('api/userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+'); //show user profile
 
-Route::get('/isadmin', [PagesController::class, 'indexadmin']);  //Gate authorization for admin
-Route::get('/isorganization', [PagesController::class, 'indexorganization']); //Gate authorization for organization
-Route::get('/isuser', [PagesController::class, 'indexuser']); //Gate authorization for user
+// Route::get('/isadmin', [PagesController::class, 'indexadmin']);  //Gate authorization for admin
+// Route::get('/isorganization', [PagesController::class, 'indexorganization']); //Gate authorization for organization
+// Route::get('/isuser', [PagesController::class, 'indexuser']); //Gate authorization for user
 //-----------------------------------------------------------------------------------------------------------------------------
 
 

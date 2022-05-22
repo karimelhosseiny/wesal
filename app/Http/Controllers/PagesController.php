@@ -96,17 +96,6 @@ class PagesController extends Controller
 
         ]);
     }
-    //data shown in user profile page
-  
-
-  
-
-
-    // public function sergi(){
-    //     $users = User::find(1);
-    //     dd($users->admin);
-
-    // }
 
     // gates check for admin, organization ,and user
     public function indexadmin()
@@ -139,6 +128,5 @@ class PagesController extends Controller
             dd('You are not Organization');
         }
     }
-    //show all cases in home page
    
 }

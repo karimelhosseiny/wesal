@@ -90,6 +90,13 @@ Route::resource('reminders', ReminderController::class);//to use function show()
 
 // User Controller 
 
+// Pages Controller
+Route::get('userhomepage/{id}', [PagesController::class, 'userhomepage'])->where('id', '[0-9]+'); //show user homepage
+Route::get('orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('id', '[0-9]+'); //show organization homepage
+Route::get('casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+'); //show case page
+Route::get('userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_user']); //show user profile
+
+
 
 
 
