@@ -6,7 +6,7 @@ import { useUserStore } from "../../store/UserStore";
 import { mapWritableState, mapStores } from "pinia";
 
 export default {
-    
+
     data() {
         return {
             cases: [],
@@ -85,7 +85,7 @@ export default {
                 );
         },
         async addCase() {
-            
+
         },
     },
     mounted() {
@@ -112,13 +112,13 @@ export default {
                 <h2>Total users</h2>
                 <i class="fs-1 casesIcon bi bi-circle-fill"></i>
             </div>
-            <div class="mx-3 second-card card" style="width: 18rem">
-                <h1>{{ totalCases }}</h1>
-                <h2>Total cases</h2>
-            </div>
             <div class="mx-3 third-card card" style="width: 18rem">
                 <h1>{{ totalDonations }}</h1>
                 <h2>Donations</h2>
+            </div>
+            <div class="mx-3 second-card card" style="width: 18rem">
+                <h1>{{ totalCases }}</h1>
+                <h2>Total cases</h2>
             </div>
         </div>
         <div class="shadow-lg card container dashboard">
@@ -324,7 +324,7 @@ export default {
                         :createdat="Case.createdat"
                         :goal="Case.goal"
                         />
-                        
+
                 </div>
             </div>
         </div>
@@ -350,14 +350,15 @@ export default {
     .first-card {
         box-shadow: 5px 10px $specialColor;
         cursor: pointer;
-        background-color: $priColor;
-        color: white;
+        background-color: white;
         border: 2px solid $specialColor;
         padding: 15px;
         position: relative;
         transition: 0.5s;
         h1,
         h2 {
+            color: $priColor;
+
             transition: 1s;
         }
         .casesIcon {

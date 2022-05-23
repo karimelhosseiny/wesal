@@ -34,7 +34,7 @@ export default {
         </div>
         <ul class="navLinks">
             <router-link to="/home" class>Home</router-link>
-            <router-link to="/login">Organizations</router-link>
+            <router-link to="/allorganizations">Organizations</router-link>
             <router-link to="/login">Cases</router-link>
             <router-link v-if="user.type==='admin'" to="/admindashboard">Dashboard</router-link>
         </ul>

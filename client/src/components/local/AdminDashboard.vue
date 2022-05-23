@@ -56,7 +56,7 @@ export default {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
-                        
+
                     },
                 })
                 .then(
@@ -139,6 +139,10 @@ export default {
                 <h1>{{ totalUsers }}</h1>
                 <h2>Total users</h2>
             </div>
+            <div class="mx-3 third-card card" style="width: 18rem">
+                <h1>{{ totalDonations }}</h1>
+                <h2>Donations</h2>
+            </div>
             <div
                 class="mx-3 second-card card"
                 style="width: 18rem"
@@ -147,10 +151,6 @@ export default {
                 <h1>{{ totalCases }}</h1>
                 <h2>Total cases</h2>
                 <i class="fs-1 casesIcon bi bi-circle-fill"></i>
-            </div>
-            <div class="mx-3 third-card card" style="width: 18rem">
-                <h1>{{ totalDonations }}</h1>
-                <h2>Donations</h2>
             </div>
         </div>
         <div class="shadow-lg card container dashboard">
@@ -415,9 +415,12 @@ export default {
         }
     }
     .first-card {
-        background-color: $priColor;
-        color: white;
+        background-color: white;
         padding: 15px;
+        h1,h2{
+            color: $priColor;
+
+        }
     }
     .second-card {
         box-shadow: 5px 10px $priColor;

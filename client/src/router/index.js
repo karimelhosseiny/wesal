@@ -7,6 +7,7 @@ import UserProfile from "../components/local/UserProfile.vue";
 import AdminDashboard from "../components/local/AdminDashboard.vue"
 import { useUserStore } from "../store/UserStore";
 import CasesDashboard from "../components/local/CasesDashboard.vue"
+import AllOrganizations from "../components/local/AllOrganizations.vue"
 
 
 const routes = [
@@ -54,6 +55,11 @@ const routes = [
         name: "CasesDashboard",
         component: CasesDashboard
     },
+    {
+        path: "/allorganizations",
+        name: "AllOrganizations",
+        component: AllOrganizations,
+    }
 ];
 const router = createRouter({
     history: createWebHistory(),
