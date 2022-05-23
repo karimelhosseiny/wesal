@@ -106,9 +106,12 @@ class CaseController extends Controller
 
     public function cases()
     {
-        $cases = DonationCase::with(['organization' => function ($query) {
-            $query->select(['id', 'title']);
+        $cases = DonationCase::with(['organization','categories' => function ($query) {
+            $query->select(['id','title']);
         }])->get();
+        // $caseCategory = DonationCase::with(['categories' => function ($query) {
+            // $query->select(['id', 'title']);
+        // }])->get();
         $totalusers = DB::table('users')->count();
         $totalcases = DB::table('donation_cases')->count();
         $totaldonations = DB::table('donation_operations')->count();
@@ -117,6 +120,7 @@ class CaseController extends Controller
             'Total_Donations' => $totaldonations,
             'Total_Cases' => $totalcases,
             'cases' => $cases,
+            // 'caseCategory' => $caseCategory,
         ]);
     }
 }
