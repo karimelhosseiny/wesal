@@ -21,12 +21,12 @@ export default {
             form: {
                 name: "",
                 email: "",
-                phone: "",
+                phonenumber: "",
                 address: "",
                 password: "",
                 userType: "",
-                adminType: "",
                 verificationdocuments:[],
+                admin_id:'',
             },
             password_confirmation: "",
             passMatch: false,
@@ -56,6 +56,7 @@ export default {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
+                        
                     },
                 })
                 .then(
@@ -90,6 +91,8 @@ export default {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
+                            "Authorization": `Bearer ${this.storeToken}`,
+                            "device_name":"browser"
                         },
                     })
                     .then((res) => {
@@ -111,6 +114,10 @@ export default {
                 );
             }
         },
+        onFileChange(e){
+            console.log(e.target.files[0]);
+            this.form.verificationdocuments = e.target.files[0];
+        },
     },
     mounted() {
         axios.defaults.headers.common["Authorization"] =
@@ -118,7 +125,7 @@ export default {
         this.fetchData();
     },
     created() {
-        this.form.adminType = this.user.type;
+        this.form.admin_id = this.user.id
     },
     components: { Navbar, FieldComponent },
 };
@@ -222,7 +229,7 @@ export default {
                                         type="text"
                                         name="phone"
                                         class="col-8"
-                                        v-model="this.form.phone"
+                                        v-model="this.form.phonenumber"
                                     />
                                 </div>
                                 <br />
@@ -271,6 +278,7 @@ export default {
                                         type="file"
                                         name="verificationdocuments"
                                         class="col-8"
+                                        ref="file"
                                         @change="onFileChange"
                                     />
                                 </div>

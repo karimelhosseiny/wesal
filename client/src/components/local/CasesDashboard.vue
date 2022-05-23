@@ -6,17 +6,18 @@ import { useUserStore } from "../../store/UserStore";
 import { mapWritableState, mapStores } from "pinia";
 
 export default {
+    
     data() {
         return {
             cases: [],
             totalUsers: "",
             totalCases: "",
             totalDonations: "",
-            isLoading: false,
+            isLoading: true,
             referance: "0",
             filteredCategories: "",
             search: "",
-            filteredByTitle: "",
+            // filteredByTitle: "",
             showModal: false,
             form: {
                 title: "",
@@ -50,23 +51,46 @@ export default {
         }),
         filteredByTitle() {
             return this.cases.filter((Case) =>
-                Case.title.includes(this.search)
+                Case.title.toLowerCase().includes(this.search)||Case.title.includes(this.search)
             );
         },
 
         filteredCategories() {
-            return this.cases.filter((Case) => Case.category_id == this.referance);
+            return this.cases.filter((Case) => Case.category == this.referance);
         },
     },
     methods: {
-        fetchData() {
-
+        async fetchData() {
+            await axios.get("http://localhost:8000/api/cases").then(
+                    ({ data }) => {
+                        var cases = [];
+                        this.totalUsers = data.Total_Users;
+                        this.totalCases = data.Total_Cases;
+                        this.totalDonations = data.Total_Donations;
+                        data.cases.forEach((Case) => {
+                            cases.push({
+                                id: Case.id,
+                                title: Case.title,
+                                organization: Case.organization.title,
+                                category: Case.category_id,
+                                goal: Case.goal_amount,
+                                raised:Case.raised_amount,
+                                createdat: Case.created_at.split('T')[0],
+                            });
+                        });
+                        this.cases = cases;
+                        this.isLoading = false;
+                    },
+                    (e) => console.log(e)
+                );
         },
         async addCase() {
-
+            
         },
     },
     mounted() {
+         axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
         this.fetchData();
     },
     created() {
@@ -278,10 +302,29 @@ export default {
                 <div class="row mx-2 info">
                     <CaseField
                         v-if="referance == '0' "
+                        v-for="(Case, index) in filteredByTitle"
+                        :key="index"
+                        :id="Case.id"
+                        :title="Case.title"
+                        :organization="Case.organization"
+                        :category="Case.category"
+                        :raised="Case.raised"
+                        :createdat="Case.createdat"
+                        :goal="Case.goal"
                         />
                     <CaseField
                         v-else
-                        v-for="Case in filteredCategories"/>
+                        v-for="(Case,idx) in filteredCategories"
+                        :key="idx"
+                        :id="Case.id"
+                        :title="Case.title"
+                        :organization="Case.organization"
+                        :category="Case.category"
+                        :raised="Case.raised"
+                        :createdat="Case.createdat"
+                        :goal="Case.goal"
+                        />
+                        
                 </div>
             </div>
         </div>

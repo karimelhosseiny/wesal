@@ -8,6 +8,7 @@ use App\Models\DonationOperation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class CaseController extends Controller
@@ -108,7 +109,13 @@ class CaseController extends Controller
         $cases = DonationCase::with(['organization' => function ($query) {
             $query->select(['id', 'title']);
         }])->get();
+        $totalusers = DB::table('users')->count();
+        $totalcases = DB::table('donation_cases')->count();
+        $totaldonations = DB::table('donation_operations')->count();
         return response()->json([
+            'Total_Users' => $totalusers,
+            'Total_Donations' => $totaldonations,
+            'Total_Cases' => $totalcases,
             'cases' => $cases,
         ]);
     }

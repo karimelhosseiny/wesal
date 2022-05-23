@@ -40,14 +40,14 @@ class AdminUserController extends Controller
                 ]);
             }
             elseif($request->input('userType') =='organization'){
-                $request->validate(
-                    [
-                    //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                      'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
-                    ]
-                );
-                // $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
-                // $request->file('image')->move(public_path('orgimages'), $newimage);
+                // $request->validate(
+                //     [
+                //     //   'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                //       'verificationdocuments' => 'required|mimes:txt,xlx,xls,pdf|max:2048'
+                //     ]
+                // );
+                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('orgimages'), $newimage);
 
                 $verificationdocuments = time() . '-' . $request->input('name') . '.' . $request->file('verificationdocuments')->extension();
                 $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);

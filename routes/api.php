@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminCateController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminDashBoardController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,10 +120,3 @@ Route::get('orghomepage/{id}', [PagesController::class, 'orghomepage'])->where('
 Route::get('casepage/{id}', [PagesController::class, 'casepage'])->where('id', '[0-9]+'); //show case page
 Route::get('userprofile/{id}', [PagesController::class, 'userprofile'])->where('id', '[0-9]+')->middleware(['auth:sanctum', 'is_user']); //show user profile
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
