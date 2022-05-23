@@ -37,9 +37,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Auth Controller
-// Route::post('/register', [AuthController::class ,'registeruser']);
-// Route::post('/login',[AuthController::class,'login']);
-// Route::post('/logout', [AuthController::class ,'logout']);
+Route::post('/register', [AuthController::class ,'registeruser']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/logout', [AuthController::class ,'logout']);
 //------------------------------------------------------------------
 
 // AdminUserController
@@ -91,7 +91,7 @@ Route::post('orgprofileupdated',[OrganizationController::class, 'orgUpdateProfil
 
 // Case Controller
 Route::get('cases', [CaseController::class, 'cases']); // show all cases from database
-Route::post('donationdone',[CaseController::class,'userdonation']); //store user donation in database
+Route::post('donationdone',[CaseController::class,'userdonation'])->middleware(['auth:sanctum']); //store user donation in database
 //-----------------------------------------------------------------------------------------------------
 
 // Reminder Controller

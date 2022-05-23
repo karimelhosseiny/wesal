@@ -72,7 +72,7 @@ export default {
                                 id: Case.id,
                                 title: Case.title,
                                 organization: Case.organization.title,
-                                category: Case.category_id,
+                                category: Case.categories.title,
                                 goal: Case.goal_amount,
                                 raised:Case.raised_amount,
                                 createdat: Case.created_at.split('T')[0],
