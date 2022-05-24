@@ -92,7 +92,7 @@ export default {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${this.storeToken}`,
-                            "device_name":"browser"
+                           
                         },
                     })
                     .then((res) => {

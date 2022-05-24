@@ -1,15 +1,44 @@
 <script>
+import { useUserStore } from "../../store/UserStore";
+import { mapWritableState, mapStores } from "pinia";
 export default {
+    props:['caseId'],
     data() {
         return {
             donationValue: 0,
+            currency:'',
+            
         }
     },
     methods: {
         quickDonate(e) {
             e.preventDefault();
             this.donationValue += eval(e.target.textContent)
+        },
+       async makeDonation(){
+            await axios.post('http://localhost:8000/api/donationdone',{
+                amount:this.donationValue,
+                currency:this.currency,
+                case_id:this.caseId,
+            },{
+                mode: "no-cors",
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + this.storeToken,
+                        },
+            }).then((res) => {
+                console.log(res);
+                // this.$router.go(`/casepage/${this.caseId}`);
+            })
         }
+    },
+    computed:{
+        ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        }),
     }
 }
 
@@ -22,7 +51,7 @@ export default {
             <di class="grid">
                 <div class="inputs">
                     <input type="number" v-model="donationValue" />
-                    <select>
+                    <select v-model="currency">
                         <option value="egp">egp</option>
                         <option value="usd">usd</option>
                         <option value="eur">eur</option>
@@ -33,6 +62,9 @@ export default {
                     <button @click="quickDonate" class="btn value">+10</button>
                     <button @click="quickDonate" class="btn value">+15</button>
                     <button @click="quickDonate" class="btn value">+20</button>
+                </div>
+                <div>
+                    <button @click="makeDonation">confirm</button>
                 </div>
             </di>
         </form>

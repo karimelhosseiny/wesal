@@ -168,11 +168,11 @@ export default {
                                                 ></button>
                                             </div>
                                             <div class="modal-body">
-                                                <CaseDonation />
+                                                <CaseDonation :casseId="this.casseId" />
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button class="btn confirm">
+                                                <button @click="makeDonation" class="btn confirm">
                                                     confirm
                                                 </button>
                                             </div>
