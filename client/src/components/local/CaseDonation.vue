@@ -1,12 +1,13 @@
 <script>
 import { useUserStore } from "../../store/UserStore";
 import { mapWritableState, mapStores } from "pinia";
+import axios from 'axios'
 export default {
-    props:['caseId'],
+    props:['id'],
     data() {
         return {
             donationValue: 0,
-            currency:'',
+            currency:'egp',
             
         }
     },
@@ -19,7 +20,7 @@ export default {
             await axios.post('http://localhost:8000/api/donationdone',{
                 amount:this.donationValue,
                 currency:this.currency,
-                case_id:this.caseId,
+                case_id:this.id,
             },{
                 mode: "no-cors",
                         headers: {
@@ -29,8 +30,10 @@ export default {
                         },
             }).then((res) => {
                 console.log(res);
-                // this.$router.go(`/casepage/${this.caseId}`);
-            })
+                this.$router.go(`/casepage/${this.caseId}`);
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     },
     computed:{
@@ -52,7 +55,7 @@ export default {
                 <div class="inputs">
                     <input type="number" v-model="donationValue" />
                     <select v-model="currency">
-                        <option value="egp">egp</option>
+                        <option value="egp" >egp</option>
                         <option value="usd">usd</option>
                         <option value="eur">eur</option>
                     </select>
@@ -63,8 +66,9 @@ export default {
                     <button @click="quickDonate" class="btn value">+15</button>
                     <button @click="quickDonate" class="btn value">+20</button>
                 </div>
-                <div>
-                    <button @click="makeDonation">confirm</button>
+                <hr>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button @click.prevent="makeDonation" class="btn confirm rounded rounded-pill">confirm</button>
                 </div>
             </di>
         </form>
@@ -101,9 +105,18 @@ h4 {
             color: $priColor !important;
         }
     }
-    // input{
-    //     width: 50%;
-    // }
+        .confirm {
+                color: $white;
+                background-color: $priColor;
+                margin: 0 auto;
+                width: fit-content;
+                font-size: large;
+                padding-inline: 1.5rem;
+                font-weight: 400;
+                letter-spacing: 0.05em;
+                box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            }
+    
     .quickValues {
         justify-self: center;
         display: flex;

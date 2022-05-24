@@ -158,9 +158,9 @@ export default {
                                                     class="d-flex flex-column w-content"
                                                 >
                                                     <h1 class="modal-title">
-                                                        Case name
+                                                        {{caseName}}
                                                     </h1>
-                                                    <h4>Resala . Feeding</h4>
+                                                    <h4>{{organization}} . {{category}}</h4>
                                                 </div>
                                                 <button
                                                     class="btn-close mb-5"
@@ -168,13 +168,7 @@ export default {
                                                 ></button>
                                             </div>
                                             <div class="modal-body">
-                                                <CaseDonation :casseId="this.casseId" />
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button @click="makeDonation" class="btn confirm">
-                                                    confirm
-                                                </button>
+                                                <CaseDonation :id="this.caseId" />
                                             </div>
                                         </div>
                                     </div>
