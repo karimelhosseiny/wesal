@@ -30,7 +30,7 @@ export default {
                         },
             }).then((res) => {
                 console.log(res);
-                this.$router.go(`/casepage/${this.caseId}`);
+                this.$router.go(`/casepage/${this.id}`);
             }).catch((err) => {
                 console.log(err);
             });

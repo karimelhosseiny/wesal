@@ -48,7 +48,7 @@ class CaseController extends Controller
         Auth::User()->donationOperations()->attach($request->input('case_id'), [
             "amount" => $request->input('amount'),
             "currency" => $request->input('currency')
-        ]);git 
+        ]);
     }
     public function userdonate()
     {

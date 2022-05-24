@@ -129,9 +129,9 @@ export default {
                             </div>
                         </div>
                         <div class="endSec row align-items-center">
-                            <div class="col-4">
+                            <div class="col-5" >
                                 <p>
-                                    Total donors:
+                                    Total donations:
                                     <span
                                         class="border border-2 rounded rounded-pill border-success px-3"
                                         >{{ totalDonors }}</span
@@ -139,7 +139,7 @@ export default {
                                 </p>
                             </div>
                             <div
-                                class="col-8 donate d-flex justify-content-end"
+                                class="col-7 donate d-flex justify-content-end"
                             >
                                 <button
                                     class="btn btn-success m-1"
