@@ -56,7 +56,7 @@ class CaseController extends Controller
         ]);
         $Current_amount = DonationCase::find($request->input('case_id'))->raised_amount;
         $Total_rasied_amount = $Current_amount + $request->input('amount');
-        DonationCase::find($request->input('case_id'))->update(['raised_amount' => $Total_rasied_amount]);
+        DB::table('donation_cases')->where('id', $request->input('case_id'))->update(['raised_amount' => $Total_rasied_amount]);
     }
     public function userdonate()
     {
