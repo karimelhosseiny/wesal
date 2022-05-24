@@ -45,10 +45,18 @@ class CaseController extends Controller
     }
     public function userdonation(Request $request)
     {
+        $request->validate(
+            [
+                'amount' => 'required|numeric|gt:0',
+            ]
+        );
         Auth::User()->donationOperations()->attach($request->input('case_id'), [
             "amount" => $request->input('amount'),
             "currency" => $request->input('currency')
         ]);
+        $Current_amount = DonationCase::find($request->input('case_id'))->raised_amount;
+        $Total_rasied_amount = $Current_amount + $request->input('amount');
+        DonationCase::find($request->input('case_id'))->update(['raised_amount' => $Total_rasied_amount]);
     }
     public function userdonate()
     {
