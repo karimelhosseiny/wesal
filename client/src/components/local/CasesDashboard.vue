@@ -14,10 +14,8 @@ export default {
             totalCases: "",
             totalDonations: "",
             isLoading: true,
-            referance: "0",
             filteredCategories: "",
             search: "",
-            // filteredByTitle: "",
             showModal: false,
             form: {
                 title: "",
@@ -27,23 +25,10 @@ export default {
                 category: "",
                 org: "",
             },
-            caseCategory: "",
+            caseCategory: "All",
         };
     },
     computed: {
-        caseCategory() {
-            if (this.referance == "0") {
-                return "All categories";
-            } else if (this.referance == "1") {
-                return "Food";
-            } else if (this.referance == "2") {
-                return "Clothes";
-            } else if (this.referance == "3") {
-                return "Sick";
-            } else if (this.referance == "4") {
-                return "Sadaka";
-            }
-        },
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
             user: "currentUser",
@@ -56,7 +41,7 @@ export default {
         },
 
         filteredCategories() {
-            return this.cases.filter((Case) => Case.category == this.referance);
+            return this.cases.filter((Case) => Case.category == this.caseCategory);
         },
     },
     methods: {
@@ -140,13 +125,13 @@ export default {
                         <select
                             class="btn btn-sm btn-success dropdown-toggle"
                             aria-expanded="false"
-                            v-model="referance"
+                            v-model="caseCategory"
                         >
-                            <option value="0">All categories</option>
-                            <option value="1">Food</option>
-                            <option value="2">Clothes</option>
-                            <option value="3">Sick</option>
-                            <option value="4">Sadaka</option>
+                            <option value="All">All categories</option>
+                            <option value="Food">Food</option>
+                            <option value="Clothes">Clothes</option>
+                            <option value="Sick">Sick</option>
+                            <option value="Sadaka">Sadaka</option>
                         </select>
                     </div>
                     <h2 style="width: fit-content;" class="col-3 my-3 ms-5 pt-1">
@@ -301,7 +286,7 @@ export default {
                 </div>
                 <div class="row mx-2 info">
                     <CaseField
-                        v-if="referance == '0' "
+                        v-if="caseCategory == 'All' "
                         v-for="(Case, index) in filteredByTitle"
                         :key="index"
                         :id="Case.id"
