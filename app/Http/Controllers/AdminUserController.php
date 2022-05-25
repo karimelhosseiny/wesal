@@ -96,6 +96,8 @@ class AdminUserController extends Controller
             $user->address = $request->input('address');
             $passWord = $request->input('password');
             if( $passWord != null){
+                $request->validate(
+                    ['password' => 'required|string|min:6|confirmed', ]);
                 $user->password = bcrypt($passWord);   
             }
             $userType = $request->input('userType');
