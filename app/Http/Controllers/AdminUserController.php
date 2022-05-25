@@ -100,8 +100,9 @@ class AdminUserController extends Controller
                     ['password' => 'required|string|min:6|confirmed', ]);
                 $user->password = bcrypt($passWord);   
             }
-            $userType = $request->input('userType');
              // $user->image = $newimage;
+
+            $userType = $request->input('userType');
             if($userType == 'admin' && $user->type !='admin'){
                 $user->type = $userType;
                 $date = new DateTime();
@@ -111,8 +112,8 @@ class AdminUserController extends Controller
                     'created_at' =>$date->format('Y-m-d H:i:s'),
                     'updated_at'=>$date->format('Y-m-d H:i:s'), ]);
             }
-
-            elseif($user->type == 'organization')
+            
+            elseif($userType == 'organization')
             {
                 $request->validate(
                     [

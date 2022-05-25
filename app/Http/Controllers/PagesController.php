@@ -80,19 +80,18 @@ class PagesController extends Controller
                                 ->sum('donation_operations.amount');
                                 
 
-        $totaldonors = DB::table('donation_operations')
+        $n = DB::table('donation_operations')
                                 ->join('donation_cases', 'donation_operations.case_id' ,'=','donation_cases.id','left outer')
                                 ->where('donation_cases.organization_id', '=', $id)
                                 ->groupBy('donation_operations.user_id')
                                 ->select('donation_operations.user_id')
                                 ->get();
-        $n = count($totaldonors);
+        $totaldonors = count($n);
         return response()->json([
             'organization' => $organization,
             'total cases:'  => $sumcases,
             'total donations:' => $totaldonations,
-            'total donors:' => $totaldonors,
-            'n:'=> $n,
+            'totaldonors:'=> $totaldonors,
 
         ]);
     }
