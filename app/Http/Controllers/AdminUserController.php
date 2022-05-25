@@ -80,7 +80,7 @@ class AdminUserController extends Controller
             [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|:users,email',
-                'password' => 'required|string|min:6|confirmed',
+                // 'password' => 'required|string|min:6|confirmed',
                 //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
         );
@@ -94,11 +94,14 @@ class AdminUserController extends Controller
             $user->email = $request->input('email');
             $user->phonenumber = $request->input('phone');
             $user->address = $request->input('address');
-            $user->password = bcrypt($request->input('password'));
-            $user->type = $request->input('userType');
+            $passWord = $request->input('password');
+            if( $passWord != null){
+                $user->password = bcrypt($passWord);   
+            }
+            $userType = $request->input('userType');
              // $user->image = $newimage;
-
-            if($user->type == 'admin'){
+            if($userType == 'admin' && $user->type !='admin'){
+                $user->type = $userType;
                 $date = new DateTime();
                  DB::table('admins')->insert([
                     'id'=> $user->id,
