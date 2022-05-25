@@ -122,11 +122,18 @@ class UserController extends Controller
             $user = User::find(Auth::id());
             $user->update([
                 'name' => $request->input('name'),
-                'password'=> bcrypt($request->input('password')),
+                // 'password'=> bcrypt($request->input('password')),
                 'phonenumber' => $request->input('phone'),
                 'address' => $request->input('address'),
                 'image' =>  $newimage,
             ]);
+
+            $passWord = $request->input('password');
+            if( $passWord != null){
+                $request->validate(
+                    ['password' => 'required|string|min:6|confirmed', ]);
+                $user->update(['password'=> bcrypt($passWord)]);   
+            }
         }
     }
 

@@ -68,13 +68,32 @@ class PagesController extends Controller
     {
         $organization = Organization::find($id);
         $orgcases = $organization->orgcases;
-        $n = count($orgcases);
+        $sumcases = count($orgcases);
         //$sumcases = DB::table('donation_cases')->where('organization_id', $id)->sum('raised_amount');
-        $sumcases = Organization::find($id)->orgcases->sum('raised_amount');
+        // $totaldonations = Organization::find($id)->orgcases->sum('raised_amount');
+        
+        // SELECT COUNT(donation_operations.user_id) FROM donation_operations LEFT OUTER JOIN donation_cases 
+        // ON donation_operations.case_id = donation_cases.id WHERE donation_cases.organization_id=1
+        $totaldonations = DB::table('donation_operations')
+                                ->leftjoin('donation_cases', 'donation_operations.case_id' ,'=','donation_cases.id')
+                                ->where('donation_cases.organization_id', '=', $id)
+                                ->sum('donation_operations.amount');
+                                
+
+        $totaldonors = DB::table('donation_operations')
+                                ->join('donation_cases', 'donation_operations.case_id' ,'=','donation_cases.id','left outer')
+                                ->where('donation_cases.organization_id', '=', $id)
+                                ->groupBy('donation_operations.user_id')
+                                ->select('donation_operations.user_id')
+                                ->get();
+        $n = count($totaldonors);
         return response()->json([
             'organization' => $organization,
-            'total cases:'  => $n,
-            'total donations:' => $sumcases
+            'total cases:'  => $sumcases,
+            'total donations:' => $totaldonations,
+            'total donors:' => $totaldonors,
+            'n:'=> $n,
+
         ]);
     }
 
