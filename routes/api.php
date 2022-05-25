@@ -37,9 +37,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Auth Controller
-Route::post('/register', [AuthController::class ,'registeruser']);
-Route::post('/login',[AuthController::class,'login']);
-Route::post('/logout', [AuthController::class ,'logout']);
+// Route::post('/register', [AuthController::class ,'registeruser']);
+// Route::post('/login',[AuthController::class,'login']);
+// Route::post('/logout', [AuthController::class ,'logout']);
 //------------------------------------------------------------------
 
 // AdminUserController
@@ -71,7 +71,7 @@ Route::post('categorydeleted', [AdminCateController::class, 'admindeletecategory
 // AdminDashBoardController
 Route::get('userdashboard', [AdminDashBoardController::class , 'userDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
 Route::get('catedashboard', [AdminDashBoardController::class , 'cateDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
-Route::get('orgdashboard', [AdminDashBoardController::class , 'orgDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
+Route::get('orgdashboard', [AdminDashBoardController::class , 'orgDashBoard'])/*->middleware(['auth:sanctum', 'is_admin'])*/;
 Route::get('remindersdashboard', [AdminDashBoardController::class , 'remindersDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
 Route::get('donationsdashboard', [AdminDashBoardController::class , 'donationsDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
 Route::get('favcasedashboard', [AdminDashBoardController::class , 'favCaseDashBoard'])->middleware(['auth:sanctum', 'is_admin']);
@@ -87,6 +87,7 @@ Route::post('newcaseupdated',[OrganizationController::class, 'orgUpdateCase'])->
 Route::post('anycasedeleted',[OrganizationController::class, 'orgDeleteCase'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
 
 Route::post('orgprofileupdated',[OrganizationController::class, 'orgUpdateProfile'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
+Route::get('orgdata',[OrganizationController::class, 'orgData']); //show all organizations' data
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Case Controller

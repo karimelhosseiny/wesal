@@ -42,9 +42,9 @@ export default {
                     .then((res) => {
                         console.log(res);
                         this.donated = true;
-                        setTimeout(()=>{
-                            this.$router.go(`/casepage/${this.id}`);
-                        },2000);
+                        // setTimeout(()=>{
+                        //     this.$router.go(`/casepage/${this.id}`);
+                        // },2000);
                     })
                     .catch((err) => {
                         console.log(err);
@@ -66,7 +66,7 @@ export default {
     <div v-if="!donated">
         <h4 class="text-center">I want to help with</h4>
         <form>
-            <di class="grid">
+            <div class="grid">
                 <span v-if="alertMsg" class="text h6 text-danger" style="margin: 0 auto;">
                     please enter your donation's amount</span
                 >
@@ -93,7 +93,7 @@ export default {
                         confirm
                     </button>
                 </div>
-            </di>
+            </div>
         </form>
     </div>
     <div v-else class="d-flex justify-content-center flex-column align-items-center">

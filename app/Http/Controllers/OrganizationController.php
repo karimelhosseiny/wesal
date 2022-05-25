@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\DonationCase;
+use App\Models\DonationOperation;
 use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -237,6 +238,54 @@ class OrganizationController extends Controller
             ], 200);
     }
 
+
+
+
+    public function orgData(){
+        $orgs  = Organization::withCount(['orgcases'])->get();
+        $organizations = Organization::all();
+        $organizationWithCases = [];
+            foreach ($orgs as $org){
+              $items = [
+              'id'=>$org->id,
+              'title'=>$org->title,
+              'verificationdocuments'=>$org->verificationdocuments,
+              'phonenumber'=>$org->phonenumber,
+              'description'=>$org->description,
+              'verified'=>$org->verified,
+              'verifiedby'=>$org->verifiedby,
+              'creator_id'=>$org->creator_id,
+              'totalcases'=>$org->orgcases_count,
+              'casesdata'=>$org->orgcases
+            ];
+                array_push($organizationWithCases, $items);
+            }
+
+            // $cases = DB::table('donation_cases')
+            //             ->join('donation_operations','donation_cases.id','=','donation_operations.case_id')
+            //             ->count('donation_operations.amount');
+                       
+
+            //             $users = DB::table('users')
+            //                         ->join('donation_operations','users.id','=','donation_operations.user_id')
+            //                         ->select('users.*')
+            //                         ->get();
+
+                        // DB::table('website_tags')
+                        // ->join('assigned_tags', 'website_tags.id', '=', 'assigned_tags.tag_id')
+                        // ->select('website_tags.id as id', 'website_tags.title as title', DB::raw("count(assigned_tags.tag_id) as count"))
+                        // ->groupBy('website_tags.id')
+                        // ->get();
+
+        return response()->json([
+            'organziationWithCases' => $organizationWithCases,
+            // 'cases' => $cases,
+            // 'user' => $users,
+
+            
+
+        ]);
+    }
 
 
 
