@@ -1,16 +1,12 @@
 <script>
 export default {
     props: [
-        "pic",
-        "title",
-        "org",
         "id",
-        "caseDesc",
-        "goal",
-        "raised",
-        "isFavorite",
-        "reminder",
-        "cat",
+        "title",
+        'totalCases',
+        'totalDonations',
+        'totalDonors',
+        "pic",
     ],
     emits: ["toggle-favorite", "toggle-reminder"],
     data() {
@@ -28,33 +24,33 @@ export default {
 </script>
 
 <template>
-    <div class="card p-2 container">
+    <div v-if="title!=''|| title==null" class="card p-2 container">
         <div class="top">
             <img
                 src="../../assets/7maya.png"
                 class="mx-2 mt-2"
                 alt="Organization image"
             />
-            <a class="org mt-2">Resala</a>
+            <a class="org mt-2">{{title}}</a>
         </div>
         <div class="mid container row justify-content-center">
             <div class="row">
                 <span class="target col-5">Total cases:</span>
                 <span class="col-6">
-                    20
+                    {{totalCases}}
                     <sub>Case</sub>
                 </span>
                 <div class="row">
                     <span class="target col-7">Total donations:</span>
                     <span class="col-5">
-                        20000
+                        {{totalDonations}}
                         <sub>EGP</sub>
                     </span>
                 </div>
                 <div class="row">
                     <span class="target col-6">Total donors:</span>
                     <span class="col-6">
-                        20000
+                        {{totalDonors}}
                         <sub>Donor</sub>
                     </span>
                 </div>
@@ -68,6 +64,15 @@ export default {
             >
         </div>
     </div>
+    <div v-else class="text-center my-5">
+                <div
+                    class="spinner-grow mx-5 text-success"
+                    style="width: 10rem; height: 10rem"
+                    role="status"
+                >
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
 </template>
 
 <style lang="scss" scoped>

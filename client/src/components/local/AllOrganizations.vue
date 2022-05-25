@@ -7,11 +7,21 @@ import { mapWritableState, mapStores } from "pinia";
 
 export default {
     data() {
-        return {};
+        return {
+            orgs:[]
+        };
     },
-    computed: {},
     methods: {},
-    mounted() {},
+    computed: {
+        
+    },
+    mounted() {
+        axios('http://localhost:8000/api/orgdata').then(({data})=>{
+            this.orgs = data.organziationWithCases;
+        },(err)=>{
+            console.log(err);
+        })
+    },
     created() {},
     components: { Navbar, OrganizationCard },
 };
@@ -19,18 +29,15 @@ export default {
 
 <template>
     <Navbar />
-    <div class="grid">
-        <div class="orgGrid">
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-            <OrganizationCard  />
-        </div>
+    <div class="orgGrid" v-for="(org,index) in orgs">
+        <OrganizationCard
+                :key="index"
+                :id="org.id"
+                :title="org.title"
+                :totalCases="org.totalcases"
+                totalDonations="static"
+                totalDonors="static"
+        />
     </div>
 
 </template>
@@ -38,11 +45,11 @@ export default {
 <style lang="scss" scoped>
 @use "../../sass/colors" as *;
 .orgGrid{
-    padding-inline: 1em;
+        grid-template-columns: repeat(3,auto);
+        padding-inline: 1em;
         padding: 1em 0;
         display: grid;
         justify-content: center;
-        grid-template-columns: repeat(3, auto);
         gap: 20px;
         overflow: auto;
 }
