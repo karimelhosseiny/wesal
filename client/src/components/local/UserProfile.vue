@@ -98,9 +98,10 @@ export default {
                         +{{this.User.phonenumber}}
                         <i class="bi bi-pencil-square ms-3"></i>
                     </h4>
-                    <h5 v-else class="opacity-50">
+                    <h4 v-else class="opacity-50 h6">
                         please add your number
-                    </h5>
+                        <i class="bi bi-pencil-square ms-3"></i>
+                    </h4>
                     <button
                         class="btn btn-block showPayment rounded-pill"
                         data-bs-toggle="modal"
