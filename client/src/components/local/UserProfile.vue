@@ -1,52 +1,26 @@
 <script>
-import Navbar from '../global/Navbar.vue'
-import UserCaseCard from '../local/UserCaseCard.vue'
-import PaymentDetails from './PaymentDetails.vue'
-import { mapState, mapStores, mapWritableState } from 'pinia'
-import { useUserStore } from '../../store/UserStore'
-import axios from 'axios'
+import Navbar from "../global/Navbar.vue";
+import UserCaseCard from "../local/UserCaseCard.vue";
+import PaymentDetails from "./PaymentDetails.vue";
+import { mapState, mapStores, mapWritableState } from "pinia";
+import { useUserStore } from "../../store/UserStore";
+import axios from "axios";
 export default {
     data() {
         return {
-            cases: [
-                {
-                    id: "1",
-                    title: "Food Aid",
-                    org: "Resala",
-                    caseDesc:
-                        "1Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "2",
-                    title: "monmy",
-                    org: "Masr Elkhair",
-                    caseDesc:
-                        "2Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                },
-                {
-                    id: "3",
-                    title: "clothing",
-                    org: "Orman",
-                    caseDesc:
-                        "3Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-                    isFavorite: false,
-                    reminder: false,
-                }
-            ]
-        }
+            cases:[]
+        };
     },
-    mounted(){
-        axios.defaults.headers.common["Authorization"] = "Bearer " + this.storeToken;
+    mounted() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
+        this.getUserCases();
     },
     computed: {
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
-            User: 'currentUser',
-            storeToken: 'token',
+            User: "currentUser",
+            storeToken: "token",
         }),
     },
     methods: {
@@ -58,106 +32,122 @@ export default {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
             selectedCard.reminder = !selectedCard.reminder;
         },
-        async getUserCases(){
-            const res = await axios(`http://localhost:8000/api/userhomepage/${this.user.id}`,{
+        async getUserCases() {
+            await axios(
+                `http://localhost:8000/api/userhomepage/${this.User.id}`,
+                {
                     mode: "no-cors",
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
                     },
-                })
-            return res
+                }
+            ).then(
+                ({data}) => {
+                    console.log(data.cases);
+                    this.cases = data.cases;
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
         },
     },
-    components: { Navbar, UserCaseCard, PaymentDetails }
-}
-
+    components: { Navbar, UserCaseCard, PaymentDetails },
+};
 </script>
 
 <template>
     <div>
         <Navbar />
-    <div class="mainContainer">
-        <div class="profPic text-center d-flex flex-column">
-            <img src="../../assets/7maya.png" alt="profile picture" />
-            <div class="d-flex justify-content-between px-5 mt-4">
-                <a href="#" class>upload</a>
-                <a href="#">remove</a>
+        <div class="mainContainer">
+            <div class="profPic text-center d-flex flex-column">
+                <img src="../../assets/7maya.png" alt="profile picture" />
+                <div class="d-flex justify-content-between px-5 mt-4">
+                    <a href="#" class>upload</a>
+                    <a href="#">remove</a>
+                </div>
             </div>
-            
-        </div>
-        <div class="dataContainer py-5 px-4">
-            <div class="personalInfo">
-                <h1>{{this.User.name}}</h1>
-                <div class="px-3">
-                    <h4>
-                        {{this.User.email}}
-                        <i class="bi bi-pencil-square ms-3"></i>
-                    </h4>
-                    <h4 v-if="this.User.phonenumber!=null">
-                        +{{this.User.phonenumber}}
-                        <i class="bi bi-pencil-square ms-3"></i>
-                    </h4>
-                    <h4 v-else class="opacity-50 h6">
-                        please add your number
-                        <i class="bi bi-pencil-square ms-3"></i>
-                    </h4>
-                    <button
-                        class="btn btn-block showPayment rounded-pill"
-                        data-bs-toggle="modal"
-                        data-bs-target="#paymentDetails"
-                    >show payment</button>
-                    <div class="modal fade" id="paymentDetails">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1>Payment Deatails</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <PaymentDetails />
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn save">Save changes</button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-danger close"
-                                        data-bs-dismiss="modal"
-                                    >Close</button>
+            <div class="dataContainer py-5 px-4">
+                <div class="personalInfo">
+                    <h1>{{ this.User.name }}</h1>
+                    <div class="px-3">
+                        <h4>
+                            {{ this.User.email }}
+                            <i class="bi bi-pencil-square ms-3"></i>
+                        </h4>
+                        <h4 v-if="this.User.phonenumber != null">
+                            +{{ this.User.phonenumber }}
+                            <i class="bi bi-pencil-square ms-3"></i>
+                        </h4>
+                        <h4 v-else class="opacity-50 h6">
+                            please add your number
+                            <i class="bi bi-pencil-square ms-3"></i>
+                        </h4>
+                        <button
+                            class="btn btn-block showPayment rounded-pill"
+                            data-bs-toggle="modal"
+                            data-bs-target="#paymentDetails"
+                        >
+                            show payment
+                        </button>
+                        <div class="modal fade" id="paymentDetails">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>Payment Deatails</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <PaymentDetails />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn save">
+                                            Save changes
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger close"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            Close
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="bottomGrid">
-                <div class="donationHistory">
-                    <div class="title d-flex justify-content-between">
-                        <h1>Donation History</h1>
-                        <a href="#" class="me-5 mt-3">more</a>
-                    </div>
-                    <div class="caseGrid d-flex">
-                        <UserCaseCard
-                            v-for="Case in cases"
-                            :key="Case.id"
-                            :title="Case.title"
-                            :org="Case.org"
-                            :id="Case.id"
-                            :case-desc="Case.caseDesc"
-                            :is-favorite="Case.isFavorite"
-                            :reminder="Case.reminder"
-                            @toggle-favorite="toggleFavoriteStatus"
-                            @toggle-reminder="toggleReminderStatus"
-                        />
+                <div class="bottomGrid">
+                    <div class="donationHistory">
+                        <div class="title d-flex justify-content-between">
+                            <h1>Donation History</h1>
+                            <a href="#" class="me-5 mt-3">more</a>
+                        </div>
+                        <div class="caseGrid d-flex">
+                            <UserCaseCard
+                                v-for="Case in cases"
+                                :key="Case.id"
+                                :id="Case.id"
+                                :title="Case.title"
+                                :org="Case.organization.title"
+                                :goal="Case.goal_amount"
+                                :raised="Case.raised_amount"
+                                :case-desc="Case.description"
+                                :is-favorite="Case.isFavorite"
+                                :reminder="Case.reminder"
+                                @toggle-favorite="toggleFavoriteStatus"
+                                @toggle-reminder="toggleReminderStatus"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 </template>
 
 <style lang="scss" scoped>
-@use '../../sass/colors' as *;
+@use "../../sass/colors" as *;
 * {
     box-sizing: border-box;
 }
@@ -237,23 +227,23 @@ export default {
                 }
             }
         }
-          .save {
-                    background-color: $priColor;
-                    width: fit-content;
-                    font-weight: normal;
-                    font-size: 18px;
-                    border-radius: 50px;
-                    color: $white;
-                    letter-spacing: 0.05em;
-                }
-                .close{
-                    width: fit-content;
-                    font-weight: normal;
-                    font-size: 18px;
-                    border-radius: 50px;
-                    color: $white;
-                    letter-spacing: 0.05em;
-                }
+        .save {
+            background-color: $priColor;
+            width: fit-content;
+            font-weight: normal;
+            font-size: 18px;
+            border-radius: 50px;
+            color: $white;
+            letter-spacing: 0.05em;
+        }
+        .close {
+            width: fit-content;
+            font-weight: normal;
+            font-size: 18px;
+            border-radius: 50px;
+            color: $white;
+            letter-spacing: 0.05em;
+        }
     }
     .profPic {
         width: 240px;
