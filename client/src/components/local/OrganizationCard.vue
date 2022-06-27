@@ -58,7 +58,7 @@ export default {
         </div>
         <div class="bottom row justify-content-center">
             <router-link
-                :to=" '/casepage/' + this.id"
+                :to=" '/organization/' + this.id"
                 class="col-6 btn btn-block more rounded-pill text-decoration-none text-light"
                 >Visit Profile</router-link
             >

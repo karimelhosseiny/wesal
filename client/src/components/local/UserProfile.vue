@@ -68,10 +68,6 @@ export default {
                 })
             return res
         },
-        display(){
-            console.log(this.getUserCases())
-            alert(this.getUserCases())
-        }
     },
     components: { Navbar, UserCaseCard, PaymentDetails }
 }
@@ -135,7 +131,7 @@ export default {
             <div class="bottomGrid">
                 <div class="donationHistory">
                     <div class="title d-flex justify-content-between">
-                        <h1 style="cursor:pointer" @click="display">Donation History</h1>
+                        <h1>Donation History</h1>
                         <a href="#" class="me-5 mt-3">more</a>
                     </div>
                     <div class="caseGrid d-flex">

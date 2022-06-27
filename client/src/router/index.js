@@ -3,6 +3,7 @@ import SignupPage from "../components/local/SignupPage.vue";
 import LoginPage from "../components/local/LoginPage.vue";
 import HomePage from "../components/local/HomePage.vue";
 import CasePage from "../components/local/CasePage.vue";
+import OrganizationProfile from "../components/local/OrganizationProfile.vue";
 import UserProfile from "../components/local/UserProfile.vue";
 import AdminDashboard from "../components/local/AdminDashboard.vue"
 import { useUserStore } from "../store/UserStore";
@@ -43,6 +44,11 @@ const routes = [
         path: "/profile",
         name: "UserProfile",
         component: UserProfile,
+    },
+    {
+        path: "/organization/:id",
+        name: "OrganizationProfile",
+        component: OrganizationProfile,
     },
     {
         path: "/admindashboard",

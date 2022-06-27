@@ -29,8 +29,8 @@ export default {
 
 <template>
     <Navbar />
-    <div class="orgGrid" v-for="(org,index) in orgs">
-        <OrganizationCard
+    <div class="orgGrid">
+        <OrganizationCard v-for="(org,index) in orgs"
                 :key="index"
                 :id="org.id"
                 :title="org.title"
