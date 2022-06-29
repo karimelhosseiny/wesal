@@ -120,19 +120,17 @@ class UserController extends Controller
         }
         if (Auth::id() != 0) {
             $user = User::find(Auth::id());
-            $user->update([
-                'name' => $request->input('name'),
-                // 'password'=> bcrypt($request->input('password')),
-                'phonenumber' => $request->input('phone'),
-                'address' => $request->input('address'),
-                'image' =>  $newimage,
-            ]);
-
+            $user->name = $request->input('name');
+            $user->phonenumber = $request->input('phonenumber');
+            $user->address = $request->input('address');
+            $user->image = $newimage;
+            $user->save();
             $passWord = $request->input('password');
             if( $passWord != null){
                 $request->validate(
                     ['password' => 'required|string|min:6|confirmed', ]);
-                $user->update(['password'=> bcrypt($passWord)]);   
+                $user->password = bcrypt($passWord);
+                $user->save();  
             }
         }
     }
