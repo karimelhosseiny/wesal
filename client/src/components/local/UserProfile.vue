@@ -68,13 +68,13 @@ export default {
             }).then(
                 ({ data }) => {
                     console.log(data);
-                    
+
                 },
                 (err) => {
                     console.log(err);
                 }
             );
-            
+
         }
     },
     components: { Navbar, UserCaseCard, PaymentDetails },
@@ -169,7 +169,7 @@ export default {
                             <h1>Donation History</h1>
                             <a href="#" class="me-5 mt-3">more</a>
                         </div>
-                        <div class="caseGrid d-flex">
+                        <div class="caseGrid">
                             <UserCaseCard
                                 v-for="Case in cases"
                                 :key="Case.id"
@@ -270,6 +270,8 @@ export default {
                     }
                 }
                 .caseGrid {
+                    display: grid;
+                    grid-template-columns: repeat(3,auto);
                     padding: 1em;
                     gap: 4em;
                     justify-content: center;

@@ -9,6 +9,7 @@ import AdminDashboard from "../components/local/AdminDashboard.vue"
 import { useUserStore } from "../store/UserStore";
 import CasesDashboard from "../components/local/CasesDashboard.vue"
 import AllOrganizations from "../components/local/AllOrganizations.vue"
+import Reminders from "../components/local/Reminders.vue"
 
 
 const routes = [
@@ -65,6 +66,11 @@ const routes = [
         path: "/allorganizations",
         name: "AllOrganizations",
         component: AllOrganizations,
+    },
+    {
+        path: "/reminders",
+        name: "Reminders",
+        component: Reminders,
     }
 ];
 const router = createRouter({
