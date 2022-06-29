@@ -8,7 +8,9 @@ import axios from "axios";
 export default {
     data() {
         return {
-            cases:[]
+            cases: [],
+            phoneFormToggler: false,
+            phonenumber: "",
         };
     },
     mounted() {
@@ -43,7 +45,7 @@ export default {
                     },
                 }
             ).then(
-                ({data}) => {
+                ({ data }) => {
                     console.log(data.cases);
                     this.cases = data.cases;
                 },
@@ -52,6 +54,28 @@ export default {
                 }
             );
         },
+        async addPhoneNumber(){
+            axios.post(`http://localhost:8000/api/edituser/${this.User.id}`,
+            {
+                phonenumber: this.phonenumber,
+            },
+            {
+                mode: "no-cors",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                },
+            }).then(
+                ({ data }) => {
+                    console.log(data);
+                    
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+            
+        }
     },
     components: { Navbar, UserCaseCard, PaymentDetails },
 };
@@ -80,12 +104,34 @@ export default {
                             +{{ this.User.phonenumber }}
                             <i class="bi bi-pencil-square ms-3"></i>
                         </h4>
-                        <h4 v-else class="opacity-50 h6">
-                            please add your number
-                            <i class="bi bi-pencil-square ms-3"></i>
-                        </h4>
+                        <div v-else >
+                            <div v-if="phoneFormToggler == false" class="opacity-50 fs-larger">
+                                <span class="fs-larger">please add your number</span>
+                                <i
+                                    @click="phoneFormToggler = !phoneFormToggler"
+                                    class="bi bi-pencil-square ms-3"
+                                ></i>
+                            </div>
+                            <div v-else class="addPhone">
+                                <input
+                                    type="text"
+                                    name="phonenumber"
+                                    v-model="phonenumber"
+                                    maxlength="11"
+                                    minlength="11"
+                                    placeholder="i.e. 012 3456 7899"
+                                    class="me-3 rounded-pill form-control w-25 d-inline"
+                                />
+                                <input
+                                    class="btn btn-success rounded-pill"
+                                    type="button"
+                                    value="save"
+                                    @click="addPhoneNumber"
+                                />
+                            </div>
+                        </div>
                         <button
-                            class="btn btn-block showPayment rounded-pill"
+                            class="btn btn-block showPayment rounded-pill mt-4"
                             data-bs-toggle="modal"
                             data-bs-target="#paymentDetails"
                         >
@@ -187,6 +233,9 @@ export default {
             }
             h4:hover i {
                 visibility: visible;
+            }
+            div i{
+                cursor: pointer;
             }
             .showPayment {
                 background-color: $white;
