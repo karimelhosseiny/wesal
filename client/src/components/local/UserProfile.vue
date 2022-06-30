@@ -10,13 +10,19 @@ export default {
         return {
             cases: [],
             phoneFormToggler: false,
+            emailFormToggler: false,
+            addressFormToggler: false,
             phonenumber: "",
+            email: "",
+            address: "",
         };
     },
     mounted() {
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + this.storeToken;
         this.getUserCases();
+        this.email = this.User.email;
+        this.address = this.User.address;
     },
     computed: {
         ...mapStores(useUserStore),
@@ -46,7 +52,7 @@ export default {
                 }
             ).then(
                 ({ data }) => {
-                    console.log(data.cases);
+                    console.log(data);
                     this.cases = data.cases;
                 },
                 (err) => {
@@ -54,28 +60,32 @@ export default {
                 }
             );
         },
-        async addPhoneNumber(){
-            axios.post(`http://localhost:8000/api/edituser/${this.User.id}`,
-            {
-                phonenumber: this.phonenumber,
-            },
-            {
-                mode: "no-cors",
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                },
-            }).then(
-                ({ data }) => {
-                    console.log(data);
-
-                },
-                (err) => {
-                    console.log(err);
-                }
-            );
-
-        }
+        async addNewData() {
+            axios
+                .post(
+                    `http://localhost:8000/api/edituser/`,
+                    {
+                        phonenumber: this.phonenumber,
+                        email: this.email,
+                        address: this.address,
+                    },
+                    {
+                        mode: "no-cors",
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                .then(
+                    ({ data }) => {
+                        console.log(data);
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
+        },
     },
     components: { Navbar, UserCaseCard, PaymentDetails },
 };
@@ -96,23 +106,46 @@ export default {
                 <div class="personalInfo">
                     <h1>{{ this.User.name }}</h1>
                     <div class="px-3">
-                        <h4>
+                        <h4 v-if="emailFormToggler == false">
                             {{ this.User.email }}
-                            <i class="bi bi-pencil-square ms-3"></i>
+                            <i
+                                @click="emailFormToggler = !emailFormToggler"
+                                class="bi bi-pencil-square ms-3"
+                            ></i>
                         </h4>
+                        <div v-else class="addEmail">
+                            <input
+                                type="email"
+                                name="email"
+                                v-model="email"
+                                placeholder="me@email.com"
+                                class="me-3 mb-4 rounded-pill form-control w-25 d-inline"
+                            />
+                            <input
+                                class="btn btn-success rounded-pill"
+                                type="button"
+                                value="save"
+                                @click="addNewData"
+                            />
+                        </div>
                         <h4 v-if="this.User.phonenumber != null">
                             +{{ this.User.phonenumber }}
                             <i class="bi bi-pencil-square ms-3"></i>
                         </h4>
-                        <div v-else >
-                            <div v-if="phoneFormToggler == false" class="opacity-50 fs-larger">
-                                <span class="fs-larger">please add your number</span>
+                        <div v-else>
+                            <div
+                                v-if="phoneFormToggler == false"
+                                class="opacity-50 fs-larger mb-3"
+                            >
+                                <span class="fs-larger ">please add your number</span>
                                 <i
-                                    @click="phoneFormToggler = !phoneFormToggler"
+                                    @click="
+                                        phoneFormToggler = !phoneFormToggler
+                                    "
                                     class="bi bi-pencil-square ms-3"
                                 ></i>
                             </div>
-                            <div v-else class="addPhone">
+                            <div v-else>
                                 <input
                                     type="text"
                                     name="phonenumber"
@@ -120,14 +153,59 @@ export default {
                                     maxlength="11"
                                     minlength="11"
                                     placeholder="i.e. 012 3456 7899"
-                                    class="me-3 rounded-pill form-control w-25 d-inline"
+                                    class="me-3 mb-4 rounded-pill form-control w-25 d-inline"
                                 />
                                 <input
                                     class="btn btn-success rounded-pill"
                                     type="button"
                                     value="save"
-                                    @click="addPhoneNumber"
+                                    @click="addNewData"
                                 />
+                            </div>
+                            <div>
+                                <div v-if="this.address != null&&addressFormToggler == false" class="mb-3">
+                                    <span class="addressHeader mb-1">
+                                        <h4>address</h4>
+                                        <i @click="addressFormToggler=!addressFormToggler" class="bi bi-pencil-square ms-3"></i>
+                                    </span>
+                                    <span
+                                        class="ms-2 px-4 py-2 bg-light rounded-pill"
+                                    >
+                                        {{ this.User.address }}
+                                    </span>
+                                </div>
+                                <div v-else>
+                                    <div
+                                        v-if="addressFormToggler == false"
+                                        class="opacity-50 fs-larger"
+                                    >
+                                        <span class="fs-larger"
+                                            >please add your address</span
+                                        >
+                                        <i
+                                            @click="
+                                                addressFormToggler =
+                                                    !addressFormToggler
+                                            "
+                                            class="bi bi-pencil-square ms-3"
+                                        ></i>
+                                    </div>
+                                    <div v-else>
+                                        <input
+                                            type="text"
+                                            name="address"
+                                            v-model="address"
+                                            placeholder="i.e. address"
+                                            class="me-3 rounded-pill form-control w-25 d-inline"
+                                        />
+                                        <input
+                                            class="btn btn-success rounded-pill"
+                                            type="button"
+                                            value="save"
+                                            @click="addNewData"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button
@@ -234,8 +312,18 @@ export default {
             h4:hover i {
                 visibility: visible;
             }
-            div i{
+            div i {
                 cursor: pointer;
+            }
+            .addressHeader{
+                display: grid;
+                grid-template-columns: repeat(2,auto);
+                // background-color: $priColor;
+                max-width: fit-content;
+                i{
+                    cursor: pointer;
+                    align-self: center;
+                }
             }
             .showPayment {
                 background-color: $white;
@@ -271,7 +359,7 @@ export default {
                 }
                 .caseGrid {
                     display: grid;
-                    grid-template-columns: repeat(3,auto);
+                    grid-template-columns: repeat(3, auto);
                     padding: 1em;
                     gap: 4em;
                     justify-content: center;
