@@ -106,22 +106,27 @@ class UserController extends Controller
     
     public function editprofile(Request $request)
     {
-        $request->validate(
-            [
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]
-        );
+        // $request->validate(
+        //     [
+        //         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     ]
+        // );
         //upload image
-        if ($request->file()){
-            $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('userimages'), $newimage);
-        }
-        if (Auth::id() != 0) {
-            $user = User::find(Auth::id());
-            $user->name = $request->input('name');
-            $user->phonenumber = $request->input('phonenumber');
-            $user->address = $request->input('address');
-            $user->image = $newimage;
+        // if ($request->file()){
+        //     $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->getClientOriginalExtension();
+        //     $request->file('image')->move(public_path('userimages'), $newimage);
+        // }
+            $user = User::find($request->input('id'));
+            if($request->input('name')!=null){
+                $user->name = $request->input('name');
+            }
+            if($request->input('phonenumber')!=null){
+                $user->phonenumber = $request->input('phonenumber');
+            }
+            if($request->input('address')!=null){
+                $user->address = $request->input('address');
+            }
+            // $user->image = $newimage;
             $user->save();
             $passWord = $request->input('password');
             if( $passWord != null){
@@ -130,7 +135,6 @@ class UserController extends Controller
                 $user->password = bcrypt($passWord);
                 $user->save();  
             }
-        }
     }
 
 

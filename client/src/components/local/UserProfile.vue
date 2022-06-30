@@ -2,7 +2,7 @@
 import Navbar from "../global/Navbar.vue";
 import UserCaseCard from "../local/UserCaseCard.vue";
 import PaymentDetails from "./PaymentDetails.vue";
-import { mapState, mapStores, mapWritableState } from "pinia";
+import { mapActions, mapStores, mapWritableState } from "pinia";
 import { useUserStore } from "../../store/UserStore";
 import axios from "axios";
 export default {
@@ -23,6 +23,7 @@ export default {
         this.getUserCases();
         this.email = this.User.email;
         this.address = this.User.address;
+        this.phonenumber = this.User.phonenumber;
     },
     computed: {
         ...mapStores(useUserStore),
@@ -32,6 +33,13 @@ export default {
         }),
     },
     methods: {
+        ...mapActions(useUserStore, ["logout"]),
+        logoutUser() {
+            this.logout();
+            if (this.userStore.token === null) {
+                this.$router.push("/login");
+            }
+        },
         toggleFavoriteStatus(cardId) {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
             selectedCard.isFavorite = !selectedCard.isFavorite;
@@ -68,6 +76,8 @@ export default {
                         phonenumber: this.phonenumber,
                         email: this.email,
                         address: this.address,
+                        name: this.User.name,
+                        id: this.User.id,
                     },
                     {
                         mode: "no-cors",
@@ -80,6 +90,7 @@ export default {
                 .then(
                     ({ data }) => {
                         console.log(data);
+                        this.logoutUser();
                     },
                     (err) => {
                         console.log(err);
@@ -108,6 +119,7 @@ export default {
                     <div class="px-3">
                         <h4 v-if="emailFormToggler == false">
                             {{ this.User.email }}
+                            <!-- <a>{{ this.address }}</a> -->
                             <i
                                 @click="emailFormToggler = !emailFormToggler"
                                 class="bi bi-pencil-square ms-3"
@@ -128,60 +140,75 @@ export default {
                                 @click="addNewData"
                             />
                         </div>
-                        <h4 v-if="this.User.phonenumber != null">
-                            +{{ this.User.phonenumber }}
-                            <i class="bi bi-pencil-square ms-3"></i>
-                        </h4>
-                        <div v-else>
-                            <div
-                                v-if="phoneFormToggler == false"
-                                class="opacity-50 fs-larger mb-3"
-                            >
-                                <span class="fs-larger ">please add your number</span>
-                                <i
-                                    @click="
-                                        phoneFormToggler = !phoneFormToggler
-                                    "
-                                    class="bi bi-pencil-square ms-3"
-                                ></i>
-                            </div>
-                            <div v-else>
-                                <input
-                                    type="text"
-                                    name="phonenumber"
-                                    v-model="phonenumber"
-                                    maxlength="11"
-                                    minlength="11"
-                                    placeholder="i.e. 012 3456 7899"
-                                    class="me-3 mb-4 rounded-pill form-control w-25 d-inline"
-                                />
-                                <input
-                                    class="btn btn-success rounded-pill"
-                                    type="button"
-                                    value="save"
-                                    @click="addNewData"
-                                />
-                            </div>
-                            <div>
-                                <div v-if="this.address != null&&addressFormToggler == false" class="mb-3">
-                                    <span class="addressHeader mb-1">
-                                        <h4>address</h4>
-                                        <i @click="addressFormToggler=!addressFormToggler" class="bi bi-pencil-square ms-3"></i>
+                        <div>
+                            <div v-if="phonenumber != null" class="mb-3">
+                                <div v-if="phoneFormToggler == false">
+                                    <span class="ms-2">
+                                        {{ this.User.phonenumber }}
                                     </span>
-                                    <span
-                                        class="ms-2 px-4 py-2 bg-light rounded-pill"
-                                    >
-                                        {{ this.User.address }}
+                                    <span class="mb-1">
+                                        <i
+                                            @click="
+                                                phoneFormToggler =
+                                                    !PhoneFormToggler
+                                            "
+                                            class="bi bi-pencil-square ms-3"
+                                        ></i>
                                     </span>
                                 </div>
                                 <div v-else>
-                                    <div
-                                        v-if="addressFormToggler == false"
-                                        class="opacity-50 fs-larger"
+                                    <input
+                                        type="text"
+                                        name="phonenumber"
+                                        v-model="phonenumber"
+                                        placeholder="i.e 123456789"
+                                        class="me-3 mb-4 rounded-pill form-control w-25 d-inline"
+                                    />
+                                    <input
+                                        class="btn btn-success rounded-pill"
+                                        type="button"
+                                        value="save"
+                                        @click="addNewData"
+                                    />
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div
+                                    v-if="phoneFormToggler == false"
+                                    class="opacity-50 fs-larger"
+                                >
+                                    <span class="fs-larger"
+                                        >please add your phone number</span
                                     >
-                                        <span class="fs-larger"
-                                            >please add your address</span
-                                        >
+                                    <i
+                                        @click="
+                                            phoneFormToggler = !phoneFormToggler
+                                        "
+                                        class="bi bi-pencil-square ms-3"
+                                    ></i>
+                                </div>
+                                <div v-else>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        v-model="phonenumber"
+                                        placeholder="i.e. 0123456789"
+                                        class="me-3 rounded-pill form-control w-25 d-inline"
+                                    />
+                                    <input
+                                        class="btn btn-success rounded-pill"
+                                        type="button"
+                                        value="save"
+                                        @click="addNewData"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div v-if="address != null" class="mb-3">
+                                <div v-if="addressFormToggler == false">
+                                    <span class="addressHeader mb-1">
+                                        <h4>address</h4>
                                         <i
                                             @click="
                                                 addressFormToggler =
@@ -189,22 +216,59 @@ export default {
                                             "
                                             class="bi bi-pencil-square ms-3"
                                         ></i>
-                                    </div>
-                                    <div v-else>
-                                        <input
-                                            type="text"
-                                            name="address"
-                                            v-model="address"
-                                            placeholder="i.e. address"
-                                            class="me-3 rounded-pill form-control w-25 d-inline"
-                                        />
-                                        <input
-                                            class="btn btn-success rounded-pill"
-                                            type="button"
-                                            value="save"
-                                            @click="addNewData"
-                                        />
-                                    </div>
+                                    </span>
+                                    <span
+                                        class="ms-2 px-4 py-2 bg-light rounded-pill"
+                                    >
+                                        {{ this.address }}
+                                    </span>
+                                </div>
+                                <div v-else>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        v-model="address"
+                                        placeholder="i.e. address"
+                                        class="me-3 mb-4 rounded-pill form-control w-25 d-inline"
+                                    />
+                                    <input
+                                        class="btn btn-success rounded-pill"
+                                        type="button"
+                                        value="save"
+                                        @click="addNewData"
+                                    />
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div
+                                    v-if="addressFormToggler == false"
+                                    class="opacity-50 fs-larger"
+                                >
+                                    <span class="fs-larger"
+                                        >please add your address</span
+                                    >
+                                    <i
+                                        @click="
+                                            addressFormToggler =
+                                                !addressFormToggler
+                                        "
+                                        class="bi bi-pencil-square ms-3"
+                                    ></i>
+                                </div>
+                                <div v-else>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        v-model="address"
+                                        placeholder="i.e. address"
+                                        class="me-3 rounded-pill form-control w-25 d-inline"
+                                    />
+                                    <input
+                                        class="btn btn-success rounded-pill"
+                                        type="button"
+                                        value="save"
+                                        @click="addNewData"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -245,7 +309,6 @@ export default {
                     <div class="donationHistory">
                         <div class="title d-flex justify-content-between">
                             <h1>Donation History</h1>
-                            <a href="#" class="me-5 mt-3">more</a>
                         </div>
                         <div class="caseGrid">
                             <UserCaseCard
@@ -315,12 +378,12 @@ export default {
             div i {
                 cursor: pointer;
             }
-            .addressHeader{
+            .addressHeader {
                 display: grid;
-                grid-template-columns: repeat(2,auto);
+                grid-template-columns: repeat(2, auto);
                 // background-color: $priColor;
                 max-width: fit-content;
-                i{
+                i {
                     cursor: pointer;
                     align-self: center;
                 }

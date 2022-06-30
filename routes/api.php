@@ -112,7 +112,7 @@ Route::get('getreminder', [UserController::class, 'getreminder'])->middleware(['
 Route::post('deletefavcase', [UserController::class, 'deletefavcase'])->middleware(['auth:sanctum', 'is_user']); //delete favourite case from database
 Route::post('deletereminder', [UserController::class, 'deletereminder'])->middleware(['auth:sanctum', 'is_user']); //delete reminder from database
 
-Route::post('edituser', [UserController::class, 'editprofile'])->middleware(['auth:sanctum', 'is_user']); //store the new updates of the user's profile
+Route::post('edituser', [UserController::class, 'editprofile']); //store the new updates of the user's profile
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Pages Controller
