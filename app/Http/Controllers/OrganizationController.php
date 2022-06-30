@@ -217,7 +217,7 @@ class OrganizationController extends Controller
             ]
         );
             if ($request->file()){
-                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->getClientOriginalExtension;
                 $request->file('image')->move(public_path('orgimages'), $newimage);
                 $verificationdocuments = time() . '-' . $request->input('title') . '.' . $request->file('verificationdocuments')->extension();
                 $request->file('verificationdocuments')->move(public_path('wesalorganizationdocuments'), $verificationdocuments);
@@ -237,9 +237,6 @@ class OrganizationController extends Controller
                 'message' => 'Organization profile updated  successfully',
             ], 200);
     }
-
-
-
 
     public function orgData(){
         $orgs  = Organization::withCount(['orgcases'])->get();

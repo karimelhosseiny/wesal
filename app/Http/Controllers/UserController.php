@@ -108,14 +108,12 @@ class UserController extends Controller
     {
         $request->validate(
             [
-                'email' => 'required',
-                'password' => 'required',
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
         //upload image
         if ($request->file()){
-            $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move(public_path('userimages'), $newimage);
         }
         if (Auth::id() != 0) {
@@ -219,6 +217,14 @@ class UserController extends Controller
         $users = User::all()->where('type', '!=', 'admin');
         return response()->json([
             'usersnotadmins' => $users,
+        ]);
+    }
+    //function to get all reminders for certain user
+    public function getreminder()
+    {
+        $reminder = Auth::User()->reminders()->get();
+        return response()->json([
+            'reminder' => $reminder,
         ]);
     }
 }

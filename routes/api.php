@@ -108,7 +108,7 @@ Route::get('showfavcase', [UserController::class, 'showfavcase']); //show user's
 Route::post('createfavcase', [UserController::class, 'createfavcase'])->middleware(['auth:sanctum', 'is_user']); //store new favourite case in database
 
 Route::post('setreminder', [UserController::class, 'setreminder'])->middleware(['auth:sanctum', 'is_user']); //store new reminder in database
-
+Route::get('getreminder', [UserController::class, 'getreminder'])->middleware(['auth:sanctum','is_user']); //get user's reminders
 Route::post('deletefavcase', [UserController::class, 'deletefavcase'])->middleware(['auth:sanctum', 'is_user']); //delete favourite case from database
 Route::post('deletereminder', [UserController::class, 'deletereminder'])->middleware(['auth:sanctum', 'is_user']); //delete reminder from database
 
