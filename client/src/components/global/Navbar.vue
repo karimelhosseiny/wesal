@@ -39,7 +39,7 @@ export default {
             <router-link v-if="user.type==='admin'" to="/admindashboard">Dashboard</router-link>
         </ul>
         <div class="controls">
-            <i class="bi bi-calendar"></i>
+            <router-link to="/reminders"><i class="bi bi-calendar"></i></router-link>
             <i class="bi bi-bell-fill"></i>
             <button @click="logoutUser" class="btn btn-warning border-0 rounded-pill">sign out</button>
             <router-link to="/profile">
