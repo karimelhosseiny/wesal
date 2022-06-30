@@ -106,16 +106,6 @@ class UserController extends Controller
     
     public function editprofile(Request $request)
     {
-        // $request->validate(
-        //     [
-        //         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     ]
-        // );
-        //upload image
-        // if ($request->file()){
-        //     $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->getClientOriginalExtension();
-        //     $request->file('image')->move(public_path('userimages'), $newimage);
-        // }
             $user = User::find($request->input('id'));
             if($request->input('name')!=null){
                 $user->name = $request->input('name');
@@ -134,6 +124,19 @@ class UserController extends Controller
                     ['password' => 'required|string|min:6|confirmed', ]);
                 $user->password = bcrypt($passWord);
                 $user->save();  
+            }
+            if ($request->hasfile('image')) {
+                $request->validate(
+                         [
+                             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                         ]
+                     );
+                    //upload image
+                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->getClientOriginalExtension();
+                $path= $request->file('image')->store('public/images/');
+                Storage::setVisibility($path, 'public');
+                $user->image = $newimage;
+                $user->save();
             }
     }
 
