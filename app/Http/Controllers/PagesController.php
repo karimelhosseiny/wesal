@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use PhpParser\Node\Stmt\Foreach_;
+use Illuminate\Support\Facades\Storage;
 
 class PagesController extends Controller
 {

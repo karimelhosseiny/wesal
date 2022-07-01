@@ -24,6 +24,7 @@ export default {
     ...mapWritableState(useUserStore, {
       User: 'user',
       storeToken: 'token',
+      path: 'path',
     }),
   },
   methods: {

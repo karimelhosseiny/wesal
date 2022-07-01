@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -128,15 +129,16 @@ class UserController extends Controller
             if ($request->hasfile('image')) {
                 $request->validate(
                          [
-                             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|',
                          ]
                      );
                     //upload image
-                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->getClientOriginalExtension();
-                $path= $request->file('image')->store('public/images/');
+                $newimage = $request->file('image')->getClientOriginalName();
+                $path= $request->file('image')->store('public/');
                 Storage::setVisibility($path, 'public');
                 $user->image = $newimage;
                 $user->save();
+                
             }
     }
 

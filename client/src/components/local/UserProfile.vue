@@ -15,6 +15,8 @@ export default {
             phonenumber: "",
             email: "",
             address: "",
+            img:[],
+            pathImg:''
         };
     },
     mounted() {
@@ -24,12 +26,14 @@ export default {
         this.email = this.User.email;
         this.address = this.User.address;
         this.phonenumber = this.User.phonenumber;
+        this.pathImg = this.imgPath
     },
     computed: {
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
             User: "currentUser",
             storeToken: "token",
+            imgPath:"path"
         }),
     },
     methods: {
@@ -47,6 +51,11 @@ export default {
         toggleReminderStatus(cardId) {
             const selectedCard = this.cases.find((Case) => Case.id === cardId);
             selectedCard.reminder = !selectedCard.reminder;
+        },
+        onFileChange(e){
+            console.log(e.target.files[0]);
+            this.img = e.target.files[0];
+            console.log(this.img);
         },
         async getUserCases() {
             await axios(
@@ -78,6 +87,7 @@ export default {
                         address: this.address,
                         name: this.User.name,
                         id: this.User.id,
+                        image: this.img,
                     },
                     {
                         mode: "no-cors",
@@ -107,9 +117,12 @@ export default {
         <Navbar />
         <div class="mainContainer">
             <div class="profPic text-center d-flex flex-column">
-                <img src="../../assets/7maya.png" alt="profile picture" />
-                <div class="d-flex justify-content-between px-5 mt-4">
-                    <a href="#" class>upload</a>
+                <img :src="this.imgPath" alt="profile picture" />
+                <div class="d-flex justify-content-center  mt-4">
+                    <div>
+                        <a @click="addNewData" style="cursor:pointer">upload</a>
+                        <input type="file" @change="onFileChange">
+                    </div>
                     <a href="#">remove</a>
                 </div>
             </div>

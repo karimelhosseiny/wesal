@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -101,7 +102,10 @@ public function login(Request $request)
     ]);
  
     $user = User::where('email', $request->email)->first();
- 
+    //get image path from Storage
+    $image_path = Storage::path($user->image);
+    
+
     if (! $user || ! Hash::check($request->password, $user->password)) {
         return response()->json([
             'email' => ['The provided credentials are incorrect.'],
@@ -110,7 +114,8 @@ public function login(Request $request)
     $token = $user->createToken($request->device_name)->plainTextToken;
     return response([
         'user' => $user,
-        'token' => $token
+        'token' => $token,
+        'path' => $image_path,
     ]);
 }
 public function logout(Request $request)
