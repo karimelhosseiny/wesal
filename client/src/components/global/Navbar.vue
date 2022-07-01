@@ -37,6 +37,7 @@ export default {
             <router-link to="/allorganizations">Organizations</router-link>
             <router-link to="/login">Cases</router-link>
             <router-link v-if="user.type==='admin'" to="/admindashboard">Dashboard</router-link>
+            <router-link v-else-if="user.type==='organization'" to="/organizationdashboard">Dashboard</router-link>
         </ul>
         <div class="controls">
             <router-link to="/reminders"><i class="bi bi-calendar"></i></router-link>

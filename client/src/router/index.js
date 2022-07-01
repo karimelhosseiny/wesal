@@ -10,6 +10,7 @@ import { useUserStore } from "../store/UserStore";
 import CasesDashboard from "../components/local/CasesDashboard.vue"
 import AllOrganizations from "../components/local/AllOrganizations.vue"
 import Reminders from "../components/local/Reminders.vue"
+import OrgDashboard from "../components/local/OrgDashboard.vue"
 
 
 const routes = [
@@ -71,6 +72,11 @@ const routes = [
         path: "/reminders",
         name: "Reminders",
         component: Reminders,
+    },
+    {
+        path: "/organizationdashboard",
+        name: "OrgDashboard",
+        component: OrgDashboard,
     }
 ];
 const router = createRouter({
