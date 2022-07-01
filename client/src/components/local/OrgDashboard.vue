@@ -20,7 +20,7 @@ export default {
 
 // Route::post('orgprofileupdated',[OrganizationController::class, 'orgUpdateProfile'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
 // Route::get('orgdata',[OrganizationController::class, 'orgData']); //show all organizations' data
-// </script>
+</script>
 
 <template>
     <Navbar />
