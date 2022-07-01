@@ -8,14 +8,27 @@ export default {
     },
     components: { Navbar, OrgHeroSection, DashboardCard },
 };
-</script>
+// line 80 in api.php
+// // Organization Controller
+// Route::get('organizations', [OrganizationController::class, 'organizations']); // show all organizations form database
+// Route::resource('organization', OrganizationController::class)->middleware(['auth:sanctum', 'is_organization']); //to use function show() in organization controller type: http://127.0.0.1:8000/organization/{id}
+// Route::post('postorg', [OrganizationController::class, 'store']); //store the  organization requests in database
+
+// Route::post('newcaseadded', [OrganizationController::class, 'orgAddCase'])->middleware(['auth:sanctum', 'is_organization']); //store new case in database
+// Route::post('newcaseupdated',[OrganizationController::class, 'orgUpdateCase'])->middleware(['auth:sanctum', 'is_organization']); //store new updatesfor the case in database
+// Route::post('anycasedeleted',[OrganizationController::class, 'orgDeleteCase'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
+
+// Route::post('orgprofileupdated',[OrganizationController::class, 'orgUpdateProfile'])->middleware(['auth:sanctum', 'is_organization']); //delete case record from the database
+// Route::get('orgdata',[OrganizationController::class, 'orgData']); //show all organizations' data
+// </script>
 
 <template>
     <Navbar />
     <OrgHeroSection />
     <div class="container">
         <div class="row justify-content-between">
-            <h2 class="col-3">Current cases</h2>
+            <i class="add col-3 my-3 fs-1 bi bi-plus-square-fill"></i>
+            <h2 class="col-3 text-center">Current cases</h2>
             <div class="searchContainer col-4">
                 <input
                     class="rounded-pill"
@@ -38,13 +51,18 @@ export default {
 
 <style lang="scss" scoped>
 @use "../../sass/colors" as *;
+.add {
+    width: fit-content;
+    color: $priColor;
+    cursor: pointer;
+}
 h2 {
     border-bottom: 0.1em solid $priColor;
     font-family: "Poppins";
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
-    line-height: 54px;
+    line-height: 80px;
     letter-spacing: -0.02em;
     color: $priColor;
 }
