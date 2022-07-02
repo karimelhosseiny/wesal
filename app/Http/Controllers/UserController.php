@@ -129,14 +129,15 @@ class UserController extends Controller
                 $user->save();  
             }
             if ($request->hasfile('image')) {
+                Cloudinary::uploadApi();
                 $request->validate(
                          [
                              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|',
                          ]
                      );
                 //upload image
-                $path=Cloudinary()->upload($request->file('image')->getRealPath(),$options=["folder"=>"images"])->getSecurePath();
-                $user->image = $path;
+                $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+                $user->image = $uploadedFileUrl;
                 $user->save();
             }
     }
