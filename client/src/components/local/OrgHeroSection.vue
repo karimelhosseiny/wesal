@@ -6,23 +6,35 @@ export default {
     data() {
         return {
             totalDonations: 0,
-            totalDonors: 0,
+            casesData:[],
             totalCases:0
         };
     },
-    created() {
-    },
     methods: {
-
+       async getOrgData(){
+        await axios('http://localhost:8000/api/orgdata')
+        .then(({data})=>{
+            const orgArray = data.organziationWithCases.filter(org=>org.title==this.User.name);
+            console.log(orgArray);
+            this.totalCases = orgArray[0].totalcases;
+            this.casesData = orgArray[0].casesdata;
+            this.casesData.forEach(Case => {
+                this.totalDonations += Case.raised_amount;
+            });
+        },
+        (err)=>{console.log(err)}
+        )
+        }
     },
     mounted() {
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + this.storeToken;
+        this.getOrgData();
     },
     computed: {
         ...mapStores(useUserStore),
         ...mapWritableState(useUserStore, {
-            user: "currentUser",
+            User: "currentUser",
             storeToken: "token",
         }),
     },
@@ -33,20 +45,11 @@ export default {
     <div class="hero">
         <div class="img-fluid">
             <div class="text">
-                <h1>Hello, Resala</h1>
-                <h4>
-                    total donations: 0
-                    <sub>egp</sub>
-                    (no donations)
-                </h4>
-                <h4>
-                    total donors: 0
-                    <sub>donors</sub>
-                </h4>
-                <h4>
-                    total Cases: 0
-                    <sub>case</sub>
-                </h4>
+                <h1 class="mb-4">Hello, Resala</h1>
+                <h4 v-if="this.totalDonations==0">total donations: 0 <sub>egp</sub>(no donations)</h4>
+                <h4 v-else>total donations: {{this.totalDonations}} <sub>egp</sub></h4>
+                <h4 v-if="this.totalCases==0">total Cases: 0<sub>case</sub></h4>
+                <h4 v-else>total Cases: {{this.totalCases}} <sub>case</sub></h4>
             </div>
         </div>
     </div>

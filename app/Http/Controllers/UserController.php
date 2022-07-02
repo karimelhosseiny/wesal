@@ -134,7 +134,7 @@ class UserController extends Controller
                          ]
                      );
                 //upload image
-                $path=cloudinary()->upload($request->file('image')->getRealPath(),$options=["folder"=>"images"])->getSecurePath();
+                $path=Cloudinary()->upload($request->file('image')->getRealPath(),$options=["folder"=>"images"])->getSecurePath();
                 $user->image = $path;
                 $user->save();
             }
