@@ -103,7 +103,7 @@ public function login(Request $request)
  
     $user = User::where('email', $request->email)->first();
     //get image path from Storage
-    $image_path = Storage::path($user->image);
+    $image_path = $user->image;
     
 
     if (! $user || ! Hash::check($request->password, $user->password)) {

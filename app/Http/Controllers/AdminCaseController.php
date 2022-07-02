@@ -12,23 +12,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DateTime;
-
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class AdminCaseController extends Controller
 {
     //admin add case
     public function adminaddcase(Request $request){
-            if ($request->file()){
-                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-                $request->file('image')->move(public_path('caseimages'), $newimage);
-                
-            }
+        if ($request->hasfile('image')) {
+            $request->validate(
+                     [
+                         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|',
+                     ]
+                 );
+            //upload image
+            $path=cloudinary()->upload($request->file('image')->getRealPath(),$options=["folder"=>"images"])->getSecurePath();
+        }
             $date = new DateTime();
             DB::table('donation_cases')->insert([
                     'title' =>$request->input('title'),
                     'goal_amount' =>$request->input('goal'),
                     'raised_amount' =>0,
-                    // 'image' =>$newimage,
+                    'image' => $path,
                     'deadline' => $request->input('deadline'),
                     'description' => $request->input('description'),
                     'organization_id' =>$request->input('org'),
@@ -44,20 +48,20 @@ class AdminCaseController extends Controller
     }
     //admin update case
     public function adminupdatecase(Request $request){
-        // $request->validate(
-        //     [
-        //       'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     ]
-        // );
-            if ($request->file()){
-                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
-                $request->file('image')->move(public_path('caseimages'), $newimage);
-                 }
+        if ($request->hasfile('image')) {
+            $request->validate(
+                     [
+                         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|',
+                     ]
+                 );
+            //upload image
+            $path=cloudinary()->upload($request->file('image')->getRealPath(),$options=["folder"=>"images"])->getSecurePath();
+        }
             $case = DonationCase::find($request->input('case_id'));
             $case->title = $request->input('title');
             $case->goal_amount = $request->input('goal');
             $case->raised_amount = $request->input('raised');
-            // $case->image = $newimage;
+            $case->image =$path;
             // $case->deadline = $request->input('deadline');
             // $case->description = $request->input('description');
             // $case->organization_id = $request->input('organizationid');

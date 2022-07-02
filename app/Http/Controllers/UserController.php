@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class UserController extends Controller
 {
@@ -132,13 +133,10 @@ class UserController extends Controller
                              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|',
                          ]
                      );
-                    //upload image
-                $newimage = $request->file('image')->getClientOriginalName();
-                $path= $request->file('image')->store('public/');
-                Storage::setVisibility($path, 'public');
-                $user->image = $newimage;
+                //upload image
+                $path=cloudinary()->upload($request->file('image')->getRealPath(),$options=["folder"=>"images"])->getSecurePath();
+                $user->image = $path;
                 $user->save();
-                
             }
     }
 
