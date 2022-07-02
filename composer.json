@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "brian2694/laravel-toastr": "^5.57",
         "cloudinary-labs/cloudinary-laravel": "v1.0.5",
+        "cloudinary/cloudinary_php": "2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
@@ -62,4 +63,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true
+    
 }
