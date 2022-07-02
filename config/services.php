@@ -13,13 +13,7 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-    Configuration::instance([
-        'cloud' => [
-          'cloud_name' => 'dyxbkmyf4', 
-          'api_key' => '757473359554448', 
-          'api_secret' => '3yRGMnGdyae8hHqqOyVEyqFpMK4'],
-        'url' => [
-          'secure' => true]]),
+   
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

@@ -171,20 +171,20 @@ class OrganizationController extends Controller
 
      //organization update case
      public function orgUpdateCase(Request $request){
-        $request->validate(
-            [
-              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]
-        );
-            if ($request->file()){
-                $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
-                $request->file('image')->move(public_path('caseimages'), $newimage);
-                 }
+        // $request->validate(
+        //     [
+        //       'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     ]
+        // );
+            // if ($request->file()){
+            //     $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
+            //     $request->file('image')->move(public_path('caseimages'), $newimage);
+            //      }
             $case = DonationCase::find($request->input('case_id'));
             $case->title = $request->input('title');
             $case->goal_amount = $request->input('goalamount');
             $case->raised_amount = $request->input('raisedamount');
-            $case->image = $newimage;
+            // $case->image = $newimage;
             $case->deadline = $request->input('deadline');
             $case->description = $request->input('description');
             $case->organization_id = $request->input('organizationid');
@@ -201,7 +201,7 @@ class OrganizationController extends Controller
 
          //organization delete case
     public function orgDeleteCase(Request $request){
-            DB::table('donation_cases')->where('id', $request->input('case_id'))->delete();
+            DB::table('donation_cases')->where('id', $request->input('id'))->delete();
             return response()->json([
                 'message' => 'Case deleted successfully',
             ], 200);

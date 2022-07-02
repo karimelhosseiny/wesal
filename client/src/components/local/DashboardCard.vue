@@ -1,12 +1,47 @@
 <script>
+import axios from "axios";
+import { useUserStore } from "../../store/UserStore";
+import { mapStores, mapWritableState } from "pinia";
 export default {
-    props: ["pic", "title", "org", "id", "caseDesc","goal", "raised","isFavorite", "reminder","cat"],
+    props: [
+        "pic",
+        "title",
+        "org",
+        "id",
+        "caseDesc",
+        "goal",
+        "raised",
+        "isFavorite",
+        "reminder",
+        "cat",
+    ],
     data() {
-        return {
-        };
+        return {};
     },
     methods: {
-
+        async deleteCase() {
+             axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
+            axios.post("http://localhost:8000/api/anycasedeleted", {
+                id: this.id,
+            })
+            .then(()=>{
+            this.$router.go("/organizationdashboard");
+            },(err)=>{console.log(err)}
+            )
+           
+        },
+    },
+    mounted() {
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + this.storeToken;
+    },
+    computed: {
+        ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        }),
     },
 };
 </script>
@@ -16,44 +51,44 @@ export default {
         <div class="top">
             <img src="../../assets/7maya.png" class="ms-3" alt="..." />
             <div class="title ms-2 mt-3">
-                <span class="title">{{title}}</span>
-                <a class="org h6 fw-normal">{{org}}</a>
+                <span class="title">{{ title }}</span>
+                <a class="org h6 fw-normal">{{ org }}</a>
             </div>
             <div class="icons">
                 <i class="bi bi-gear-fill text-success"></i>
-                <i class="bi bi-trash-fill text-danger"></i>
+                <i @click="deleteCase" class="bi bi-trash-fill text-danger"></i>
             </div>
         </div>
         <div class="mid">
             <p class="descr fw-bold">
-                {{caseDesc}}
+                {{ caseDesc }}
             </p>
             <span class="target">target:</span>
             <span>
-                {{goal}}
+                {{ goal }}
                 <sub>egp</sub>
             </span>
             <div class="progressBar">
                 <div class="ammount mt-3 px-2 d-flex justify-content-between">
                     <span>
-                        {{raised}}
+                        {{ raised }}
                         <sub>egp</sub>
                     </span>
                     <span>
-                        {{goal}}
+                        {{ goal }}
                         <sub>egp</sub>
                     </span>
                 </div>
                 <progress
                     class="bar bg-transparent"
-                    :value= "raised > 0 ? raised : 0"
-                    :max= "goal"
+                    :value="raised > 0 ? raised : 0"
+                    :max="goal"
                 ></progress>
             </div>
         </div>
         <div class="bottom">
             <router-link
-                :to=" '/casepage/' + this.id"
+                :to="'/casepage/' + this.id"
                 class="btn btn-block more rounded-pill text-decoration-none text-light"
                 >More</router-link
             >
@@ -133,9 +168,9 @@ $logoSize: 60px;
             width: 252.5px;
             height: 50px;
             color: black;
-            white-space: nowrap ;
-            overflow: hidden ;
-            text-overflow: ellipsis ;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .target {

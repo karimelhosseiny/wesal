@@ -119,6 +119,7 @@ $logoSize: 60px;
             flex-direction: column;
             gap: 0;
             color: $priColor;
+            text-overflow: ellipsis;
             .title {
                 font-size: 15px;
                 font-weight: 800;

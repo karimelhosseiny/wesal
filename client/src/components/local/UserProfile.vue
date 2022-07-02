@@ -120,8 +120,6 @@ export default {
                 <img src="../../assets/7maya.png" alt="profile picture" />
                 <div class="d-flex justify-content-around  mt-4">
                     <a @click="addNewData">upload</a>
-                    <label for="">img</label>
-                    <input type="file" name="" id="">
                     <a>remove</a>
                 </div>
             </div>
