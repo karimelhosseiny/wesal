@@ -16,36 +16,31 @@ export default {
         <div class="top">
             <img src="../../assets/7maya.png" class="ms-3" alt="..." />
             <div class="title ms-2 mt-3">
-                <span class="title">Money</span>
-                <a class="org h6 fw-normal">Resala</a>
+                <span class="title">{{title}}</span>
+                <a class="org h6 fw-normal">{{org}}</a>
             </div>
             <div class="icons">
-                <i
-
-                    class="bi bi-gear-fill text-success"
-                ></i>
-                <i
-                    class="bi bi-trash-fill text-danger"
-                ></i>
+                <i class="bi bi-gear-fill text-success"></i>
+                <i class="bi bi-trash-fill text-danger"></i>
             </div>
         </div>
         <div class="mid">
             <p class="descr fw-bold">
-                Money for resala Money for resala Money for resala
+                {{caseDesc}}
             </p>
             <span class="target">target:</span>
             <span>
-                5000
+                {{goal}}
                 <sub>egp</sub>
             </span>
             <div class="progressBar">
                 <div class="ammount mt-3 px-2 d-flex justify-content-between">
                     <span>
-                        3000
+                        {{raised}}
                         <sub>egp</sub>
                     </span>
                     <span>
-                        5000
+                        {{goal}}
                         <sub>egp</sub>
                     </span>
                 </div>

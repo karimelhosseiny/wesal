@@ -3,6 +3,8 @@ import Navbar from "../global/Navbar.vue";
 import OrgHeroSection from "./OrgHeroSection.vue";
 import DashboardCard from "./DashboardCard.vue";
 import axios from "axios";
+import { useUserStore } from "../../store/UserStore";
+import { mapWritableState, mapStores } from "pinia";
 export default {
     data() {
         return {
@@ -16,16 +18,20 @@ export default {
                 org: "",
             },
             orgDataPair: [],
+            orgCases: [],
+            CurrentOrg: {},
+            orgId:0
         };
     },
     methods:{
         async addCase() {
+            this.form.category = parseInt(this.form.category)
             await axios
-                .post("http://localhost:8000/api/caseadded", this.form, {
+                .post("http://localhost:8000/api/newcaseadded", this.form, {
                 })
                 .then(
                     ({data}) => {
-                        console.log(data)
+                        console.log("addedd",data)
                         this.$router.go("/organizationdashboard");
                     },
                     (err) => console.log(err)
@@ -40,18 +46,44 @@ export default {
                             title: org.title,
                         });
                     });
-                    console.log('data pair: ',this.orgDatapair);
+                    console.log('data pair: ',this.orgDataPair);
+                    const orgArray = this.orgDataPair.filter(org=>org.title==this.user.name);
+                    this.CurrentOrg = orgArray[0];
+                    console.log('Current org is: ',orgArray);
+                    this.fetchOrgCases();
                 },
                 (err) => {
                     console.log(err);
                 }
             );
         },
+        async fetchOrgCases(){
+            await axios(`http://localhost:8000/api/orghomepage/${this.CurrentOrg.id}`).then(
+                ({ data }) => {
+                    console.log(data);
+                    this.orgCases= data.organization.orgcases
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+        },
+        
     },
+    computed: {
+        ...mapStores(useUserStore),
+        ...mapWritableState(useUserStore, {
+            user: "currentUser",
+            storeToken: "token",
+        })
+        },
     mounted(){
+        console.log('mounted')
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + this.storeToken;
         this.fetchOrgData();
+        // this.orgID = this.CurrentOrg[0].id;
+        
     },
     components: { Navbar, OrgHeroSection, DashboardCard },
 };
@@ -74,7 +106,7 @@ export default {
     <OrgHeroSection />
     <div class="container">
         <div class="row justify-content-between">
-            <i class="add col-3 my-3 fs-1 bi bi-plus-square-fill"
+            <i class="add col-3 my-3 me-5 fs-1 bi bi-plus-square-fill"
             @click="showModal = true"
             ></i>
             <div v-if="showModal" class="modalOpen">
@@ -187,7 +219,7 @@ export default {
                             </form>
                         </div>
                     </div>
-            <h2 class="col-3 text-center">Current cases</h2>
+            <h2 class="col-3 ms-5 text-center">Current cases</h2>
             <div class="searchContainer col-4">
                 <input
                     class="rounded-pill"
@@ -199,13 +231,17 @@ export default {
             </div>
         </div>
     </div>
-    <!-- <div class="caseGrid">
-        <DashboardCard />
-        <DashboardCard />
-        <DashboardCard />
-        <DashboardCard />
-        <DashboardCard />
-    </div> -->
+    <div class="caseGrid">
+        <DashboardCard v-for="Case in orgCases"
+        :key="Case.id"
+        :id="Case.id"
+        :title="Case.title"
+        :goal="Case.goal_amount"
+        :caseDesc="Case.description"
+        :raised="Case.raised_amount"
+        :cat="Case.category_id"
+        />
+    </div>
 </template>
 
 <style lang="scss" scoped>
