@@ -41,7 +41,7 @@ export default {
                 </h4>
                 <h4>
                     total donors: 0
-                    <sub>user</sub>
+                    <sub>donors</sub>
                 </h4>
                 <h4>
                     total Cases: 0

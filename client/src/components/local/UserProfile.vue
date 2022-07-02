@@ -117,13 +117,10 @@ export default {
         <Navbar />
         <div class="mainContainer">
             <div class="profPic text-center d-flex flex-column">
-                <img :src="this.imgPath" alt="profile picture" />
-                <div class="d-flex justify-content-center  mt-4">
-                    <div>
-                        <a @click="addNewData" style="cursor:pointer">upload</a>
-                        <input type="file" @change="onFileChange">
-                    </div>
-                    <a href="#">remove</a>
+                <img src="../../assets/7maya.png" alt="profile picture" />
+                <div class="d-flex justify-content-around  mt-4">
+                    <a>upload</a>
+                    <a>remove</a>
                 </div>
             </div>
             <div class="dataContainer py-5 px-4">
@@ -475,6 +472,7 @@ export default {
             line-height: 27px;
             letter-spacing: -0.02em;
             color: $priColor;
+            cursor:pointer
         }
     }
 }

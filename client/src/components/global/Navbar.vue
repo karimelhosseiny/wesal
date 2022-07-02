@@ -72,6 +72,7 @@ $logoSize: 50px;
             justify-self: center;
             align-self: center;
             padding: 5px;
+            // cursor:pointer
         }
         h4 {
             color: $white;

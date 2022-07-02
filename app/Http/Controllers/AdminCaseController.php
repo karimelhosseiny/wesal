@@ -21,22 +21,22 @@ class AdminCaseController extends Controller
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('caseimages'), $newimage);
-            
+                
+            }
             $date = new DateTime();
             DB::table('donation_cases')->insert([
                     'title' =>$request->input('title'),
-                    'goal_amount' =>$request->input('goalamount'),
+                    'goal_amount' =>$request->input('goal'),
                     'raised_amount' =>0,
-                    'image' =>$newimage,
+                    // 'image' =>$newimage,
                     'deadline' => $request->input('deadline'),
                     'description' => $request->input('description'),
-                    'organization_id' =>$request->input('organizationid'),
-                    'category_id'=>$request->input('categoryid'),
+                    'organization_id' =>$request->input('org'),
+                    'category_id'=>$request->input('category'),
                     'user_id'=>Auth::id(),
                     'created_at' =>$date->format('Y-m-d H:i:s'),
                     'updated_at'=>$date->format('Y-m-d H:i:s'),
                  ]);
-            }
         
             return response()->json([
                 'message' => 'Case added successfully',
@@ -44,24 +44,24 @@ class AdminCaseController extends Controller
     }
     //admin update case
     public function adminupdatecase(Request $request){
-        $request->validate(
-            [
-              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]
-        );
+        // $request->validate(
+        //     [
+        //       'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     ]
+        // );
             if ($request->file()){
                 $newimage = time() . '-' . $request->input('title') . '.' . $request->file('image')->extension();
                 $request->file('image')->move(public_path('caseimages'), $newimage);
                  }
             $case = DonationCase::find($request->input('case_id'));
             $case->title = $request->input('title');
-            $case->goal_amount = $request->input('goalamount');
-            $case->raised_amount = $request->input('raisedamount');
-            $case->image = $newimage;
-            $case->deadline = $request->input('deadline');
-            $case->description = $request->input('description');
-            $case->organization_id = $request->input('organizationid');
-            $case->category_id = $request->input('categoryid');
+            $case->goal_amount = $request->input('goal');
+            $case->raised_amount = $request->input('raised');
+            // $case->image = $newimage;
+            // $case->deadline = $request->input('deadline');
+            // $case->description = $request->input('description');
+            // $case->organization_id = $request->input('organizationid');
+            $case->category_id = $request->input('category');
             $case->save();
         
             return response()->json([

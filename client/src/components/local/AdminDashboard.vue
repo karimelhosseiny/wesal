@@ -98,8 +98,7 @@ export default {
                     .then((res) => {
                         console.log(res);
                         this.$router.go("/admindashboard");
-                    })
-                    .catch((e) => console.log("request error:", e));
+                    },(err)=>{console.log("request error:", err)})
 
                 this.showModal = false;
             } else {

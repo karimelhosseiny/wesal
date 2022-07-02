@@ -35,25 +35,13 @@ export default {
         </div>
         <div class="mid container row justify-content-center">
             <div class="row">
-                <span class="target col-5">Total cases:</span>
-                <span class="col-6">
-                    {{totalCases}}
-                    <sub>Case</sub>
+                <span class="target col-12 ms-2">
+                    <span class="col-12 d-flex justify-content-center flex-column gap-3 align-items-center">
+                        <h3 class="h2">Total cases</h3>
+                        <h5 >{{totalCases}} <sub>Cases</sub></h5>
+                    </span>
                 </span>
-                <div class="row">
-                    <span class="target col-7">Total donations:</span>
-                    <span class="col-5">
-                        {{totalDonations}}
-                        <sub>EGP</sub>
-                    </span>
-                </div>
-                <div class="row">
-                    <span class="target col-6">Total donors:</span>
-                    <span class="col-6">
-                        {{totalDonors}}
-                        <sub>Donor</sub>
-                    </span>
-                </div>
+               
             </div>
         </div>
         <div class="bottom row justify-content-center">

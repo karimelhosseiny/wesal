@@ -1,12 +1,11 @@
 <script>
 import axios from "axios";
 import Navbar from "../global/Navbar.vue";
-import CaseField from "./CaseField.vue"
+import CaseField from "./CaseField.vue";
 import { useUserStore } from "../../store/UserStore";
 import { mapWritableState, mapStores } from "pinia";
 
 export default {
-
     data() {
         return {
             cases: [],
@@ -17,6 +16,7 @@ export default {
             filteredCategories: "",
             search: "",
             showModal: false,
+            orgDatapair: [],
             form: {
                 title: "",
                 goal: "",
@@ -35,51 +35,79 @@ export default {
             storeToken: "token",
         }),
         filteredByTitle() {
-            return this.cases.filter((Case) =>
-                Case.title.toLowerCase().includes(this.search)||Case.title.includes(this.search)
+            return this.cases.filter(
+                (Case) =>
+                    Case.title.toLowerCase().includes(this.search) ||
+                    Case.title.includes(this.search)
             );
         },
 
         filteredCategories() {
-            return this.cases.filter((Case) => Case.category == this.caseCategory);
+            return this.cases.filter(
+                (Case) => Case.category == this.caseCategory
+            );
         },
     },
     methods: {
         async fetchData() {
             await axios.get("http://localhost:8000/api/cases").then(
-                    ({ data }) => {
-                        var cases = [];
-                        this.totalUsers = data.Total_Users;
-                        this.totalCases = data.Total_Cases;
-                        this.totalDonations = data.Total_Donations;
-                        data.cases.forEach((Case) => {
-                            cases.push({
-                                id: Case.id,
-                                title: Case.title,
-                                organization: Case.organization.title,
-                                category: Case.categories.title,
-                                goal: Case.goal_amount,
-                                raised:Case.raised_amount,
-                                createdat: Case.created_at.split('T')[0],
-                            });
+                ({ data }) => {
+                    var cases = [];
+                    this.totalUsers = data.Total_Users;
+                    this.totalCases = data.Total_Cases;
+                    this.totalDonations = data.Total_Donations;
+                    data.cases.forEach((Case) => {
+                        cases.push({
+                            id: Case.id,
+                            title: Case.title,
+                            organization: Case.organization.title,
+                            category: Case.categories.title,
+                            goal: Case.goal_amount,
+                            raised: Case.raised_amount,
+                            createdat: Case.created_at.split("T")[0],
                         });
-                        this.cases = cases;
-                        this.isLoading = false;
+                    });
+                    this.cases = cases;
+                    this.isLoading = false;
+                },
+                (e) => console.log(e)
+            );
+        },
+        async addCase() {
+            await axios
+                .post("http://localhost:8000/api/caseadded", this.form, {
+                })
+                .then(
+                    ({data}) => {
+                        console.log(data)
+                        this.$router.go("/casesdashboard");
                     },
                     (e) => console.log(e)
                 );
         },
-        async addCase() {
-
+        async fetchOrgData() {
+            await axios("http://localhost:8000/api/orgdata").then(
+                ({ data }) => {
+                    data.organziationWithCases.forEach((org) => {
+                        this.orgDatapair.push({
+                            id: org.id,
+                            title: org.title,
+                        });
+                    });
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
         },
     },
     mounted() {
-         axios.defaults.headers.common["Authorization"] =
+        axios.defaults.headers.common["Authorization"] =
             "Bearer " + this.storeToken;
         this.fetchData();
+        this.fetchOrgData();
     },
-    created() {
-    },
+    created() {},
     components: { Navbar, CaseField },
 };
 </script>
@@ -134,7 +162,7 @@ export default {
                             <option value="Sadaka">Sadaka</option>
                         </select>
                     </div>
-                    <h2 style="width: fit-content;" class="col-3 my-3 ms-5 pt-1">
+                    <h2 style="width: fit-content" class="col-3 my-3 ms-5 pt-1">
                         {{ caseCategory }} Data
                     </h2>
                     <i
@@ -179,7 +207,7 @@ export default {
                                         type="date"
                                         name="phone"
                                         class="col-8"
-                                        v-model="this.form.deadLine"
+                                        v-model="this.form.deadline"
                                     />
                                 </div>
                                 <br />
@@ -217,17 +245,21 @@ export default {
                                 </div>
                                 <br />
                                 <div class="mx-4 row">
-                                    <label
-                                        for="name"
-                                        name="password"
-                                        class="col-4"
+                                    <label for="organization" class="col-4"
                                         >Organization:
                                     </label>
-                                    <input
-                                        type="text"
+                                    <select
+                                        name="organization"
                                         class="col-8"
                                         v-model="this.form.org"
-                                    />
+                                    >
+                                        <option disabled selected value="">
+                                            select Organization
+                                        </option>
+                                        <option v-for="org in orgDatapair" :value="org.id">
+                                            {{ org.title }}
+                                        </option>
+                                    </select>
                                 </div>
                                 <br />
                                 <div class="m-4 row justify-content-around">
@@ -258,24 +290,24 @@ export default {
                         <i class="bi bi-search searchIcon"></i>
                     </div>
                 </div>
-                <div class="titles row">
+                <div class="titles row d-flex justify-content-between mb-3">
                     <div class="px-4 col-1">
                         <h4>ID</h4>
                     </div>
-                    <div class="px-4 col-1">
+                    <div class="px-3 col-1">
                         <h4>Title</h4>
                     </div>
+                    <div class="px-2 col-2">
+                        <h4 class="ms-2">Organization</h4>
+                    </div>
                     <div class="px-4 col-2">
-                        <h4>Organization</h4>
-                    </div>
-                    <div class="px-5 col-2">
-                        <h4>Category</h4>
-                    </div>
-                    <div class="px-4 col-1">
-                        <h4 style="width: fit-content;">Goal</h4>
+                        <h4 class="ms-2">Category</h4>
                     </div>
                     <div class="px-3 col-1">
-                        <h4 style="width: fit-content;">raised</h4>
+                        <h4 style="width: fit-content">Goal</h4>
+                    </div>
+                    <div class="px-3 col-1">
+                        <h4 style="width: fit-content">raised</h4>
                     </div>
                     <div class="px-4 col-2">
                         <h4>Created at</h4>
@@ -286,7 +318,7 @@ export default {
                 </div>
                 <div class="row mx-2 info">
                     <CaseField
-                        v-if="caseCategory == 'All' "
+                        v-if="caseCategory == 'All'"
                         v-for="(Case, index) in filteredByTitle"
                         :key="index"
                         :id="Case.id"
@@ -296,10 +328,10 @@ export default {
                         :raised="Case.raised"
                         :createdat="Case.createdat"
                         :goal="Case.goal"
-                        />
+                    />
                     <CaseField
                         v-else
-                        v-for="(Case,idx) in filteredCategories"
+                        v-for="(Case, idx) in filteredCategories"
                         :key="idx"
                         :id="Case.id"
                         :title="Case.title"
@@ -308,8 +340,7 @@ export default {
                         :raised="Case.raised"
                         :createdat="Case.createdat"
                         :goal="Case.goal"
-                        />
-
+                    />
                 </div>
             </div>
         </div>

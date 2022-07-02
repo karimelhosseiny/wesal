@@ -10,7 +10,7 @@ export default {
                 case_id: this.id,
                 title: this.title,
                 organization: this.organization,
-                category: this.category,
+                category: 1,
                 goal: this.goal,
                 raised: this.raised,
                 createdat: this.createdat,
@@ -23,9 +23,13 @@ export default {
     methods: {
 
         async editCaseData() {
-
-
-
+           await axios.post('http://localhost:8000/api/caseupdated',this.form)
+           .then(({data})=>{
+            console.log(data)
+            this.$router.go('/casesdashboard')
+           },(err)=>{
+            console.log(err)
+           });
         },
         async deleteCase() {
             await axios.post('http://localhost:8000/api/casedeleted',{case_id:this.form.case_id})
@@ -114,13 +118,13 @@ export default {
                         <select
                             name="userType"
                             class="col-8"
-                            v-model="form.category"
+                            v-model="this.form.category"
                         >
                             <option disabled selected value="">select category</option>
-                            <option>Food</option>
-                            <option>Clothes</option>
-                            <option>Sick</option>
-                            <option>Sadaka</option>
+                            <option value="1">Food</option>
+                            <option value="2">Clothes</option>
+                            <option value="3">Sick</option>
+                            <option value="4">Sadaka</option>
                         </select>
                     </div>
                     <br />
