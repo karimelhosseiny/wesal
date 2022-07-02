@@ -144,25 +144,25 @@ class OrganizationController extends Controller
 
     // organization add case
     public function orgAddCase(Request $request){
-            if ($request->file()){
-                $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
-                $request->file('image')->move(public_path('caseimages'), $newimage);
+            // if ($request->file()){
+            //     $newimage = time() . '-' . $request->input('name') . '.' . $request->file('image')->extension();
+            //     $request->file('image')->move(public_path('caseimages'), $newimage);
             
+            // }
             $date = new DateTime();
             DB::table('donation_cases')->insert([
                     'title' =>$request->input('title'),
-                    'goal_amount' =>$request->input('goalamount'),
+                    'goal_amount' =>$request->input('goal'),
                     'raised_amount' =>0,
-                    'image' =>$newimage,
+                    // 'image' =>$newimage,
                     'deadline' => $request->input('deadline'),
                     'description' => $request->input('description'),
-                    'organization_id' =>$request->input('organizationid'),
-                    'category_id'=>$request->input('categoryid'),
+                    'organization_id' =>$request->input('org'),
+                    'category_id'=>$request->input('category'),
                     'user_id'=>Auth::id(),
                     'created_at' =>$date->format('Y-m-d H:i:s'),
                     'updated_at'=>0,
                  ]);
-            }
             return response()->json([
                 'message' => 'Case added successfully',
             ], 200);
