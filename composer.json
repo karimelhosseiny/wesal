@@ -10,7 +10,7 @@
         "cloudinary-labs/cloudinary-laravel": "v1.0.5",
         "cloudinary/cloudinary_php": "2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",

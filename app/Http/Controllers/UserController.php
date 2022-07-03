@@ -137,6 +137,7 @@ class UserController extends Controller
             }
             if ($request->hasfile('image')) {
                 Cloudinary::uploadApi();
+                require 'vendor/autoload.php';
                 $request->validate(
                          [
                              'image' => 'image|mimes:jpeg,png,jpg,gif,svg|',
