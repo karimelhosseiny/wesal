@@ -143,7 +143,7 @@ class UserController extends Controller
                          ]
                      );
                 //upload image
-                $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+                $uploadedFileUrl = cloudinary()->upload($request->file('image')->getRealPath())->getSecurePath();
                 $user->image = $uploadedFileUrl;
                 $user->save();
             }
