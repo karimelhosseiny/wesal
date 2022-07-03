@@ -182,16 +182,16 @@ class OrganizationController extends Controller
             //      }
             $case = DonationCase::find($request->input('case_id'));
             $case->title = $request->input('title');
-            $case->goal_amount = $request->input('goalamount');
-            $case->raised_amount = $request->input('raisedamount');
+            $case->goal_amount = $request->input('goal');
+            // $case->raised_amount = $request->input('raisedamount');
             // $case->image = $newimage;
             $case->deadline = $request->input('deadline');
             $case->description = $request->input('description');
-            $case->organization_id = $request->input('organizationid');
-            $case->category_id = $request->input('categoryid');
+            $case->organization_id = $request->input('org');
+            $case->category_id = $request->input('category');
             $case->save();
             $date = new DateTime();
-            DB::table('donation_cases')->where('id', $request->input('cases_id'))->update([
+            DB::table('donation_cases')->where('id', $request->input('case_id'))->update([
                 'updated_at'=>$date->format('Y-m-d H:i:s'),
              ]);  
          return response()->json([

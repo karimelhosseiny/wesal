@@ -45,7 +45,7 @@ export default {
     <div class="hero">
         <div class="img-fluid">
             <div class="text">
-                <h1 class="mb-4">Hello, Resala</h1>
+                <h1 class="mb-4">Hello, {{this.User.name}}</h1>
                 <h4 v-if="this.totalDonations==0">total donations: 0 <sub>egp</sub>(no donations)</h4>
                 <h4 v-else>total donations: {{this.totalDonations}} <sub>egp</sub></h4>
                 <h4 v-if="this.totalCases==0">total Cases: 0<sub>case</sub></h4>

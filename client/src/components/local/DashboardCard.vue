@@ -16,25 +16,76 @@ export default {
         "cat",
     ],
     data() {
-        return {};
+        return {
+            showModal: false,
+            orgDatapair: [],
+            form: {
+                title: "",
+                goal: "",
+                deadline: "",
+                description: "",
+                category: "",
+                org: "",
+                case_id: 5
+            },
+        };
     },
     methods: {
         async deleteCase() {
-             axios.defaults.headers.common["Authorization"] =
-            "Bearer " + this.storeToken;
-            axios.post("http://localhost:8000/api/anycasedeleted", {
-                id: this.id,
-            })
-            .then(()=>{
-            this.$router.go("/organizationdashboard");
-            },(err)=>{console.log(err)}
-            )
-           
+            axios.defaults.headers.common["Authorization"] =
+                "Bearer " + this.storeToken;
+            axios
+                .post("http://localhost:8000/api/anycasedeleted", {
+                    id: this.id,
+                })
+                .then(
+                    () => {
+                        this.$router.go("/organizationdashboard");
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
+        },
+        async editCaseData() {
+            axios.defaults.headers.common["Authorization"] =
+                "Bearer " + this.storeToken;
+            axios
+                .post("http://localhost:8000/api/newcaseupdated", this.form)
+                .then(
+                    ({data}) => {
+                        console.log("edit Data: ",data)
+                        this.$router.go("/organizationdashboard");
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
+        },
+        async fetchOrgData() {
+            await axios("http://localhost:8000/api/orgdata").then(
+                ({ data }) => {
+                    data.organziationWithCases.forEach((org) => {
+                        this.orgDatapair.push({
+                            id: org.id,
+                            title: org.title,
+                        });
+                    });
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
         },
     },
     mounted() {
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + this.storeToken;
+        this.fetchOrgData();
+        this.form.title = this.title;
+        this.form.goal = this.goal;
+        this.form.description = this.caseDesc;
+        this.form.case_id = this.id;
     },
     computed: {
         ...mapStores(useUserStore),
@@ -55,8 +106,118 @@ export default {
                 <a class="org h6 fw-normal">{{ org }}</a>
             </div>
             <div class="icons">
-                <i class="bi bi-gear-fill text-success"></i>
+                <i
+                    @click.prevent="showModal = true"
+                    class="bi bi-gear-fill text-success"
+                ></i>
                 <i @click="deleteCase" class="bi bi-trash-fill text-danger"></i>
+                <div v-if="showModal" class="modalOpen">
+                    <div class="container editModal shadow-lg p-3 mb-5 bg-body">
+                        <form>
+                            <br />
+                            <div class="mx-4 row">
+                                <label for="name" class="col-4">Title: </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    class="col-8"
+                                    v-model="this.form.title"
+                                />
+                            </div>
+                            <br />
+                            <div class="mx-4 row">
+                                <label for="email" class="col-4">Goal: </label>
+                                <input
+                                    type="number"
+                                    name="email"
+                                    class="col-8"
+                                    v-model="this.form.goal"
+                                />
+                            </div>
+                            <br />
+                            <div class="mx-4 row">
+                                <label for="phone" class="col-4"
+                                    >Deadline:
+                                </label>
+                                <input
+                                    type="date"
+                                    name="phone"
+                                    class="col-8"
+                                    v-model="this.form.deadline"
+                                />
+                            </div>
+                            <br />
+                            <div class="mx-4 row">
+                                <label for="phone" class="col-4"
+                                    >Description:
+                                </label>
+                                <textarea
+                                    style="resize: none"
+                                    rows="6"
+                                    type="textarea"
+                                    name="address"
+                                    class="col-8"
+                                    v-model="this.form.description"
+                                />
+                            </div>
+                            <br />
+                            <div class="mx-4 row">
+                                <label for="type" class="col-4"
+                                    >Category:
+                                </label>
+                                <select
+                                    name="type"
+                                    class="col-8"
+                                    v-model="this.form.category"
+                                >
+                                    <option disabled selected value="">
+                                        select Category
+                                    </option>
+                                    <option value="1">Food</option>
+                                    <option value="2">Clothes</option>
+                                    <option value="3">Sick</option>
+                                    <option value="4">Sadaka</option>
+                                </select>
+                            </div>
+                            <br />
+                            <div class="mx-4 row">
+                                <label for="organization" class="col-4"
+                                    >Organization:
+                                </label>
+                                <select
+                                    name="organization"
+                                    class="col-8"
+                                    v-model="this.form.org"
+                                >
+                                    <option disabled selected value="">
+                                        select Organization
+                                    </option>
+                                    <option
+                                        v-for="org in orgDatapair"
+                                        :value="org.id"
+                                    >
+                                        {{ org.title }}
+                                    </option>
+                                </select>
+                            </div>
+                            <br />
+                            <div class="m-4 row justify-content-around">
+                                <button
+                                    @click.prevent="showModal = false"
+                                    class="btn btn-danger col-3"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    class="btn btn-success col-3"
+                                    @click.prevent="editCaseData"
+                                >
+                                    save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="mid">
@@ -211,5 +372,25 @@ $logoSize: 60px;
             letter-spacing: 0.05em;
         }
     }
+    .modalOpen {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .editModal {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        border-radius: 25px;
+    }
+    
 }
 </style>
