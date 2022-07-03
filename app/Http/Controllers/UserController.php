@@ -14,7 +14,14 @@ use Validator;
 use Illuminate\Support\Facades\Storage;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Cloudinary\Api\Upload\UploadApi;
-
+use Cloudinary\Configuration\Configuration;
+Configuration::instance([
+    'cloud' => [
+      'cloud_name' => 'dyxbkmyf4', 
+      'api_key' => '757473359554448', 
+      'api_secret' => '3yRGMnGdyae8hHqqOyVEyqFpMK4'],
+    'url' => [
+      'secure' => true]]);
 class UserController extends Controller
 {
     /**
